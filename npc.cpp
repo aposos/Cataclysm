@@ -444,7 +444,7 @@ void npc::randomize_from_faction(game *g, faction *fac)
    case 4: sklevel[sk_tailor] += dice(2,  4);		break;
   }
  }
-   
+
  if (fac->has_value(FACVAL_CHARITABLE)) {
   personality.aggression -= rng(2, 5);
   personality.bravery += rng(0, 4);
@@ -577,12 +577,15 @@ void npc::make_shopkeep(game *g, oter_id type)
   do {
    items_location place = pool[rng(0, pool.size() - 1)];
    item_type = g->mapitems[place][rng(0, g->mapitems[place].size() - 1)];
+   if(item_type >= 0)
+   {
    tmp = item(g->itypes[item_type], g->turn);
    if (volume_carried() + tmp.volume() > volume_capacity() ||
        weight_carried() + tmp.weight() > weight_capacity()   )
     done = true;
    else
     inv.push_back(tmp);
+    }
   } while (!done);
  }
  mission = NPC_MISSION_SHOPKEEP;
@@ -831,7 +834,7 @@ std::vector<item> starting_inv(npc *me, npc_class type, game *g)
    total_space -= ret[ret.size() - 1].volume();
   }
  }
- 
+
  return ret;
 }
 
@@ -995,7 +998,7 @@ bool npc::wear_if_wanted(item it)
   }
  }
  return false;
-} 
+}
 
 bool npc::wield(game *g, int index)
 {
@@ -1476,14 +1479,14 @@ int npc::danger_assessment(game *g)
   if (rl_dist(posx, posy, g->u.posx, g->u.posy) < 10) {
    if (g->u.weapon.is_gun())
     ret += 10;
-   else 
+   else
     ret += 10 - rl_dist(posx, posy, g->u.posx, g->u.posy);
   }
  } else if (is_friend()) {
   if (rl_dist(posx, posy, g->u.posx, g->u.posy) < 8) {
    if (g->u.weapon.is_gun())
     ret -= 8;
-   else 
+   else
     ret -= 8 - rl_dist(posx, posy, g->u.posx, g->u.posy);
   }
  }
@@ -1555,7 +1558,7 @@ void npc::told_to_wait(game *g)
   say(g, "No way, man!");
  }
 }
- 
+
 void npc::told_to_leave(game *g)
 {
  if (!is_following()) {
@@ -1636,7 +1639,7 @@ void npc::print_info(WINDOW* w)
   line++;
  } while (split != std::string::npos && line <= 11);
 }
-  
+
 
 void npc::shift(int sx, int sy)
 {
@@ -1662,7 +1665,7 @@ void npc::die(game *g, bool your_fault)
   else if (!is_enemy())
    g->u.add_morale(MORALE_KILLED_INNOCENT, -100);
  }
-  
+
  item my_body;
  my_body.make_corpse(g->itypes[itm_corpse], g->mtypes[mon_null], g->turn);
  my_body.name = name;
