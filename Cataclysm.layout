@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="bionics.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="4205" topLine="133" />
+	</File>
+	<File name="color.cpp" open="1" top="0" tabpos="24">
+		<Cursor position="122" topLine="26" />
+	</File>
+	<File name="color.h" open="1" top="0" tabpos="25">
+		<Cursor position="2453" topLine="71" />
+	</File>
+	<File name="computer.cpp" open="1" top="0" tabpos="21">
+		<Cursor position="3837" topLine="137" />
+	</File>
+	<File name="crafting.cpp" open="1" top="0" tabpos="18">
+		<Cursor position="24340" topLine="676" />
+	</File>
+	<File name="crafting.h" open="1" top="0" tabpos="15">
+		<Cursor position="238" topLine="0" />
+	</File>
+	<File name="faction.cpp" open="1" top="0" tabpos="19">
+		<Cursor position="271" topLine="24" />
+	</File>
+	<File name="game.cpp" open="1" top="0" tabpos="10">
+		<Cursor position="30619" topLine="1027" />
+	</File>
+	<File name="game.h" open="1" top="0" tabpos="20">
+		<Cursor position="3708" topLine="96" />
+	</File>
+	<File name="help.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="1231" topLine="45" />
+	</File>
+	<File name="itype.h" open="1" top="0" tabpos="11">
+		<Cursor position="22097" topLine="553" />
+	</File>
+	<File name="keypress.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="280" topLine="0" />
+	</File>
+	<File name="keypress.h" open="1" top="0" tabpos="5">
+		<Cursor position="407" topLine="0" />
+	</File>
+	<File name="main.cpp" open="1" top="0" tabpos="8">
+		<Cursor position="374" topLine="12" />
+	</File>
+	<File name="map.cpp" open="1" top="0" tabpos="13">
+		<Cursor position="30104" topLine="1220" />
+	</File>
+	<File name="mapgen.cpp" open="1" top="0" tabpos="12">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="npc.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="17345" topLine="586" />
+	</File>
+	<File name="output.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="3811" topLine="159" />
+	</File>
+	<File name="output.h" open="1" top="0" tabpos="14">
+		<Cursor position="875" topLine="17" />
+	</File>
+	<File name="overmap.cpp" open="1" top="0" tabpos="22">
+		<Cursor position="26209" topLine="772" />
+	</File>
+	<File name="player.cpp" open="1" top="1" tabpos="17">
+		<Cursor position="33565" topLine="1071" />
+	</File>
+	<File name="player.h" open="1" top="0" tabpos="23">
+		<Cursor position="882" topLine="26" />
+	</File>
+	<File name="ranged.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="18025" topLine="539" />
+	</File>
+	<File name="skill.cpp" open="1" top="0" tabpos="16">
+		<Cursor position="177" topLine="108" />
+	</File>
+	<File name="trap.h" open="1" top="0" tabpos="9">
+		<Cursor position="3128" topLine="93" />
+	</File>
+</CodeBlocks_layout_file>

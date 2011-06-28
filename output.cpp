@@ -446,7 +446,7 @@ void popup_top(const char *mes, ...)
  }
  line_num++;
  mvwprintz(w, line_num, 1, c_white, tmp.c_str());
- 
+
  wrefresh(w);
  char ch;
  do
@@ -497,7 +497,7 @@ void popup(const char *mes, ...)
  }
  line_num++;
  mvwprintz(w, line_num, 1, c_white, tmp.c_str());
- 
+
  wrefresh(w);
  char ch;
  do
