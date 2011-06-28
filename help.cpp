@@ -46,7 +46,7 @@ m: Survival tips\n\
 5: Frequently Asked Questions (Some spoilers!)\n\
 \n\
 q: Return to game");
- 
+
   ch = getch();
   switch (ch) {
   case 'a':
@@ -60,14 +60,14 @@ Cataclysm differs from most roguelikes in several ways. Rather than exploring\n\
 an underground dungeon, with a limited area on each level, you are exploring\n\
 a truly infinite world, stretching in all four cardinal directions.\n\
 As in most roguelikes, you will have to find food; you also need to keep\n\
-yourself hydrated, and sleep periodically.\n\
-\n\
-While Cataclysm has more challenges than many roguelikes, the near-future\n\
+yourself hydrated, and sleep periodically.");
+mvprintz(8,0,c_white,"\
+\nWhile Cataclysm has more challenges than many roguelikes, the near-future\n\
 setting makes some tasks easier. Firearms, medications, and a wide variety of\n\
-tools are all available to help you survive.");
+tools are all available to help you survive");
    getch();
    break;
- 
+
   case 'b':
   case 'B':
    erase();
@@ -77,13 +77,15 @@ Movement is performed using the numpad, or vikeys. Each step will take 100\n\
 y  k  u   7  8  9   will then replenish a variable amount of movement points,\n\
  \\ | /     \\ | /    depending on many factors (press '@' to see the exact\n\
   \\|/       \\|/     amount). To attempt to hit a monster with your weapon,\n\
-h--.--l   4--5--6   simply move into it. You may find doors, ('+'); these may\n\
+h--.--l   4--5--6   simply move into it. You may find doors, ('+'); these may\n");
+mvprintz(6, 0, c_white, "\
   /|\\       /|\\     be opened with 'o' or closed with 'c'. Some doors are\n\
  / | \\     / | \\    locked. Locked doors, windows, and some other obstacles\n\
 b  j  n   1  2  3   can be destroyed by smashing them ('s', then choose a\n\
                     direction). Smashing down obstacles is much easier with a\n\
 good weapon or a strong character.\n\
-\n\
+\n");
+mvprintz(14, 0, c_white, "\
 There may be times when you want to move more quickly by holding down a\n\
 movement key. However, fast movement in this fashion may lead to the player\n\
 getting into a dangerous situation or even killed before they have a chance\n\
@@ -101,13 +103,15 @@ at the bottom of the screen will appear.  As hunger and thirst reach critical\n\
 levels, you will begin to suffer movement penalties. Thirst is more dangerous\n\
 than hunger.  Finding food in a city is usually easy; outside of a city, you\n\
 may have to hunt an animal, then stand over its corpse and 'B'utcher it into\n\
-small chunks of meat. Likewise, outside of a city you may have to drink water\n\
+small chunks of meat. Likewise, outside of a city you may have to drink water\n");
+mvprintz(6, 0, c_white, "\
 from a river or other natural source; stand in shallow water and press 'g' or\n\
 ',' to pick it up.  You'll need a watertight container.  Be forewarned that\n\
 some sources of water aren't trustworthy and may produce diseased water.  To\n\
 be sure it's healthy, run all water you collect through a water filter before\n\
 drinking.\n\
-\n\
+\n");
+   mvprintz(12, 0, c_white, "\
 Every 14 to 20 hours, you'll find yourself growing sleepy.  If you do not\n\
 sleep by pressing '$', you'll start suffering stat and movement penalties.\n\
 You may not always fall asleep right away.  Sleeping indoors, especially on a\n\
@@ -126,19 +130,22 @@ slows you down and reduces your stats, and finding a way to manage pain is an\n\
 early imperative.  The most common is drugs; aspirin, codeine, tramadol,\n\
 oxycodone, and more are all great options.  Be aware that while under the\n\
 influence of a lot of painkillers, the physiological effects may slow you or\n\
-reduce your stats.\n\
+reduce your stats.\n");
+   mvprintz(6, 0, c_white, "\
 \n\
 Note that most painkillers take a little while to kick in.  If you take some\n\
 oxycodone, and don't notice the effects right away, don't start taking more;\n\
 you may overdose and die!\n\
 \n\
-Pain will also disappear with time, so if drugs aren't available and you're\n\
+Pain will also disappear with time, so if drugs aren't available and you're\n");
+   mvprintz(12, 0, c_white, "\
 in a lot of pain, it may be wise to find a safe spot and simply rest for an\n\
 extended period of time.\n\
 \n\
 Another common class of drugs is stimulants.  Stimulants provide you with a\n\
 temporary rush of energy, increasing your movement speed and many stats, most\n\
-notably intelligence, making them useful study aids.  There are two drawbacks\n\
+notably intelligence, making them useful study aids.  There are two drawbacks\n");
+   mvprintz(18, 0, c_white, "\
 to stimulants; they make it more difficult to sleep, and, more importantly,\n\
 most are highly addictive.  Stimulants range from the caffeine rush of cola to\n\
 the more intense high of Adderall and methamphetamine.");
@@ -154,7 +161,8 @@ there is a chance that you will grow dependant on it.  Consuming more of that\n\
 drug will increase your dependance.  Effects vary greatly between drugs, but\n\
 all addictions have only one cure; going cold turkey.  The process may last\n\
 days, and will leave you very weak, so try to do it in a safe area.\n\
-\n\
+\n");
+   mvprintz(7, 0, c_white, "\
 If you are suffering from drug withdrawal, taking more of the drug will cause\n\
 the effects to cease immediately, but may deepen your dependance.");
   getch();
@@ -169,13 +177,15 @@ depressing post-apocalypse world is tough to deal with, and your mood will\n\
 naturally decrease very slowly.\n\
 \n\
 There are lots of options for increasing morale; reading an entertaining\n\
-book, eating delicious food, and taking recreational drugs are but a few\n\
+book, eating delicious food, and taking recreational drugs are but a few\n");
+   mvprintz(6, 0, c_white, "\
 options.  Most morale-boosting activities can only take you to a certain\n\
 level before they grow boring.\n\
 \n\
 There are also lots of ways for your morale to decrease, beyond its natural\n\
 decay.  Eating disgusting food, reading a boring technical book, or going\n\
-through drug withdrawal are some prominent examples.\n\
+through drug withdrawal are some prominent examples.\n");
+   mvprintz(12, 0, c_white, "\
 \n\
 Low morale will make you sluggish and unmotivated.  It will also reduce your\n\
 stats, particularly intelligence.  If your morale drops very low, you may\n\
@@ -192,7 +202,8 @@ receive stat bonuses.");
 Though it is relatively rare, certain areas of the world may be contamiated\n\
 with radiation.  It will gradually accumulate in your body, weakening you\n\
 more and more.  While in radiation-free areas, your radiation level will\n\
-slowly decrease.  Taking iodine tablets will help speed the process.\n\
+slowly decrease.  Taking iodine tablets will help speed the process.\n");
+   mvprintz(4, 0, c_white, "\
 \n\
 If you become very irradiated, you may develop mutations.  Most of the time,\n\
 these mutations will be negative; however, many are beneficial, and others\n\
@@ -492,7 +503,7 @@ F           Forest - May be dense or sparse.  Slow moving; foragable food.");
    mvputch(3,  8, c_dkgray, LINE_XOXX);
    mvputch(3,  9, c_dkgray, LINE_OXXX);
    mvputch(3, 10, c_dkgray, LINE_XXXX);
- 
+
    mvprintz( 3, 12, c_dkgray,  "\
 Road - Safe from burrowing animals.");
    mvprintz( 4, 0, c_dkgray,  "\

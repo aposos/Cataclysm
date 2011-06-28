@@ -71,7 +71,7 @@ void player::normalize(game *g)
   hp_cur[i] = hp_max[i];
  }
 }
- 
+
 void player::reset()
 {
 // Reset our stats to normal levels
@@ -130,7 +130,7 @@ void player::reset()
  dex_cur += int(stim / 10);
  per_cur += int(stim /  7);
  int_cur += int(stim /  6);
- if (stim >= 30) { 
+ if (stim >= 30) {
   dex_cur -= int(abs(stim - 15) /  8);
   per_cur -= int(abs(stim - 15) / 12);
   int_cur -= int(abs(stim - 15) / 14);
@@ -148,7 +148,7 @@ void player::reset()
   per_cur = 0;
  if (int_cur < 0)
   int_cur = 0;
- 
+
  int mor = morale_level();
  if      (mor >= 300)
   xp_pool += 4;
@@ -420,12 +420,12 @@ void player::disp_info(game *g)
   int dexbonus = int(stim / 10);
   int perbonus = int(stim /  7);
   int intbonus = int(stim /  6);
-  if (abs(stim) >= 30) { 
+  if (abs(stim) >= 30) {
    dexbonus -= int(abs(stim - 15) /  8);
    perbonus -= int(abs(stim - 15) / 12);
    intbonus -= int(abs(stim - 15) / 14);
   }
-  
+
   if (dexbonus < 0)
    effect_name.push_back("Stimulant Overdose");
   else
@@ -730,7 +730,7 @@ which require brute force.");
     mvwprintz(w_stats, 3, 2, h_ltgray, "Dexterity:");
     mvwprintz(w_info, 0, 0, c_magenta, "\
 Dexterity affects your chance to hit in melee combat, helps you steady your\n\
-gun for ranged combat, and enhances many actions that require finesse."); 
+gun for ranged combat, and enhances many actions that require finesse.");
    } else if (line == 2) {
     mvwprintz(w_stats, 4, 2, h_ltgray, "Intelligence:");
     mvwprintz(w_info, 0, 0, c_magenta, "\
@@ -1004,7 +1004,7 @@ encumb(bp_feet) * 5);
     } else {
      mvwprintz(w_skills, 2 + i - min, 1, status, "%s:",
                skill_name(skillslist[i]).c_str());
-     mvwprintz(w_skills, 2 + i - min,19, status, "%d (%s%d%%%%)", 
+     mvwprintz(w_skills, 2 + i - min,19, status, "%d (%s%d%%%%)",
                sklevel[skillslist[i]],
                (skexercise[skillslist[i]] < 10 &&
                 skexercise[skillslist[i]] >= 0 ? " " : ""),
@@ -1054,7 +1054,7 @@ encumb(bp_feet) * 5);
    }
   }
  } while (!done);
- 
+
  werase(w_info);
  werase(w_grid);
  werase(w_stats);
@@ -1075,6 +1075,8 @@ encumb(bp_feet) * 5);
  delwin(w_speed);
  delwin(w_info);
  erase();
+ //g->refresh_all();
+
 }
 
 void player::disp_morale()
@@ -1118,7 +1120,7 @@ void player::disp_morale()
  werase(w);
  delwin(w);
 }
- 
+
 
 void player::disp_status(WINDOW *w)
 {
@@ -2116,7 +2118,7 @@ int player::hit_mon(game *g, monster *z)
    } else {
     headshot &= z->hp < dam && one_in(2);
     if (headshot && can_see)
-     g->add_msg("%s crush%s the %s's skull in a single blow!", 
+     g->add_msg("%s crush%s the %s's skull in a single blow!",
                 You.c_str(), (is_u ? "" : "es"), z->name().c_str());
     else if (can_see)
      g->add_msg("%s deliver%s a crushing punch!",You.c_str(),(is_u ? "" : "s"));
@@ -2289,7 +2291,7 @@ bool player::hit_player(player &p, body_part &bp, int &hitdam, int &hitcut)
   bp = bp_arms;
  else
   bp = bp_legs;
- 
+
  hitdam = base_damage();
 
  if (unarmed) {// Unarmed bonuses
@@ -2379,7 +2381,7 @@ int player::throw_range(int index)
   return str_cur * 2;
  return ret;
 }
- 
+
 int player::base_damage(bool real_life)
 {
  int str = (real_life ? str_cur : str_max);
@@ -2447,7 +2449,7 @@ int player::throw_dex_mod(bool real_life)
   return 0;
  if (dex >= 10)
   return (real_life ? 0 - rng(0, dex - 9) : 9 - dex);
- 
+
  int deviation = 0;
  if (dex < 6)
   deviation = 3 * (8 - dex);
@@ -2749,7 +2751,7 @@ void player::add_disease(dis_type type, int duration, game *g)
   }
   i++;
  }
- if (!found) {   
+ if (!found) {
   if (!is_npc())
    dis_msg(g, type);
   disease tmp(type, duration);
@@ -3228,7 +3230,7 @@ void player::add_morale(morale_type type, int bonus, int max_bonus,
   morale.push_back(tmp);
  }
 }
- 
+
 void player::sort_inv()
 {
  std::vector<item> types[8]; // guns ammo weaps armor food tools books other
@@ -3262,7 +3264,7 @@ void player::sort_inv()
 
 void player::i_add(item it)
 {
- if (it.is_food() || it.is_ammo() || it.is_gun()  || it.is_armor() || 
+ if (it.is_food() || it.is_ammo() || it.is_gun()  || it.is_armor() ||
      it.is_book() || it.is_tool() || it.is_weap() || it.is_food_container())
   inv_sorted = false;
  if (it.is_ammo()) {	// Possibly combine with other ammo
@@ -3494,7 +3496,7 @@ void player::use_up(itype_id it, int quantity)
  int cur_item = 0;
  while (used < quantity && cur_item < inv.size()) {
   int local_used = 0;
-  if (inv[cur_item].type->id == it) { 
+  if (inv[cur_item].type->id == it) {
    if (inv[cur_item].is_ammo() || inv[cur_item].is_tool()) {
     if (quantity < inv[cur_item].charges) {
      local_used = quantity;
@@ -3557,7 +3559,7 @@ void player::use_amount(itype_id it, int quantity)
  }
 
  while (used < quantity && cur_item < inv.size()) {
-  if (inv[cur_item].type->id == it) { 
+  if (inv[cur_item].type->id == it) {
    used++;
    i_remn(cur_item);
    cur_item--;
@@ -3590,7 +3592,7 @@ void player::use_charges(itype_id it, int quantity)
 
  for (int i = 0; i < inv.size(); i++) {
   int local_used = 0;
-  if (inv[i].type->id == it) { 
+  if (inv[i].type->id == it) {
    local_used = inv[i].charges;
    if (local_used > quantity)
     inv[i].charges = local_used - quantity;
@@ -3709,7 +3711,7 @@ bool player::has_charges(itype_id it, int quantity)
  for (int i = 0; i < inv.size(); i++) {
   if (inv[i].type->id == it)
    i_have += inv[i].charges;
-  else if (inv[i].contents.size() > 0 && inv[i].contents[0].type->id == it) 
+  else if (inv[i].contents.size() > 0 && inv[i].contents[0].type->id == it)
    i_have += inv[i].contents[0].charges;
   if (i_have >= quantity)
    return true;
@@ -3853,7 +3855,7 @@ bool player::eat(game *g, int index)
 
   if (spoiled) {
 // We're only warned if we're a supertaster, OR the food is very old
-   if ((!has_trait(PF_SUPERTASTER) && very_spoiled) || 
+   if ((!has_trait(PF_SUPERTASTER) && very_spoiled) ||
        (!is_npc() && query_yn("This %s smells awful!  Eat it?",
                               eaten->tname(g).c_str()))) {
     if (is_npc())
@@ -3890,7 +3892,7 @@ bool player::eat(game *g, int index)
    use_charges(comest->tool, 1); // Tools like lighters get used
   if (comest->stim > 0 && stim < comest->stim * 3)
    stim += comest->stim;
- 
+
   iuse use;
   (use.*comest->use)(g, this, eaten, false);
   add_addiction(comest->add, comest->addict);
@@ -3935,7 +3937,7 @@ bool player::eat(game *g, int index)
     thirst = -20;
   }
  }
- 
+
  eaten->charges--;
  if (eaten->charges <= 0) {
   if (which == -1)
@@ -4290,7 +4292,7 @@ void player::read(game *g, char ch)
  activity = player_activity(ACT_READ, time, index);
  moves = 0;
 }
- 
+
 void player::try_to_sleep(game *g)
 {
  add_disease(DI_LYING_DOWN, 300, g);
@@ -4508,7 +4510,7 @@ void player::absorb(game *g, body_part bp, int &dam, int &cut)
  if (cut < 0)
   cut = 0;
 }
-  
+
 int player::resist(body_part bp)
 {
  int ret = 0;
