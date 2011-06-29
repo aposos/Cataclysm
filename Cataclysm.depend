@@ -36,7 +36,7 @@
 	"skill.h"
 	"bionics.h"
 
-1309282314 c:\cata\color.h
+1309340893 c:\cata\color.h
 	<curses.h>
 
 1309253416 c:\cata\enums.h
@@ -81,7 +81,7 @@
 1309253416 c:\cata\morale.h
 	<string>
 
-1309253416 c:\cata\game.h
+1309328237 c:\cata\game.h
 	"mtype.h"
 	"monster.h"
 	"map.h"
@@ -266,7 +266,7 @@
 	"map.h"
 	"game.h"
 
-1309276645 source:c:\cata\game.cpp
+1309328237 source:c:\cata\game.cpp
 	"game.h"
 	"rng.h"
 	"keypress.h"
@@ -286,7 +286,7 @@
 1309253416 c:\cata\weather_data.h
 	"weather.h"
 
-1309275034 source:c:\cata\help.cpp
+1309328237 source:c:\cata\help.cpp
 	"game.h"
 	"keypress.h"
 
@@ -375,7 +375,7 @@
 	"setvector.h"
 	"game.h"
 
-1309253416 source:c:\cata\monattack.cpp
+1309328237 source:c:\cata\monattack.cpp
 	"mondeath.h"
 	"monster.h"
 	"game.h"
@@ -399,7 +399,7 @@
 	"game.h"
 	"setvector.h"
 
-1309253416 source:c:\cata\monmove.cpp
+1309328237 source:c:\cata\monmove.cpp
 	"monster.h"
 	"map.h"
 	"game.h"
@@ -421,7 +421,7 @@
 	<stdlib.h>
 	<curses.h>
 
-1309253416 source:c:\cata\mtypedef.cpp
+1309328237 source:c:\cata\mtypedef.cpp
 	"game.h"
 	"mondeath.h"
 	"monattack.h"
@@ -502,7 +502,7 @@
 	"npc.h"
 	"keypress.h"
 
-1309282221 source:c:\cata\player.cpp
+1309328237 source:c:\cata\player.cpp
 	"player.h"
 	"bionics.h"
 	"mission.h"
@@ -531,7 +531,7 @@
 	<string>
 	"morale.h"
 
-1309254019 source:c:\cata\ranged.cpp
+1309327992 source:c:\cata\ranged.cpp
 	<vector>
 	<string>
 	"game.h"
@@ -540,6 +540,7 @@
 	"line.h"
 	"skill.h"
 	"rng.h"
+	<windows.h>
 
 1309253416 source:c:\cata\rng.cpp
 	"output.h"
