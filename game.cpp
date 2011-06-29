@@ -1066,7 +1066,14 @@ void game::get_input()
   save();
   u.moves = 0;
   uquit = QUIT_SAVED;
- } else if (ch == 'Q' && query_yn("Commit suicide?")) {
+ }
+   else if (ch == 'V')
+   {
+    save();
+    add_msg("Game saved!");
+   }
+
+  else if (ch == 'Q' && query_yn("Commit suicide?")) {
   u.moves = 0;
   std::vector<item> tmp = u.inv_dump();
   item your_body;
