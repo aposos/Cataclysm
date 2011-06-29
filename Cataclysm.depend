@@ -701,7 +701,7 @@
 	"monster.h"
 	"enums.h"
 
-1309283121 c:\cataclysm\mapitems.h
+1309348964 c:\cataclysm\mapitems.h
 
 1309283121 c:\cataclysm\overmap.h
 	"enums.h"
@@ -713,7 +713,7 @@
 	<vector>
 	<curses.h>
 
-1309283121 c:\cataclysm\omdata.h
+1309348964 c:\cataclysm\omdata.h
 	<string>
 	<vector>
 	<bitset>
@@ -914,7 +914,7 @@
 	<stdlib.h>
 	<fstream>
 
-1309283121 source:c:\cataclysm\mapgen.cpp
+1309348964 source:c:\cataclysm\mapgen.cpp
 	"map.h"
 	"omdata.h"
 	"mapitems.h"
@@ -923,7 +923,7 @@
 	"rng.h"
 	"line.h"
 
-1309283121 source:c:\cataclysm\mapitemsdef.cpp
+1309348964 source:c:\cataclysm\mapitemsdef.cpp
 	"game.h"
 	"itype.h"
 	"omdata.h"
@@ -1063,7 +1063,7 @@
 	"rng.h"
 	"keypress.h"
 
-1309283121 source:c:\cataclysm\overmap.cpp
+1309348964 source:c:\cataclysm\overmap.cpp
 	<curses.h>
 	<stdlib.h>
 	<time.h>
@@ -1108,7 +1108,7 @@
 	<string>
 	"morale.h"
 
-1309283121 source:c:\cataclysm\ranged.cpp
+1309348953 source:c:\cataclysm\ranged.cpp
 	<vector>
 	<string>
 	"game.h"
@@ -1117,6 +1117,7 @@
 	"line.h"
 	"skill.h"
 	"rng.h"
+	<windows.h>
 
 1309283121 source:c:\cataclysm\rng.cpp
 	"output.h"
