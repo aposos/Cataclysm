@@ -222,13 +222,15 @@ Bionics are biomechanical upgrades to your body.  While many are simply\n\
 have unique effects that are otherwise unobtainable.\n\
 \n\
 Most bionics require a source of power, and you will need an internal battery\n\
-to store energy for them.  Your current amount of energy is displayed below\n\
+to store energy for them.  Your current amount of energy is displayed below\n");
+   mvprintz(6, 0, c_white, "\
 your health.  Replenishing energy can be done in a variety of ways, but all\n\
 require the installation of a special bionic just for fuel consumption.\n\
 \n\
 Bionics come in ready-to-install canisters, most of which contain supplies\n\
 for several different modules.  Installing a bionic will consume the entire\n\
-canister, so choose your upgrade carefully.  Installation of a bionic is best\n\
+canister, so choose your upgrade carefully.  Installation of a bionic is best\n");
+   mvprintz(12, 0, c_white, "\
 left to a trained professional; however, you may attempt to perform a self-\n\
 installation.  Performing such a task requires high levels of first aid,\n\
 mechanics, and/or electronics, and failure may cripple you!  Bionics canisters\n\
@@ -246,19 +248,22 @@ money to trade for.  Fortunately, it is possible to craft a wide variety of\n\
 goods with the proper tools, materials, and training.\n\
 \n\
 Some recipes require a set of tools.  These are not used up when crafting, so\n\
-you can keep your tool set.  All recipes require one or more ingredients.\n\
+you can keep your tool set.  All recipes require one or more ingredients.\n");
+   mvprintz(6, 0, c_white, "\
 These ARE used up in crafting.\n\
 \n\
 To craft items, press '&'.  There are five categories; Weapons, Food,\n\
 Electronics, Armor, and Miscellaneous.  While a few items require no skill to\n\
 create, the majority require you to have some knowledge:\n\
-\n\
+\n");
+   mvprintz(6, 0, c_white, "\
 ->Mechanic skill is used for weapons, traps, and a few tools.\n\
 ->Cooking skill, at low levels, is used for making tasty recipes; at higher\n\
 levels, you have an understanding of chemistry and can make chemical weapons\n\
 and beneficial elixirs.\n\
 ->Electronics skill lets you make a wide variety of tools with intricate uses.\n\
-->Tailoring skill is used to create basic clothing, and later tough armor.\n\
+->Tailoring skill is used to create basic clothing, and later tough armor.\n");
+   mvprintz(12, 0, c_white, "\
 \n\
 In addition to the primary crafting skills, other skills may be necessary to\n\
 create certain items.  Traps skill, Firearms skill, and First Aid skill are\n\
@@ -275,19 +280,22 @@ unwanted intrusions.  There are a few traps to be found in the world, most\n\
 notably bubblewrap (which will make a loud noise if stepped on, helping to\n\
 wake you up) and bear traps (which make noise AND damage and trap anything\n\
 that steps on them).  Others need to be crafted; this requires the Traps skill\n\
-and possibly Mechanics.\n\
+and possibly Mechanics.\n");
+mvprintz(6, 0, c_white, "\
 \n\
 To set a trap, simply use the item ('a') and choose a direction; the trap will\n\
 be placed on an adjacent tile.  Some traps may require additional tools, like\n\
 a shovel, to be set.  Once set, a trap will remain in place until stepped on\n\
 or disarmed.\n\
-\n\
+\n");
+   mvprintz(12, 0, c_white, "\
 To disarm a trap, examine ('e') the space it is on.  Your success depends upon\n\
 your Traps skill and Dexterity.  If you succeed, the trap is removed and\n\
 replaced by some or all of its constituent parts; however, if you fail, there\n\
 is a chance that you will set off the trap, suffering the consequences.\n\
 \n\
-Many traps are fully or partially hidden.  Your ability to detect traps is\n\
+Many traps are fully or partially hidden.  Your ability to detect traps is\n");
+   mvprintz(18, 0, c_white, "\
 entirely dependant upon your Perception.  Should you stumble into a trap, you\n\
 may have a chance to avoid it, depending on your Dodge skill.");
 
@@ -303,19 +311,22 @@ lying on the ground; if so, simply press ',' or 'g' to pick up items on the\n\
 same square. Some items are found inside a container, drawn as a { with a\n\
 blue background. Pressing 'e', then a direction, will allow you to examine\n\
 these containers and loot their contents.\n\
-\n\
+\n");
+   mvprintz(6, 0, c_white, "\
 All items may be used as a melee weapon, though some are better than others.\n\
 You can check the melee attributes of an item you're carrying by hitting 'i'\n\
 to enter your inventory, then pressing the letter of the item.  There are 3\n\
 melee values, bashing, cutting, and to-hit bonus (or penalty).\n\
 Bashing damage is universally effective, but is capped by low strength.\n\
-Cutting damage is a guaranteed increase in damage, but it may be reduced by\n\
+Cutting damage is a guaranteed increase in damage, but it may be reduced by\n");
+   mvprintz(12, 0, c_white, "\
 a monster's natural armor.\n\
 \n\
 To wield an item as a weapon, press 'w' then the proper letter.  Pressing '-'\n\
 in lieu of a letter will make you wield nothing.  A wielded weapon will not\n\
 contribute to your volume carried, so holding a large item in your hands may\n\
-be a good option for travel.  When unwielding your weapon, it will go back in\n\
+be a good option for travel.  When unwielding your weapon, it will go back in\n");
+   mvprintz(18, 0, c_white, "\
 your inventory, or will be dropped on the ground if there is no space.\n\
 \n\
 To wear a piece of clothing, press 'W' then the proper letter.  Armor reduces\n\
@@ -333,19 +344,22 @@ represented by letters on your screen; a list of monster names, and their\n\
 positions relative to you, is displayed on the right side of the screen.\n\
 \n\
 To attack a monster with a melee weapon, simply move into them. The time it\n\
-takes to attack depends on the size and weight of your weapon.  Small, light\n\
+takes to attack depends on the size and weight of your weapon.  Small, light\n");
+   mvprintz(6, 0, c_white, "\
 weapons are the fastest; unarmed attacks increase in speed with your Unarmed\n\
 Combat skill, and will eventually be VERY fast.  A successful hit with a\n\
 bashing weapon may stun the monster temporarily, while cutting weapons may get\n\
 stuck, possibly pulling the weapon from your hands--but a monster with a weapon\n\
 stuck in it will move much more slowly.  A miss may make you stumble and lose\n\
-movement points.  If a monster hits you, your clothing may absorb some damage,\n\
+movement points.  If a monster hits you, your clothing may absorb some damage,\n");
+   mvprintz(12, 0, c_white, "\
 but you will absorb the excess.\n\
 \n\
 Swarms of monsters may call for firearms. If you find one, wield it first,\n\
 then reload by pressing 'r'. If you wish to change ammo, you must unload the\n\
 weapon by pressing 'U', then reload again. To fire, press 'f', move the\n\
-cursor to the relevant space, then hit '.' or 'f'. Some guns have automatic\n\
+cursor to the relevant space, then hit '.' or 'f'. Some guns have automatic\n");
+   mvprintz(18, 0, c_white, "\
 fire; to shoot a burst, press 'F'.  This will severely reduce accuracy.\n\
 \n\
 Unlike most roguelikes, fleeing will often be your best option, especially\n\
@@ -364,19 +378,22 @@ storage is limited, and a backpack, trenchcoat, or other storage medium will\n\
 let you carry a lot more. Finding a weapon is important; frying pans, butcher\n\
 knives, and more are common in your home; hardware stores may carry others.\n\
 Unless you plan on concentrating on melee combat, seek out gun stores as soon\n\
-as possible and load up on more than one type.\n\
+as possible and load up on more than one type.\n");
+   mvprintz(6, 0, c_white, "\
 \n\
 It's also important to carry a few medications; painkillers are a must-have,\n\
 and drugs such as cigarettes will make life easier (but beware addiction).\n\
 Leave cities as soon as you have a good stockpile of equipment. Their high\n\
 concentration of zombies makes them a deathtrap--but a necessary resource for\n\
-food and ammunition.\n\
+food and ammunition.\n");
+   mvprintz(12, 0, c_white, "\
 \n\
 Combat is much easier if you can fight just one monster at once. Use doorways\n\
 as a choke point, or stand behind a window and strike as the zombies slowly\n\
 climb through. Never be afraid to just run if you can outpace your enemies.\n\
 Irregular terrain, like forests, may help you lose monsters.\n\
-\n\
+\n");
+   mvprintz(18, 0, c_white, "\
 Firearms are the easiest way to kill an enemy, but the sound will attract\n\
 unwanted attention. Save the guns for emergencies, and melee when you can.\n\
 \n\
@@ -428,19 +445,22 @@ ITEM TYPES:\n\
 %%%%       Food\n\
 !       Medication\n\
     These are all consumed by using 'E'. They provide a certain amount of\n\
- nutrition, quench your thirst, may be a stimulant or a depressant, and may\n\
+ nutrition, quench your thirst, may be a stimulant or a depressant, and may\n");
+               mvprintz(6, 0, c_white, "\
  provide morale. There may also be more subtle effects.\n\
 \n\
 /       Large weapon\n\
 ;       Small weapon or tool\n\
 ,       Tiny item\n\
-    These are all generic items, useful only to be wielded as a weapon.\n\
+    These are all generic items, useful only to be wielded as a weapon.\n");
+       mvprintz(12, 0, c_white, "\
  However, some have special uses; they will show up under the TOOLS section\n\
  in your inventory. Press 'a' to use these.\n\
 \n\
 )       Container\n\
     These items may hold other items. Someare passable weapons. Many will be\n\
- listed with their contents, e.g. \"plastic bottle of water\". Those containing\n\
+ listed with their contents, e.g. \"plastic bottle of water\". Those containing\n");
+    mvprintz(0, 0, c_white, "\
  comestibles may be eaten with 'E'; this may leave you with an empty container.\n\
 Press any key to continue...");
    getch();
@@ -452,19 +472,22 @@ ITEM TYPES:\n\
  cover one or more body parts; you can wear multiple articles of clothing on\n\
  any given body part, but this will encumber you severely. Each article of\n\
  clothing may provide storage space, warmth, an encumberment, and a resistance\n\
- to bashing and/or cutting attacks. Some may protect against environmental\n\
+ to bashing and/or cutting attacks. Some may protect against environmental\n");
+    mvprintz(6, 0, c_white, "\
  effects.\n\
 \n\
 (       Firearm\n\
     This weapon may be loaded with ammunition with 'r', unloaded with 'U', and\n\
  fired with 'f'. Some have automatic fire, which may be used with 'F' at a\n\
- penalty to accuracy. The color refers to the type; handguns are gray, shotguns\n\
+ penalty to accuracy. The color refers to the type; handguns are gray, shotguns\n");
+    mvprintz(12, 0, c_white, "\
  are red, submachine guns are cyan, rifles are brown, assault rifles are blue,\n\
  and heavy machine guns are light red. Each has an accuracy rating, a bonus to\n\
  damage, a rate of fire, and a maximum load. Note that most firearms load\n\
  fully in one action, while shotguns must be loaded one shell at a time.\n\
 \n\
-=       Ammunition\n\
+=       Ammunition\n");
+   mvprintz(18, 0, c_white, "\
     Ammunition is worthless without a gun to load it into. Generally, there\n\
  are several variants for any particular calibre. Ammunition has a damage\n\
  rating, an accuracy, a range, and an armor-piercing quality.\n\
@@ -551,7 +574,8 @@ difficult to aim and control than larger firearms, and this is reflected in\n\
 their poor accuracy.  However, their small size makes them appropriate for\n\
 short-range combat, where largers guns fare poorly.\n\
 They are also relatively quick to reload, and use a very wide selection of\n\
-ammunition.  Their small size and low weight make it possible to carry\n\
+ammunition.  Their small size and low weight make it possible to carry\n");
+               mvprintz(6, 0, c_white, "\
 several loaded handguns, switching from one to the next once their ammo is\n\
 spent.");
    mvprintz(12, 0, c_green, "( Crossbows");
@@ -561,7 +585,8 @@ rarely destroyed; if you pick up the bolts after firing them, your ammunition\n\
 will last much longer.  Crossbows suffer from a short range and a very long\n\
 reload time (modified by your strength); plus, most only hold a single round.\n\
 For this reason, it is advisable to carry a few loaded crossbows.\n\
-Crossbows can be very difficult to find; however, it is possible to craft one\n\
+Crossbows can be very difficult to find; however, it is possible to craft one\n");
+               mvprintz(13+6, 0, c_white, "\
 given enough Mechanics skill.  Likewise, it is possible to make wooden bolts\n\
 from any number of wooden objects, though these are much less effective than\n\
 steel bolts.\n\
@@ -577,7 +602,8 @@ out almost any enemy with a single hit.  Birdshot and 00 shot spread, making\n\
 it very easy to hit nearby monsters.  However, they are very ineffective\n\
 against armor, and some armored monsters might shrug off 00 shot completely.\n\
 Shotgun slugs are the answer to this problem; they also offer much better\n\
-range than shot.\n\
+range than shot.\n");
+   mvprintz(6, 0, c_white, "\
 The biggest drawback to shotguns is their noisiness.  They are very loud,\n\
 and impossible to silence.  A shot that kills one zombie might attract three\n\
 more!  Because of this, shotguns are best reserved for emergencies.");
@@ -608,7 +634,8 @@ Assault rifles are similar to hunting rifles in many ways; they are also\n\
 suited for long range combat, with similar bonuses and penalties.  Unlike\n\
 hunting rifles, assault rifles are capable of automatic fire.  Assault rifles\n\
 are less accurate than hunting rifles, and this is worsened under automatic\n\
-fire, so save it for when you're highly skilled.\n\
+fire, so save it for when you're highly skilled.\n");
+   mvprintz(18, 0, c_white, "\
 Assault rifles are an excellent choice for medium or long range combat, or\n\
 even close-range bursts again a large number of enemies.  They are difficult\n\
 to use, and are best saved for skilled riflemen.");
@@ -645,19 +672,22 @@ A: Run Mode is a way to guarantee that you won't die by holding a movement\n\
    key down.  When a monster comes into view, your movement will be ignored\n\
    until Run Mode is turned off with the ! key.  This ensures that the\n\
    sudden appearence of a monster won't catch you off guard.\n\
-\n\
+\n");
+   mvprintz(6, 0, c_white, "\
 Q: It seems like everything I eat makes me sick!  What's wrong?\n\
 A: Lots of the food found in towns is perishable, and will only last a few\n\
    days after the start of a new game (July 12).  Fruit, milk, and others are\n\
    the first to go.  After the first couple of days, you should switch to\n\
    canned food, jerky, and hunting.\n\
-\n\
+\n");
+               mvprintz(12, 0, c_white, "\
 Q: Why doesn't reading a book seem to give me any training?\n\
 A: Your skills will not be displayed in the @ screen until they reach level\n\
    one.  Generally it will take several reads of the same book to gain a\n\
    single level in a skill.\n\
 \n\
-Q: How can I board up windows and doors?\n\
+Q: How can I board up windows and doors?\n");
+                           mvprintz(18, 0, c_white, "\
 A: You'll need a hammer, nails, and two by fours.  Use the hammer and choose\n\
    the direction in which the terrain you wish to barricade lies.\n\
 \n\
@@ -672,19 +702,22 @@ A: Your swimming ability is reduced greatly by the weight you are carrying,\n\
    and is also adversely affected by the clothing you wear.  Until you reach\n\
    a high level in the swimming skill, you'll need to drop your equipment and\n\
    remove your clothing to swim, making it a last-ditch escape plan.\n\
-\n\
+\n");
+   mvprintz(6, 0, c_white, "\
 Q: How can I cure a fungal infection?\n\
 A: At present time, there is only one cure, royal jelly.  You can find royal\n\
    jelly in the bee hives which dot forests.\n\
 \n\
 Q: How do I get into science labs?\n\
-A: You can enter the front door if you have an ID card by 'e'xamining the\n\
+A: You can enter the front door if you have an ID card by 'e'xamining the\n");
+   mvprintz(12, 0, c_white, "\
    keypad.  If you are skilled in computers and have an electrohack, it is\n\
    possible to hack the keypad.  An EMP blast has a chance to force the doors\n\
    open, but it's more likely to break them.  You can also sneak in through\n\
    the sewers sometimes, or try to smash through the walls with explosions.\n\
 \n\
-Q: Why does my crafting fail so often?\n\
+Q: Why does my crafting fail so often?\n");
+   mvprintz(18, 0, c_white, "\
 A: Check the difficulty of the recipe, and the primary skill used; your skill\n\
    level should be around one and a half times the difficulty to be confident\n\
    that it will succeed.");
@@ -696,7 +729,8 @@ A: Shotguns are intended for emergency use.  If you are cornered, use your\n\
    shotgun to escape, then just run from the zombies it attracts.\n\
 \n\
 Q: The game just told me to quit, and other weird stuff is happening.\n\
-A: You have the Schizophrenic trait, which might make the game seem buggy.\n\
+A: You have the Schizophrenic trait, which might make the game seem buggy.\n");
+               mvprintz(6, 0, c_white, "\
 \n\
 Q: I have a question that's not addressed here.  How can I get an answer?\n\
 A: Email your question to fivedozenwhales@gmail.com.  I'll answer it for you,\n\
