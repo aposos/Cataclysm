@@ -1139,7 +1139,10 @@ void game::update_scent()
  else
   scent(u.posx, u.posy) = 0;
 }
+//void game::Load_Config()
+//{
 
+//}//
 bool game::is_game_over()
 {
  if (uquit != QUIT_NO)
@@ -1819,7 +1822,7 @@ void game::refresh_all()
 {
  draw();
  draw_minimap();
- wrefresh(w_HP);
+ draw_HP();
  wrefresh(w_moninfo);
  wrefresh(w_messages);
  refresh();
