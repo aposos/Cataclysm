@@ -2,17 +2,18 @@
 #include "keypress.h"
 
 #ifndef LINE_XOXO
-	#define LINE_XOXO 4194424
-	#define LINE_OXOX 4194417
-	#define LINE_XXOO 4194413
-	#define LINE_OXXO 4194412
-	#define LINE_OOXX 4194411
-	#define LINE_XOOX 4194410
-	#define LINE_XXXO 4194420
-	#define LINE_XXOX 4194422
-	#define LINE_XOXX 4194421
-	#define LINE_OXXX 4194423
-	#define LINE_XXXX 4194414
+#define LINE_XOXO ACS_VLINE
+#define LINE_OXOX ACS_HLINE
+#define LINE_XXOO ACS_LLCORNER
+#define LINE_OXXO ACS_ULCORNER
+#define LINE_OOXX ACS_URCORNER
+#define LINE_XOOX ACS_LRCORNER
+#define LINE_XXXO ACS_LTEE
+#define LINE_XXOX ACS_BTEE
+#define LINE_XOXX ACS_RTEE
+#define LINE_OXXX ACS_TTEE
+#define LINE_XXXX ACS_PLUS
+
 #endif
 
 void game::help()
@@ -515,7 +516,6 @@ ITEM TYPES:\n\
 .           Field - Empty grassland, occasional wild fruit.");
    mvprintz( 2, 0, c_green,   "\
 F           Forest - May be dense or sparse.  Slow moving; foragable food.");
-   mvputch(3,  0, c_dkgray, LINE_XOXO);
    mvputch(3,  1, c_dkgray, LINE_OXOX);
    mvputch(3,  2, c_dkgray, LINE_XXOO);
    mvputch(3,  3, c_dkgray, LINE_OXXO);

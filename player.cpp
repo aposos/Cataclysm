@@ -1083,8 +1083,8 @@ encumb(bp_feet) * 5);
 void player::disp_morale()
 {
  WINDOW *w = newwin(25, 80, 0, 0);
- wborder(w, LINE_XOXO, LINE_XOXO, LINE_OXOX, LINE_OXOX,
-            LINE_OXXO, LINE_OOXX, LINE_XXOO, LINE_XOOX );
+ wborder(w, 0, 0,0, 0,
+            0, 0, 0, 0 );
  mvwprintz(w, 1,  1, c_white, "Morale Modifiers:");
  mvwprintz(w, 2,  1, c_ltgray, "Name");
  mvwprintz(w, 2, 20, c_ltgray, "Value");

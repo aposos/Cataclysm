@@ -617,7 +617,7 @@
 	"skill.h"
 	"bionics.h"
 
-1309351028 c:\cataclysm\color.h
+1309461616 c:\cataclysm\color.h
 	<curses.h>
 
 1309283121 c:\cataclysm\enums.h
@@ -721,7 +721,7 @@
 	"itype.h"
 	"output.h"
 
-1309283121 c:\cataclysm\output.h
+1309466925 c:\cataclysm\output.h
 	"color.h"
 	<cstdarg>
 	<string>
@@ -847,7 +847,7 @@
 	"map.h"
 	"game.h"
 
-1309292170 source:c:\cataclysm\game.cpp
+1309461068 source:c:\cataclysm\game.cpp
 	"game.h"
 	"rng.h"
 	"keypress.h"
@@ -1079,7 +1079,7 @@
 	"npc.h"
 	"keypress.h"
 
-1309292170 source:c:\cataclysm\player.cpp
+1309465563 source:c:\cataclysm\player.cpp
 	"player.h"
 	"bionics.h"
 	"mission.h"
@@ -1157,7 +1157,7 @@
 	"game.h"
 	"output.h"
 
-1309294529 source:c:\cataclysm\help.cpp
+1309465624 source:c:\cataclysm\help.cpp
 	"game.h"
 	"keypress.h"
 
