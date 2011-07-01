@@ -606,7 +606,7 @@
 	"itype.h"
 	"mtype.h"
 
-1309283121 c:\cataclysm\itype.h
+1309476801 c:\cataclysm\itype.h
 	<string>
 	<vector>
 	"color.h"
@@ -701,7 +701,7 @@
 	"monster.h"
 	"enums.h"
 
-1309348964 c:\cataclysm\mapitems.h
+1309468756 c:\cataclysm\mapitems.h
 
 1309283121 c:\cataclysm\overmap.h
 	"enums.h"
@@ -713,7 +713,7 @@
 	<vector>
 	<curses.h>
 
-1309348964 c:\cataclysm\omdata.h
+1309468756 c:\cataclysm\omdata.h
 	<string>
 	<vector>
 	<bitset>
@@ -847,7 +847,7 @@
 	"map.h"
 	"game.h"
 
-1309461068 source:c:\cataclysm\game.cpp
+1309543222 source:c:\cataclysm\game.cpp
 	"game.h"
 	"rng.h"
 	"keypress.h"
@@ -876,7 +876,7 @@
 	<sstream>
 	<curses.h>
 
-1309283121 source:c:\cataclysm\itypedef.cpp
+1309468756 source:c:\cataclysm\itypedef.cpp
 	"itype.h"
 	"game.h"
 
@@ -897,12 +897,13 @@
 	"line.h"
 	"map.h"
 
-1309283121 source:c:\cataclysm\main.cpp
+1309543702 source:c:\cataclysm\main.cpp
 	<curses.h>
 	<ctime>
 	"game.h"
 	"color.h"
 	<windows.h>
+	<SDL/SDL.h>
 
 1309283121 source:c:\cataclysm\map.cpp
 	"map.h"
@@ -914,7 +915,7 @@
 	<stdlib.h>
 	<fstream>
 
-1309348964 source:c:\cataclysm\mapgen.cpp
+1309468756 source:c:\cataclysm\mapgen.cpp
 	"map.h"
 	"omdata.h"
 	"mapitems.h"
@@ -923,7 +924,7 @@
 	"rng.h"
 	"line.h"
 
-1309348964 source:c:\cataclysm\mapitemsdef.cpp
+1309468756 source:c:\cataclysm\mapitemsdef.cpp
 	"game.h"
 	"itype.h"
 	"omdata.h"
@@ -998,13 +999,13 @@
 	<stdlib.h>
 	<curses.h>
 
-1309292170 source:c:\cataclysm\mtypedef.cpp
+1309468756 source:c:\cataclysm\mtypedef.cpp
 	"game.h"
 	"mondeath.h"
 	"monattack.h"
 	"itype.h"
 
-1309283121 source:c:\cataclysm\newcharacter.cpp
+1309466889 source:c:\cataclysm\newcharacter.cpp
 	"player.h"
 	"output.h"
 	"rng.h"
@@ -1051,7 +1052,7 @@
 	<vector>
 	<string>
 
-1309283121 source:c:\cataclysm\output.cpp
+1309466927 source:c:\cataclysm\output.cpp
 	<curses.h>
 	<string>
 	<vector>
@@ -1063,7 +1064,7 @@
 	"rng.h"
 	"keypress.h"
 
-1309348964 source:c:\cataclysm\overmap.cpp
+1309468756 source:c:\cataclysm\overmap.cpp
 	<curses.h>
 	<stdlib.h>
 	<time.h>
@@ -1079,7 +1080,7 @@
 	"npc.h"
 	"keypress.h"
 
-1309465563 source:c:\cataclysm\player.cpp
+1309476617 source:c:\cataclysm\player.cpp
 	"player.h"
 	"bionics.h"
 	"mission.h"
@@ -1157,7 +1158,187 @@
 	"game.h"
 	"output.h"
 
-1309465624 source:c:\cataclysm\help.cpp
+1309466909 source:c:\cataclysm\help.cpp
 	"game.h"
 	"keypress.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_audio.h"
+	"SDL_cdrom.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_loadso.h"
+	"SDL_mutex.h"
+	"SDL_rwops.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_video.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1255800464 c:\sdl-1.2.14\include\sdl\sdl_config.h
+	"SDL_platform.h"
+	<stdarg.h>
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_platform.h
+
+1255800450 c:\sdl-1.2.14\include\sdl\begin_code.h
+
+1255800450 c:\sdl-1.2.14\include\sdl\close_code.h
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_endian.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_cdrom.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_active.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_quit.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_active.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keysym.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_keysym.h
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\sdl-1.2.14\include\sdl\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
 

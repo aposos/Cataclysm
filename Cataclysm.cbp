@@ -9,13 +9,15 @@
 			<Target title="Debug">
 				<Option output="bin\Debug\Cataclysm" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Debug\" />
-				<Option type="1" />
+				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="C:\SDL-1.2.14\include" />
 				</Compiler>
 				<Linker>
 					<Add option="-static -lpdcurses" />
+					<Add library="C:\SDL-1.2.14\lib\libSDL.dll.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">
