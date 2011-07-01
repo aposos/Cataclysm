@@ -3592,7 +3592,7 @@ void player::use_charges(itype_id it, int quantity)
    weapon.contents[0].charges = 0;
  }
 
- for (int i = 0; i < inv.size(); i++) {
+ for (int i = 0; i < inv.size() && used < quantity; i++) {
   int local_used = 0;
   if (inv[i].type->id == it) {
    local_used = inv[i].charges;
@@ -3770,7 +3770,10 @@ bool player::eat(game *g, int index)
  item *eaten = NULL;
  int which = -3; // Helps us know how to delete the item which got eaten
  int linet;
- if (index == -1) {
+ if (index == -2) {
+  g->add_msg("You do not have that item.");
+  return false;
+ } else if (index == -1) {
   if (weapon.is_food_container(this)) {
    eaten = &weapon.contents[0];
    which = -2;
