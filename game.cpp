@@ -12,7 +12,6 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <sys/stat.h>
-
 void intro();
 nc_color sev(int a);	// Right now, ONLY used for scent debugging....
 moncat_id mt_to_mc(mon_id type);	// Pick the moncat that contains type

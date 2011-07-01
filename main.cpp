@@ -9,21 +9,18 @@
 #include "game.h"
 #include "color.h"
 #include <windows.h>
+#include <SDL/SDL.h>
+#undef main
 int main(int argc, char *argv[])
 {
  srand(time(NULL));
-HANDLE hOut;
-hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-     COORD NewSBSize;
-     NewSBSize.X = 200;
-     NewSBSize.Y = 200;
-   SetConsoleScreenBufferSize(hOut,NewSBSize);
  initscr();
  noecho();
  cbreak();
  keypad(stdscr, true);
  init_colors();
  curs_set(0);
+ SDL_WM_SetCaption("Cataclysm",NULL);
  rand();
  game g;
  while (!g.do_turn());
