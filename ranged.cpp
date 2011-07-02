@@ -23,7 +23,7 @@ struct _timespec
 }
 #   endif
 
-enum { BILLION = 1000 * 1000 * 1000 };
+
 
 # define WIN32_LEAN_AND_MEAN
 # include <windows.h>

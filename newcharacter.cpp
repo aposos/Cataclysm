@@ -5,19 +5,6 @@
 #include "game.h"
 #include <unistd.h>
 
-// ncurses has not yet been initialized, so we need to define our line chars
-#define LINE_XOXO ACS_VLINE
-#define LINE_OXOX ACS_HLINE
-#define LINE_XXOO ACS_LLCORNER
-#define LINE_OXXO ACS_ULCORNER
-#define LINE_OOXX ACS_URCORNER
-#define LINE_XOOX ACS_LRCORNER
-#define LINE_XXXO ACS_LTEE
-#define LINE_XXOX ACS_BTEE
-#define LINE_XOXX ACS_RTEE
-#define LINE_OXXX ACS_TTEE
-#define LINE_XXXX ACS_PLUS
-
 // Colors used in this file: (Most else defaults to c_ltgray)
 #define COL_STAT_ACT		c_ltred    // Selected stat
 #define COL_TR_GOOD		c_green    // Good trait descriptive text
@@ -47,7 +34,7 @@ int calc_HP(int strength, bool tough);
 bool player::create(game *g, character_type type)
 {
  WINDOW* w = newwin(25, 80, 0, 0);
- int tab = 0, points = 36;
+ int tab = 0, points = 38;
  if (type != PLTYPE_CUSTOM) {
   switch (type) {
   case PLTYPE_RANDOM:
@@ -171,7 +158,7 @@ bool player::create(game *g, character_type type)
   }
   tab = 3;
  } else
-  points = 4;
+  points = 6;
 
  do {
   werase(w);
