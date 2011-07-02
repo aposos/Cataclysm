@@ -40,7 +40,7 @@
 	<File name="keypress.h" open="1" top="0" tabpos="5">
 		<Cursor position="407" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="8">
+	<File name="main.cpp" open="1" top="0" tabpos="8">
 		<Cursor position="223" topLine="0" />
 	</File>
 	<File name="map.cpp" open="1" top="0" tabpos="13">
@@ -75,5 +75,8 @@
 	</File>
 	<File name="trap.h" open="1" top="0" tabpos="9">
 		<Cursor position="3053" topLine="84" />
+	</File>
+	<File name="wish.cpp" open="1" top="1" tabpos="26">
+		<Cursor position="248" topLine="40" />
 	</File>
 </CodeBlocks_layout_file>

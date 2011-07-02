@@ -606,7 +606,7 @@
 	"itype.h"
 	"mtype.h"
 
-1309476801 c:\cataclysm\itype.h
+1309544043 c:\cataclysm\itype.h
 	<string>
 	<vector>
 	"color.h"
@@ -662,7 +662,7 @@
 1309283121 c:\cataclysm\morale.h
 	<string>
 
-1309292170 c:\cataclysm\game.h
+1309563436 c:\cataclysm\game.h
 	"mtype.h"
 	"monster.h"
 	"map.h"
@@ -847,7 +847,7 @@
 	"map.h"
 	"game.h"
 
-1309543222 source:c:\cataclysm\game.cpp
+1309562679 source:c:\cataclysm\game.cpp
 	"game.h"
 	"rng.h"
 	"keypress.h"
@@ -862,12 +862,13 @@
 	<unistd.h>
 	<dirent.h>
 	<sys/stat.h>
+	"Keybinds.h"
 	<windows.h>
 
 1309283121 c:\cataclysm\weather_data.h
 	"weather.h"
 
-1309283121 source:c:\cataclysm\item.cpp
+1309544107 source:c:\cataclysm\item.cpp
 	"item.h"
 	"player.h"
 	"output.h"
@@ -897,7 +898,7 @@
 	"line.h"
 	"map.h"
 
-1309543702 source:c:\cataclysm\main.cpp
+1309544043 source:c:\cataclysm\main.cpp
 	<curses.h>
 	<ctime>
 	"game.h"
@@ -1005,7 +1006,7 @@
 	"monattack.h"
 	"itype.h"
 
-1309466889 source:c:\cataclysm\newcharacter.cpp
+1309544107 source:c:\cataclysm\newcharacter.cpp
 	"player.h"
 	"output.h"
 	"rng.h"
@@ -1080,7 +1081,7 @@
 	"npc.h"
 	"keypress.h"
 
-1309476617 source:c:\cataclysm\player.cpp
+1309544107 source:c:\cataclysm\player.cpp
 	"player.h"
 	"bionics.h"
 	"mission.h"
@@ -1341,4 +1342,23 @@
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
+
+1309562459 c:\cataclysm\keybinds.h
+
+1309544043 source:c:\cataclysm\game_old.cpp
+	"game.h"
+	"rng.h"
+	"keypress.h"
+	"output.h"
+	"skill.h"
+	"line.h"
+	"computer.h"
+	"weather_data.h"
+	<fstream>
+	<sstream>
+	<math.h>
+	<unistd.h>
+	<dirent.h>
+	<sys/stat.h>
+	<windows.h>
 
