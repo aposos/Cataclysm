@@ -37,6 +37,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Keybinds.h" />
 		<Unit filename="addiction.h" />
 		<Unit filename="artifact.h" />
 		<Unit filename="bionics.cpp" />

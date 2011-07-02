@@ -13,8 +13,8 @@
 	<File name="computer.cpp" open="1" top="0" tabpos="21">
 		<Cursor position="3837" topLine="137" />
 	</File>
-	<File name="crafting.cpp" open="1" top="0" tabpos="18">
-		<Cursor position="24340" topLine="676" />
+	<File name="crafting.cpp" open="1" top="1" tabpos="18">
+		<Cursor position="2410" topLine="41" />
 	</File>
 	<File name="crafting.h" open="1" top="0" tabpos="15">
 		<Cursor position="238" topLine="0" />
@@ -23,16 +23,19 @@
 		<Cursor position="271" topLine="24" />
 	</File>
 	<File name="game.cpp" open="1" top="0" tabpos="10">
-		<Cursor position="292" topLine="0" />
+		<Cursor position="48071" topLine="1626" />
 	</File>
 	<File name="game.h" open="1" top="0" tabpos="20">
-		<Cursor position="3708" topLine="77" />
+		<Cursor position="3708" topLine="78" />
 	</File>
 	<File name="help.cpp" open="1" top="0" tabpos="6">
 		<Cursor position="11386" topLine="245" />
 	</File>
 	<File name="itype.h" open="1" top="0" tabpos="11">
 		<Cursor position="22005" topLine="548" />
+	</File>
+	<File name="itypedef.cpp" open="1" top="0" tabpos="27">
+		<Cursor position="512" topLine="0" />
 	</File>
 	<File name="keypress.cpp" open="1" top="0" tabpos="4">
 		<Cursor position="280" topLine="0" />
@@ -76,7 +79,7 @@
 	<File name="trap.h" open="1" top="0" tabpos="9">
 		<Cursor position="3053" topLine="84" />
 	</File>
-	<File name="wish.cpp" open="1" top="1" tabpos="26">
-		<Cursor position="248" topLine="40" />
+	<File name="wish.cpp" open="1" top="0" tabpos="26">
+		<Cursor position="1403" topLine="55" />
 	</File>
 </CodeBlocks_layout_file>
