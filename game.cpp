@@ -16,38 +16,10 @@ void intro();
 nc_color sev(int a);	// Right now, ONLY used for scent debugging....
 moncat_id mt_to_mc(mon_id type);	// Pick the moncat that contains type
 
-
+#if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
 /* Windows lacks the nanosleep() function. The following code was stuffed
    together from GNUlib (http://www.gnu.org/software/gnulib/), which is
    licensed under the GPLv3. */
-#if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
-/* Windows platforms.  */
-
-#   ifdef __cplusplus
-extern "C" {
-#   endif
-
-struct timespec
-{
-  time_t tv_sec;
-  long int tv_nsec;
-};
-
-#   ifdef __cplusplus
-}
-#   endif
-
-enum { BILLION = 1000 * 1000 * 1000 };
-
-# define WIN32_LEAN_AND_MEAN
-# include <windows.h>
-
-/* The Win32 function Sleep() has a resolution of about 15 ms and takes
-   at least 5 ms to execute.  We use this function for longer time periods.
-   Additionally, we use busy-looping over short time periods, to get a
-   resolution of about 0.01 ms.  In order to measure such short timespans,
-   we use the QueryPerformanceCounter() function.  */
-
 int
 nanosleep (const struct timespec *requested_delay,
            struct timespec *remaining_delay)
@@ -1825,9 +1797,8 @@ void game::refresh_all()
 {
  draw();
  draw_minimap();
- werase(w_HP);
+ werase(w_HP); // fix by headswe
  draw_HP();
- wrefresh(w_HP);
  wrefresh(w_moninfo);
  wrefresh(w_messages);
  refresh();
@@ -1910,16 +1881,16 @@ void game::draw_minimap()
  nc_color ter_color;
  long ter_sym;
  bool seen = true;
- overmap hori;
- overmap vert;
+ overmap *hori = NULL; //when it wasn't a pointer it used too much space on stack and died on windows
+ overmap *vert = NULL; //not to forget to free it in the end of function
  if (cursx < 2)
-  hori = overmap(this, cur_om.posx - 1, cur_om.posy, 0);
+  hori = new overmap(this, cur_om.posx - 1, cur_om.posy, 0);
  if (cursx > OMAPX - 3)
-  hori = overmap(this, cur_om.posx + 1, cur_om.posy, 0);
+  hori = new overmap(this, cur_om.posx + 1, cur_om.posy, 0);
  if (cursy < 2)
-  vert = overmap(this, cur_om.posx, cur_om.posy - 1, 0);
+  vert = new overmap(this, cur_om.posx, cur_om.posy - 1, 0);
  if (cursy > OMAPY - 3)
-  vert = overmap(this, cur_om.posx, cur_om.posy + 1, 0);
+  vert = new overmap(this, cur_om.posx, cur_om.posy + 1, 0);
  for (int i = -1; i <= 1; i++) {
   for (int j = -1; j <= 1; j++) {
    omx = cursx + i;
@@ -1931,20 +1902,20 @@ void game::draw_minimap()
     cur_ter = ot_null;
    } else if (omx < 0) {
     omx += OMAPX;
-    cur_ter = hori.ter(omx, omy);
-    hori.seen(omx, omy) = true;
+    cur_ter = hori->ter(omx, omy);
+    hori->seen(omx, omy) = true;
    } else if (omx >= OMAPX) {
     omx -= OMAPX;
-    cur_ter = hori.ter(omx, omy);
-    hori.seen(omx, omy) = true;
+    cur_ter = hori->ter(omx, omy);
+    hori->seen(omx, omy) = true;
    } else if (omy < 0) {
     omy += OMAPY;
-    cur_ter = vert.ter(omx, omy);
-    vert.seen(omx, omy) = true;
+    cur_ter = vert->ter(omx, omy);
+    vert->seen(omx, omy) = true;
    } else if (omy >= OMAPY) {
     omy -= OMAPY;
-    cur_ter = vert.ter(omx, omy);
-    vert.seen(omx, omy) = true;
+    cur_ter = vert->ter(omx, omy);
+    vert->seen(omx, omy) = true;
    } else {
     debugmsg("No data loaded! omx: %d omy: %d", omx, omy);
    }
@@ -1976,16 +1947,16 @@ void game::draw_minimap()
      cur_ter = ot_null;
     } else if (barx < 0) {
      barx += OMAPX;
-     cur_ter = hori.ter(barx, bary);
+     cur_ter = hori->ter(barx, bary);
     } else if (barx >= OMAPX) {
      barx -= OMAPX;
-     cur_ter = hori.ter(barx, bary);
+     cur_ter = hori->ter(barx, bary);
     } else if (bary < 0) {
      bary += OMAPY;
-     cur_ter = vert.ter(barx, bary);
+     cur_ter = vert->ter(barx, bary);
     } else if (bary >= OMAPY) {
      bary -= OMAPY;
-     cur_ter = vert.ter(barx, bary);
+     cur_ter = vert->ter(barx, bary);
     }
     if (oterlist[cur_ter].see_cost <= 2 || seen) {
             if (omx >= 0 && omx < OMAPX && omy >= 0 && omy < OMAPY) {
@@ -1995,20 +1966,20 @@ void game::draw_minimap()
       cur_ter = ot_null;
      } else if (omx < 0) {
       omx += OMAPX;
-      cur_ter = hori.ter(omx, omy);
-      hori.seen(omx, omy) = true;
+      cur_ter = hori->ter(omx, omy);
+      hori->seen(omx, omy) = true;
      } else if (omx >= OMAPX) {
       omx -= OMAPX;
-      cur_ter = hori.ter(omx, omy);
-      hori.seen(omx, omy) = true;
+      cur_ter = hori->ter(omx, omy);
+      hori->seen(omx, omy) = true;
      } else if (omy < 0) {
       omy += OMAPY;
-      cur_ter = vert.ter(omx, omy);
-      vert.seen(omx, omy) = true;
+      cur_ter = vert->ter(omx, omy);
+      vert->seen(omx, omy) = true;
      } else if (omy >= OMAPY) {
       omy -= OMAPY;
-      cur_ter = vert.ter(omx, omy);
-      vert.seen(omx, omy) = true;
+      cur_ter = vert->ter(omx, omy);
+      vert->seen(omx, omy) = true;
      }
      ter_color = oterlist[cur_ter].color;
      ter_sym = oterlist[cur_ter].sym;
@@ -2018,6 +1989,8 @@ void game::draw_minimap()
   }
  }
  wrefresh(w_minimap);
+ if(hori != NULL)delete hori;
+ if(vert != NULL)delete vert;
 }
 
 void game::hallucinate()
@@ -4238,18 +4211,10 @@ void game::complete_butcher(int index)
  else {
   itype* meat;
   if (corpse->flags & mfb(MF_POISON)) {
-   if (rng(3, 10) < skill_shift) {
-    add_msg("Your skillful butchering eliminates the poison!");
-    if (corpse->mat == FLESH)
-     meat = itypes[itm_meat];
-    else
-     meat = itypes[itm_veggy];
-   } else {
     if (corpse->mat == FLESH)
      meat = itypes[itm_meat_tainted];
     else
      meat = itypes[itm_veggy_tainted];
-   }
   } else {
    if (corpse->mat == FLESH)
     meat = itypes[itm_meat];
