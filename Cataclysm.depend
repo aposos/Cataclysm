@@ -897,12 +897,11 @@
 	"line.h"
 	"map.h"
 
-1309858168 source:c:\cataclysm\main.cpp
+1309874004 source:c:\cataclysm\main.cpp
 	<curses.h>
 	<ctime>
 	"game.h"
 	"color.h"
-	<windows.h>
 	<SDL/SDL.h>
 
 1309283121 source:c:\cataclysm\map.cpp
