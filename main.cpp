@@ -8,9 +8,10 @@
 #include <ctime>
 #include "game.h"
 #include "color.h"
-#include <windows.h>
+#if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
 #include <SDL/SDL.h>
 #undef main
+#endif
 int main(int argc, char *argv[])
 {
  srand(time(NULL));
@@ -20,7 +21,9 @@ int main(int argc, char *argv[])
  keypad(stdscr, true);
  init_colors();
  curs_set(0);
- SDL_WM_SetCaption("Cataclysm",NULL);
+#if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
+    SDL_WM_SetCaption("Cataclysm",NULL);
+#endif
  rand();
  game g;
  while (!g.do_turn());
