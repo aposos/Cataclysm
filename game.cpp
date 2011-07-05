@@ -1826,7 +1826,9 @@ void game::refresh_all()
 {
  draw();
  draw_minimap();
- wrefresh(w_HP);
+ werase(w_HP);
+ draw_HP();
+ wrefresh((w_HP));
  wrefresh(w_moninfo);
  wrefresh(w_messages);
  refresh();

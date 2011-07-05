@@ -213,7 +213,11 @@ void game::fire(player &p, int tarx, int tary, std::vector<point> &trajectory,
  else if (!is_bolt)
   sound(p.posx, p.posy, noise, gunsound);
 // Set up a timespec for use in the nanosleep function below
+#if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
   _timespec ts;
+#else
+    timespec ts;
+#endif
    ts.tv_sec = 0;
   ts.tv_nsec = BULLET_SPEED;
 
@@ -310,7 +314,11 @@ missed_by, deviation, trange, p.weapon.charges, p.posx, p.posy, tarx, tary);
     mvwputch(w_terrain, trajectory[i].y + SEEY - u.posy,
                         trajectory[i].x + SEEX - u.posx, c_red, '`');
     wrefresh(w_terrain);
+    #if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
     _nanosleep(&ts, NULL);
+    #else
+    nanosleep(&ts,NULL);
+    #endif
    }
 
    if (dam <= 0) {
