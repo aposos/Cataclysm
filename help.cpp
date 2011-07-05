@@ -2,17 +2,31 @@
 #include "keypress.h"
 
 #ifndef LINE_XOXO
-	#define LINE_XOXO 4194424
-	#define LINE_OXOX 4194417
-	#define LINE_XXOO 4194413
-	#define LINE_OXXO 4194412
-	#define LINE_OOXX 4194411
-	#define LINE_XOOX 4194410
-	#define LINE_XXXO 4194420
-	#define LINE_XXOX 4194422
-	#define LINE_XOXX 4194421
-	#define LINE_OXXX 4194423
-	#define LINE_XXXX 4194414
+    #if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
+        #define LINE_XOXO ACS_VLINE
+        #define LINE_OXOX ACS_HLINE
+        #define LINE_XXOO ACS_LLCORNER
+        #define LINE_OXXO ACS_ULCORNER
+        #define LINE_OOXX ACS_URCORNER
+        #define LINE_XOOX ACS_LRCORNER
+        #define LINE_XXXO ACS_LTEE
+        #define LINE_XXOX ACS_BTEE
+        #define LINE_XOXX ACS_RTEE
+        #define LINE_OXXX ACS_TTEE
+        #define LINE_XXXX ACS_PLUS
+    #else
+        #define LINE_XOXO 4194424
+        #define LINE_OXOX 4194417
+        #define LINE_XXOO 4194413
+        #define LINE_OXXO 4194412
+        #define LINE_OOXX 4194411
+        #define LINE_XOOX 4194410
+        #define LINE_XXXO 4194420
+        #define LINE_XXOX 4194422
+        #define LINE_XOXX 4194421
+        #define LINE_OXXX 4194423
+        #define LINE_XXXX 4194414
+    #endif
 #endif
 
 void game::help()
@@ -46,7 +60,7 @@ m: Survival tips\n\
 5: Frequently Asked Questions (Some spoilers!)\n\
 \n\
 q: Return to game");
- 
+
   ch = getch();
   switch (ch) {
   case 'a':
@@ -67,7 +81,7 @@ setting makes some tasks easier. Firearms, medications, and a wide variety of\n\
 tools are all available to help you survive");
    getch();
    break;
- 
+
   case 'b':
   case 'B':
    erase();
@@ -525,7 +539,7 @@ F           Forest - May be dense or sparse.  Slow moving; foragable food.");
    mvputch(3,  8, c_dkgray, LINE_XOXX);
    mvputch(3,  9, c_dkgray, LINE_OXXX);
    mvputch(3, 10, c_dkgray, LINE_XXXX);
- 
+
    mvprintz( 3, 12, c_dkgray,  "\
 Road - Safe from burrowing animals.");
    mvprintz( 4, 0, c_dkgray,  "\

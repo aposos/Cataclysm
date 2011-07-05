@@ -4,6 +4,7 @@
 #include "output.h"
 #include "skill.h"
 #include "line.h"
+
 #include "computer.h"
 #include "weather_data.h"
 #include <fstream>
@@ -17,8 +18,8 @@ nc_color sev(int a);	// Right now, ONLY used for scent debugging....
 moncat_id mt_to_mc(mon_id type);	// Pick the moncat that contains type
 
 
-/* Windows lacks the nanosleep() function. The following code was stuffed 
-   together from GNUlib (http://www.gnu.org/software/gnulib/), which is 
+/* Windows lacks the nanosleep() function. The following code was stuffed
+   together from GNUlib (http://www.gnu.org/software/gnulib/), which is
    licensed under the GPLv3. */
 #if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
 /* Windows platforms.  */
@@ -222,7 +223,7 @@ fivedozenwhales@gmail.com.");
  if (!dir) {
 #if (defined _WIN32 || defined __WIN32__)
   mkdir("save");
-#else 
+#else
   mkdir("save", 0777);
 #endif
   dir = opendir("save");
@@ -546,7 +547,7 @@ void game::start_tutorial(tut_type type)
   m.add_item(SEEX * 2 - 2, SEEY * 2 + 7, itypes[itm_cig], 0);
   m.add_item(SEEX * 2 - 2, SEEY * 2 + 7, itypes[itm_codeine], 0);
   m.add_item(SEEX * 2 - 3, SEEY * 2 + 7, itypes[itm_water], 0);
- 
+
   levz = 0;
   u.posx = SEEX + 2;
   u.posy = SEEY + 4;
@@ -880,7 +881,7 @@ void game::update_weather()
   new_weather = weather_type(int(new_weather) + 1);
  }
  weather = new_weather;
- 
+
 // Now update temperature
  if (!one_in(4)) { // 3 in 4 chance of respecting avg temp for the weather
   int average = weather_data[weather].avg_temperature[season];
@@ -1099,7 +1100,7 @@ int& game::scent(int x, int y)
  }
  return grscent[x][y];
 }
- 
+
 void game::update_scent()
 {
  signed int newscent[SEEX * 3][SEEY * 3];
@@ -1307,7 +1308,7 @@ void game::save()
  fout.open(playerfile.str().c_str());
 // First, write out basic game state information.
  fout << turn << " " << int(last_target) << " " << int(run_mode) << " " <<
-         mostseen << " " << nextinv << " " << next_npc_id << " " << 
+         mostseen << " " << nextinv << " " << next_npc_id << " " <<
          next_mission_id << " " << nextspawn << " " << int(temperature) <<
          " " << levx << " " << levy << " " << levz << " " << cur_om.posx <<
          " " << cur_om.posy << " " << std::endl;
@@ -1345,7 +1346,7 @@ void game::advance_nextinv()
  else
   nextinv++;
 }
- 
+
 void game::add_msg(const char* msg, ...)
 {
  char buff[512];
@@ -1381,7 +1382,7 @@ void game::add_event(event_type type, int on_turn, faction* rel)
 void game::debug()
 {
 // WINDOW *w = newwin(80, 25, 0, 0);
-// mvwprintw(w, 
+// mvwprintw(w,
 }
 
 void game::mondebug()
@@ -1451,7 +1452,7 @@ void game::disp_kills()
   refresh_all();
   return;
  }
-  
+
  for (int i = 0; i < types.size(); i++) {
   if (i < 24) {
    mvwprintz(w, i + 1,  0, types[i]->color, "%c %s", types[i]->sym,
@@ -1477,7 +1478,7 @@ void game::disp_kills()
    mvwprintz(w, i + 1, hori, c_white, "%d", count[i]);
   }
  }
- 
+
  wrefresh(w);
  getch();
  werase(w);
@@ -1485,7 +1486,7 @@ void game::disp_kills()
  delwin(w);
  refresh_all();
 }
-  
+
 void game::disp_NPCs()
 {
  WINDOW* w = newwin(25, 80, 0, 0);
@@ -1681,9 +1682,9 @@ void game::list_missions()
     selection = umissions.size() - 1;
    break;
   }
-   
+
  } while (ch != 'q' && ch != 'Q' && ch != KEY_ESCAPE);
-  
+
 
  werase(w_missions);
  delwin(w_missions);
@@ -2221,7 +2222,7 @@ void game::mon_info()
 // 0 1 2
 // 3 4 5
 // 6 7 8
- std::vector<int> unique_types[10]; 
+ std::vector<int> unique_types[10];
  int direction;
  for (int i = 0; i < z.size(); i++) {
   if (u_see(&(z[i]), buff)) {
@@ -2249,7 +2250,7 @@ void game::mon_info()
     else
      direction = 4;
    }
-    
+
    if (!vector_has(unique_types[direction], z[i].type->id))
     unique_types[direction].push_back(z[i].type->id);
   }
@@ -2283,7 +2284,7 @@ void game::mon_info()
    unique_types[direction].push_back(-1 - i);
   }
  }
-  
+
  if (newseen > mostseen) {
   cancel_activity_query("Monster spotted!");
   if (run_mode == 1)
@@ -2483,7 +2484,7 @@ void game::check_warmth()
   u.add_disease(DI_COLD, abs(warmth), this);
  } else if (warmth >= 12) {
 /*
-  add_msg("Your body is too hot."); 
+  add_msg("Your body is too hot.");
   u.add_disease(DI_HOT, warmth * 2, this);
 */
  }
@@ -2929,7 +2930,7 @@ void game::kill_mon(int index)
   last_target = -1;
  else if (last_target > index)
    last_target--;
-} 
+}
 
 void game::explode_mon(int index)
 {
@@ -2969,7 +2970,7 @@ void game::explode_mon(int index)
   for (int i = 0; i < num_chunks; i++) {
    int tarx = posx + rng(-3, 3), tary = posy + rng(-3, 3);
    std::vector<point> traj = line_to(posx, posy, tarx, tary, 0);
- 
+
    bool done = false;
    for (int j = 0; j < traj.size() && !done; j++) {
     tarx = traj[j].x;
@@ -3002,7 +3003,7 @@ void game::explode_mon(int index)
    m.add_item(tarx, tary, meat, turn);
   }
  }
- 
+
  z.erase(z.begin()+index);
  if (last_target == index)
   last_target = -1;
@@ -3202,7 +3203,7 @@ void game::examine()
    add_msg("The nearby doors slide into the floor.");
    u.use_up(itm_card_id, 1);
   }
-  bool using_electrohack = (u.has_amount(itm_electrohack, 1) && 
+  bool using_electrohack = (u.has_amount(itm_electrohack, 1) &&
                             query_yn("Use electrohack on the reader?"));
   bool using_fingerhack = (!using_electrohack && u.has_bionic(bio_fingerhack) &&
                            u.power_level > 0 &&
@@ -3365,7 +3366,7 @@ void game::look_around()
     m.drawsq(w_terrain, u, lx, ly, true, true);
    } else
     m.drawsq(w_terrain, u, lx, ly, true, true);
-    
+
   } else if (lx == u.posx && ly == u.posy) {
    mvwputch_inv(w_terrain, SEEX, SEEY, u.color(), '@');
    mvwprintw(w_look, 1, 1, "You (%s)", u.name.c_str());
@@ -3849,7 +3850,7 @@ bool game::handle_liquid(item &liquid, bool from_ground, bool infinite)
  }
  return false;
 }
-   
+
 
 void game::drop()
 {
@@ -4012,7 +4013,7 @@ void game::plthrow()
 {
  char ch = inv("Throw item:");
  int range = u.throw_range(u.lookup_item(ch));
- if (range < 0) { 
+ if (range < 0) {
   add_msg("You don't have that item.");
   return;
  } else if (range == 0) {
@@ -4033,12 +4034,12 @@ void game::plthrow()
    if (u_see(j, k, junk)) {
     if (k >= y0 && k <= y1 && j >= x0 && j <= x1)
      m.drawsq(w_terrain, u, j, k, false, true);
-    else 
+    else
      mvwputch(w_terrain, k + SEEY - u.posy, j + SEEX - u.posx, c_dkgray, '#');
    }
   }
  }
- 
+
  std::vector <monster> mon_targets;
  std::vector <int> targetindices;
  int passtarget = -1;
@@ -4089,7 +4090,7 @@ void game::plfire(bool burst)
    if (u_see(j, k, junk)) {
     if (k >= y0 && k <= y1 && j >= x0 && j <= x1)
      m.drawsq(w_terrain, u, j, k, false, true);
-    else 
+    else
      mvwputch(w_terrain, k + SEEY - y, j + SEEX - x, c_dkgray, '#');
    }
   }
@@ -4099,7 +4100,7 @@ void game::plfire(bool burst)
  std::vector <int> targetindices;
  int passtarget = -1;
  for (int i = 0; i < z.size(); i++) {
-  if (z[i].posx >= x0 && z[i].posx <= x1 && 
+  if (z[i].posx >= x0 && z[i].posx <= x1 &&
       z[i].posy >= y0 && z[i].posy <= y1 &&
       z[i].friendly == 0 && u_see(&(z[i]), junk)) {
    mon_targets.push_back(z[i]);
@@ -4176,7 +4177,7 @@ void game::butcher()
   }
  }
 }
-   
+
 void game::complete_butcher(int index)
 {
  mtype* corpse = m.i_at(u.posx, u.posy)[index].corpse;
@@ -4204,7 +4205,7 @@ void game::complete_butcher(int index)
   skill_shift -= rng(0, 5 * (4 - u.str_cur)) / 4;
  if (factor > 0)
   skill_shift -= rng(0, factor / 5);
-   
+
  int practice = 4 + pieces;
  if (practice > 20)
   practice = 20;
@@ -4343,7 +4344,7 @@ void game::reload()
   add_msg("You can't reload a %s!", u.weapon.tname(this).c_str());
  refresh_all();
 }
- 
+
 void game::unload()
 {
  if (!u.weapon.is_gun() && u.weapon.contents.size() == 0 &&
@@ -4438,7 +4439,7 @@ void game::unload()
  }
  u.weapon.curammo = NULL;
 }
-  
+
 void game::wield()
 {
  if (u.weapon.type->id > num_items) {
@@ -4553,7 +4554,7 @@ void game::plmove(int x, int y)
    int side = rng(0, 1);
    add_msg("You hit %s's %s.", active_npc[npcdex].name.c_str(),
            body_part_name(bphit, side).c_str());
-   if (u.has_bionic(bio_shock) && u.power_level >= 2 && one_in(3) && 
+   if (u.has_bionic(bio_shock) && u.power_level >= 2 && one_in(3) &&
        (!u.is_armed() || u.weapon.type->id > num_items)) {
     add_msg("You shock %s!", active_npc[npcdex].name.c_str());
     int shock = rng(2, 5);
@@ -4612,7 +4613,7 @@ void game::plmove(int x, int y)
  if (m.move_cost(x, y) > 0) { // move_cost() of 0 = impassible (e.g. a wall)
   if (u.underwater)
    u.underwater = false;
-  int movecost; 
+  int movecost;
   if (m.field_at(x, y).is_dangerous() &&
       !query_yn("Really step into that %s?", m.field_at(x, y).name().c_str()))
    return;
@@ -4623,7 +4624,7 @@ void game::plmove(int x, int y)
   if (u.has_trait(PF_PARKOUR) && m.move_cost(x, y) <= 4)
    movecost = 100 + u.encumb(bp_feet) * 5 + u.encumb(bp_legs) * 3;
   else
-   movecost = m.move_cost(x, y) * 50 + u.encumb(bp_feet) * 5 + 
+   movecost = m.move_cost(x, y) * 50 + u.encumb(bp_feet) * 5 +
                                        u.encumb(bp_legs) * 3;
   if (u.has_trait(PF_FLEET) && m.move_cost(x, y) == 2)
    movecost = int(movecost * .85);
@@ -4747,7 +4748,7 @@ void game::plmove(int x, int y)
     tutorial_message(LESSON_SMASH);
   }
  }
-}	
+}
 
 void game::plswim(int x, int y)
 {
@@ -4881,7 +4882,7 @@ void game::vertical_move(int movez, bool force)
  }
  refresh_all();
 }
- 
+
 
 void game::update_map(int &x, int &y)
 {
@@ -4915,7 +4916,7 @@ void game::update_map(int &x, int &y)
   cur_om.save(u.name);
   cur_om = overmap(this, cur_om.posx + olevx, cur_om.posy + olevy, cur_om.posz);
  }
-  
+
 // Shift monsters
  for (int i = 0; i < z.size(); i++) {
   z[i].shift(shiftx, shifty);
@@ -5040,7 +5041,7 @@ void game::spawn_mon(int shiftx, int shifty)
      zom = monster(mtypes[type]);
      iter = 0;
      do {
-      monx = rng(0, SEEX * 3 - 1); 
+      monx = rng(0, SEEX * 3 - 1);
       mony = rng(0, SEEY * 3 - 1);
       if (shiftx == -1) monx = 0 - SEEX * 2; if (shiftx == 1) monx = SEEX * 4;
       if (shifty == -1) mony = 0 - SEEX * 2; if (shifty == 1) mony = SEEY * 4;
@@ -5061,7 +5062,7 @@ void game::spawn_mon(int shiftx, int shifty)
    }
   }
  }
-} 
+}
 
 mon_id game::valid_monster_from(std::vector<mon_id> group)
 {
@@ -5227,7 +5228,7 @@ std::vector<faction *> game::factions_at(int x, int y)
  }
  return ret;
 }
- 
+
 oter_id game::ter_at(int omx, int omy, bool& mark_as_seen)
 {
  oter_id ret;

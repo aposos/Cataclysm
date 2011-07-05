@@ -18,7 +18,7 @@ struct _timespec
   time_t tv_sec;
   long int tv_nsec;
 };
-
+enum { BILLION = 1000 * 1000 * 1000 };
 #   ifdef __cplusplus
 }
 #   endif
