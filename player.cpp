@@ -71,7 +71,7 @@ void player::normalize(game *g)
   hp_cur[i] = hp_max[i];
  }
 }
-
+ 
 void player::reset()
 {
 // Reset our stats to normal levels
@@ -130,7 +130,7 @@ void player::reset()
  dex_cur += int(stim / 10);
  per_cur += int(stim /  7);
  int_cur += int(stim /  6);
- if (stim >= 30) {
+ if (stim >= 30) { 
   dex_cur -= int(abs(stim - 15) /  8);
   per_cur -= int(abs(stim - 15) / 12);
   int_cur -= int(abs(stim - 15) / 14);
@@ -148,7 +148,7 @@ void player::reset()
   per_cur = 0;
  if (int_cur < 0)
   int_cur = 0;
-
+ 
  int mor = morale_level();
  if      (mor >= 300)
   xp_pool += 4;
@@ -421,12 +421,12 @@ void player::disp_info(game *g)
   int dexbonus = int(stim / 10);
   int perbonus = int(stim /  7);
   int intbonus = int(stim /  6);
-  if (abs(stim) >= 30) {
+  if (abs(stim) >= 30) { 
    dexbonus -= int(abs(stim - 15) /  8);
    perbonus -= int(abs(stim - 15) / 12);
    intbonus -= int(abs(stim - 15) / 14);
   }
-
+  
   if (dexbonus < 0)
    effect_name.push_back("Stimulant Overdose");
   else
@@ -732,7 +732,7 @@ which require brute force.");
     mvwprintz(w_stats, 3, 2, h_ltgray, "Dexterity:");
     mvwprintz(w_info, 0, 0, c_magenta, "\
 Dexterity affects your chance to hit in melee combat, helps you steady your\n\
-gun for ranged combat, and enhances many actions that require finesse.");
+gun for ranged combat, and enhances many actions that require finesse."); 
    } else if (line == 2) {
     mvwprintz(w_stats, 4, 2, h_ltgray, "Intelligence:");
     mvwprintz(w_info, 0, 0, c_magenta, "\
@@ -805,11 +805,12 @@ Dexterity -%d when throwing items", encumb(bp_hands) * 30, encumb(bp_hands));
    } else if (line == 5) {
     mvwprintz(w_encumb, 7, 2, h_ltgray, "Legs");
     std::string sign = (encumb(bp_legs) >= 0 ? "+" : "");
+    std::string osign = (encumb(bp_legs) < 0 ? "+" : "-");
     mvwprintz(w_info, 0, 0, c_magenta, "\
 Running costs %s%d movement points;  Swimming costs %s%d movement points;\n\
 Dodge skill %s%.1f", sign.c_str(), encumb(bp_legs) * 3,
                      sign.c_str(), encumb(bp_legs) *(50 - sklevel[sk_swimming]),
-                     sign.c_str(), double(double(encumb(bp_legs)) / 2));
+                     osign.c_str(), double(double(encumb(bp_legs)) / 2));
    } else if (line == 6) {
     mvwprintz(w_encumb, 8, 2, h_ltgray, "Feet");
     mvwprintz(w_info, 0, 0, c_magenta, "\
@@ -1007,7 +1008,7 @@ encumb(bp_feet) * 5);
     } else {
      mvwprintz(w_skills, 2 + i - min, 1, status, "%s:",
                skill_name(skillslist[i]).c_str());
-     mvwprintz(w_skills, 2 + i - min,19, status, "%d (%s%d%%%%)",
+     mvwprintz(w_skills, 2 + i - min,19, status, "%d (%s%d%%%%)", 
                sklevel[skillslist[i]],
                (skexercise[skillslist[i]] < 10 &&
                 skexercise[skillslist[i]] >= 0 ? " " : ""),
@@ -1057,7 +1058,7 @@ encumb(bp_feet) * 5);
    }
   }
  } while (!done);
-
+ 
  werase(w_info);
  werase(w_grid);
  werase(w_stats);
@@ -1068,7 +1069,7 @@ encumb(bp_feet) * 5);
  werase(w_speed);
  werase(w_info);
 
- //delwin(w_info);
+ delwin(w_info);
  delwin(w_grid);
  delwin(w_stats);
  delwin(w_encumb);
@@ -1123,7 +1124,7 @@ void player::disp_morale()
  werase(w);
  delwin(w);
 }
-
+ 
 
 void player::disp_status(WINDOW *w)
 {
@@ -1838,16 +1839,6 @@ bool player::has_two_arms()
  return true;
 }
 
-bool player::is_armed()
-{
- return (weapon.type->id != 0);
-}
-
-bool player::unarmed_attack()
-{
- return (weapon.type->id == 0 || weapon.type->id == itm_bio_claws);
-}
-
 bool player::avoid_trap(trap* tr)
 {
  int myroll = dice(3, dex_cur + sklevel[sk_dodge] * 1.5);
@@ -1876,493 +1867,6 @@ void player::pause()
  }
 }
 
-int player::hit_roll()
-{
- int numdice = base_to_hit() + weapon.type->m_to_hit;
- bool unarmed = false, bashing = false, cutting = false;
-// Are we unarmed?
- if (unarmed_attack()) {
-  unarmed = true;
-  numdice += sklevel[sk_unarmed];
-  if (sklevel[sk_unarmed] > 4)
-   numdice += sklevel[sk_unarmed] - 2;	// Extra bonus for high levels
-  if (has_trait(PF_DRUNKEN) && has_disease(DI_DRUNK))
-   numdice += rng(0, 1) + int(disease_level(DI_DRUNK) / 300);
- } else if (has_trait(PF_DRUNKEN) && has_disease(DI_DRUNK))
-  numdice += int(disease_level(DI_DRUNK) / 400);
-// Using a bashing weapon?
- if (weapon.is_bashing_weapon()) {
-  bashing = true;
-  numdice += int(sklevel[sk_bashing] / 3);
- }
-// Using a cutting weapon?
- if (weapon.is_cutting_weapon()) {
-  cutting = true;
-  numdice += int(sklevel[sk_cutting] / 2);
- }
-// Using a spear?
- if (weapon.has_weapon_flag(WF_SPEAR) || weapon.has_weapon_flag(WF_STAB))
-  numdice += int(sklevel[sk_stabbing]);
-
- int sides = 10;
- if (numdice < 1) {
-  numdice = 1;
-  sides = 8;
- }
- sides -= encumb(bp_torso);
- if (sides < 2)
-  sides = 2;
-
- return dice(numdice, sides);
-}
-
-int player::hit_mon(game *g, monster *z)
-{
- bool is_u = (this == &(g->u));	// Affects how we'll display messages
- int j;
- bool can_see = (is_u || g->u_see(posx, posy, j));
- std::string You  = (is_u ? "You"  : name);
- std::string Your = (is_u ? "Your" : name + "'s");
- std::string your = (is_u ? "your" : (male ? "his" : "her"));
-
-// Types of combat (may overlap!)
- bool unarmed  = unarmed_attack(), bashing = weapon.is_bashing_weapon(),
-      cutting  = weapon.is_cutting_weapon(),
-      stabbing = (weapon.has_weapon_flag(WF_SPEAR) ||
-                  weapon.has_weapon_flag(WF_STAB));
-
-// Recoil penalty
- if (recoil <= 30)
-  recoil += 6;
-// Movement cost
- moves -= weapon.attack_time() + 20 * encumb(bp_torso);
-// Different sizes affect your chance to hit
- if (hit_roll() < z->dodge_roll()) {// A miss!
-// Movement penalty for missing & stumbling
-  int stumble_pen = 2 * weapon.volume() + weapon.weight();
-  if (has_trait(PF_DEFT))
-   stumble_pen = int(stumble_pen * .3) - 10;
-  if (stumble_pen < 0)
-   stumble_pen = 0;
-  if (stumble_pen > 0 && (one_in(16 - str_cur) || one_in(22 - dex_cur)))
-   stumble_pen = rng(0, stumble_pen);
-  if (is_u) {	// Only display messages if this is the player
-   if (stumble_pen >= 60)
-    g->add_msg("You miss and stumble with the momentum.");
-   else if (stumble_pen >= 10)
-    g->add_msg("You swing wildly and miss.");
-   else
-    g->add_msg("You miss.");
-  }
-  moves -= stumble_pen;
-  return 0;
- }
- if (z->has_flag(MF_SHOCK) && !wearing_something_on(bp_hands) &&
-     (unarmed || weapon.conductive())) {
-  if (is_u)
-   g->add_msg("The %s's electric body shocks you!", z->name().c_str());
-  hurtall(rng(1, 3));
- }
-// For very high hit rolls, we crit!
- bool critical_hit = (hit_roll() >= 50 + 10 * z->dodge_roll());
- int dam = base_damage(true);
- int cutting_penalty = 0; // Moves lost from getting a cutting weapon stuck
-
-// Drunken Master bonuses
- if (has_trait(PF_DRUNKEN) && has_disease(DI_DRUNK)) {
-// Remember, a single drink gives 600 levels of DI_DRUNK
-  if (unarmed)
-   dam += disease_level(DI_DRUNK) / 250;
-  else
-   dam += disease_level(DI_DRUNK) / 400;
- }
-
- if (unarmed) { // Unarmed bonuses
-  dam += rng(0, sklevel[sk_unarmed]);
-  if (has_trait(PF_TALONS) && z->type->armor - sklevel[sk_unarmed] < 10) {
-   int z_armor = (z->type->armor - sklevel[sk_unarmed]);
-   if (z_armor < 0)
-    z_armor = 0;
-   dam += 10 - z_armor;
-  }
- } else if (rng(1, 45 - dex_cur) < 2 * sklevel[sk_unarmed] &&
-            rng(1, 65 - dex_cur) < 2 * sklevel[sk_unarmed]   ) {
-// If we're not unarmed, there's still a possibility of getting in a bonus
-// unarmed attack.
-  if (is_u || can_see) {
-   switch (rng(1, 4)) {
-    case 1: g->add_msg("%s kick%s the %s!", You.c_str(), (is_u ? "" : "s"),
-                       z->name().c_str()); break;
-    case 2: g->add_msg("%s headbutt%s the %s!", You.c_str(), (is_u ? "" : "s"),
-                       z->name().c_str()); break;
-    case 3: g->add_msg("%s elbow%s the %s!", You.c_str(), (is_u ? "" : "s"),
-                       z->name().c_str()); break;
-    case 4: g->add_msg("%s knee%s the %s!", You.c_str(), (is_u ? "" : "s"),
-                       z->name().c_str()); break;
-   }
-  }
-  dam += rng(1, sklevel[sk_unarmed]);
-  practice(sk_unarmed, 2);
- }
-// Melee skill bonus
- dam += rng(0, sklevel[sk_melee]);
-// Bashing damage bonus
- int bash_dam = weapon.type->melee_dam,
-     bash_cap = 5 + str_cur + sklevel[sk_bashing];
- if (bash_dam > bash_cap)// Cap for weak characters
-  bash_dam = (bash_cap * 3 + bash_dam) / 4;
- if (bashing)
-  bash_dam += rng(0, sklevel[sk_bashing]) * sqrt(str_cur);
- int bash_min = bash_dam / 4;
- if (bash_min < sklevel[sk_bashing] * 2)
-  bash_min = sklevel[sk_bashing] * 2;
- dam += rng(bash_dam / 4, bash_dam);
-// Take some moves away from the target; at this point it's skill & bash damage
- z->moves -= rng(0, dam * 2);
-// Spears treat cutting damage specially.
- if (weapon.has_weapon_flag(WF_SPEAR) &&
-     weapon.type->melee_cut > z->type->armor - int(sklevel[sk_stabbing])) {
-  int z_armor = z->type->armor - int(sklevel[sk_stabbing]);
-  dam += int(weapon.type->melee_cut / 5);
-  int minstab = sklevel[sk_stabbing] *  8 + weapon.type->melee_cut * 2,
-      maxstab = sklevel[sk_stabbing] * 20 + weapon.type->melee_cut * 4;
-  int monster_penalty = rng(minstab, maxstab);
-  if (monster_penalty >= 150)
-   g->add_msg("You force the %s to the ground!", z->name().c_str());
-  else if (monster_penalty >= 80)
-   g->add_msg("The %s is skewered and flinches!", z->name().c_str());
-  z->moves -= monster_penalty;
-  cutting_penalty = weapon.type->melee_cut * 4 + z_armor * 8 -
-                    dice(sklevel[sk_stabbing], 10);
-  practice(sk_stabbing, 5);
-// Cutting damage bonus
- } else if (weapon.type->melee_cut >
-            z->type->armor - int(sklevel[sk_cutting] / 2)) {
-  int z_armor = z->type->armor - int(sklevel[sk_cutting] / 2);
-  if (z_armor < 0)
-   z_armor = 0;
-  dam += weapon.type->melee_cut - z_armor;
-  cutting_penalty = weapon.type->melee_cut * 3 + z_armor * 8 -
-                    dice(sklevel[sk_cutting], 10);
- }
- if (weapon.has_weapon_flag(WF_MESSY)) { // e.g. chainsaws
-  cutting_penalty /= 6; // Harder to get stuck
-  for (int x = z->posx - 1; x <= z->posx + 1; x++) {
-   for (int y = z->posy - 1; y <= z->posy + 1; y++) {
-    if (!one_in(3)) {
-     if (g->m.field_at(x, y).type == fd_blood &&
-         g->m.field_at(x, y).density < 3)
-      g->m.field_at(x, y).density++;
-     else
-      g->m.add_field(g, x, y, fd_blood, 1);
-    }
-   }
-  }
- }
-
-// Bonus attacks!
-
- bool shock_them = (!z->has_flag(MF_SHOCK) && has_bionic(bio_shock) &&
-                    power_level >= 2 && unarmed && one_in(3));
- bool drain_them = (has_bionic(bio_heat_absorb) && power_level >= 1 &&
-                    !is_armed() && z->has_flag(MF_WARM));
- bool  bite_them = (has_trait(PF_FANGS) && z->armor() < 18 &&
-                    one_in(20 - dex_cur - sklevel[sk_unarmed]));
- bool  peck_them = (has_trait(PF_BEAK)  && z->armor() < 16 &&
-                    one_in(15 - dex_cur - sklevel[sk_unarmed]));
- if (drain_them)
-  power_level--;
- drain_them &= one_in(2);	// Only works half the time
-
-// Critical hit effects
- if (critical_hit) {
-  bool headshot = (!z->has_flag(MF_NOHEAD) && !one_in(3));
-// Second chance for shock_them, drain_them, bite_them and peck_them
-  shock_them = (shock_them || (!z->has_flag(MF_SHOCK) && has_bionic(bio_shock)&&
-                               power_level >= 2 && unarmed && !one_in(3)));
-  drain_them = (drain_them || (has_bionic(bio_heat_absorb) && !is_armed() &&
-                               power_level >= 1 && z->has_flag(MF_WARM) &&
-                               !one_in(3)));
-  bite_them  = ( bite_them || (has_trait(PF_FANGS) && z->armor() < 18 &&
-                               one_in(5)));
-  peck_them  = ( peck_them || (has_trait(PF_BEAK)  && z->armor() < 16 &&
-                               one_in(4)));
-
-  if (weapon.has_weapon_flag(WF_SPEAR) || weapon.has_weapon_flag(WF_STAB)) {
-   dam += weapon.type->melee_cut;
-   dam += rng(1, 10) * sklevel[sk_stabbing];
-   practice(sk_stabbing, 5);
-  }
-
-  if (unarmed) {
-   dam += rng(2, 6) * sklevel[sk_unarmed];
-   if (sklevel[sk_unarmed] > 5)
-    dam += 4 * (sklevel[sk_unarmed - 3]);
-   z->moves -= dam;	// Stunning blow
-   if (weapon.type->id == itm_bio_claws) {
-    if (sklevel[sk_cutting] >= 3)
-     dam += 5;
-    headshot &= z->hp < dam && one_in(2);
-    if (headshot && can_see)
-     g->add_msg("%s claws pierce the %s's skull!", Your.c_str(),
-                z->name().c_str());
-    else if (can_see)
-     g->add_msg("%s claws stab straight through the %s!", Your.c_str(),
-                z->name().c_str());
-   } else if (has_trait(PF_TALONS)) {
-    dam += 2;
-    headshot &= z->hp < dam && one_in(2);
-    if (headshot && can_see)
-     g->add_msg("%s talons tear the %s's head open!", Your.c_str(),
-                z->name().c_str());
-    else if (can_see)
-     g->add_msg("%s bur%s %s talons into the %s!", You.c_str(),(is_u?"y":"ies"),
-                your.c_str(), z->name().c_str());
-   } else {
-    headshot &= z->hp < dam && one_in(2);
-    if (headshot && can_see)
-     g->add_msg("%s crush%s the %s's skull in a single blow!",
-                You.c_str(), (is_u ? "" : "es"), z->name().c_str());
-    else if (can_see)
-     g->add_msg("%s deliver%s a crushing punch!",You.c_str(),(is_u ? "" : "s"));
-   }
-   if (z->hp > 0 && rng(1, 5) < sklevel[sk_unarmed])
-    z->add_effect(ME_STUNNED, 1 + sklevel[sk_unarmed]);
-  } else {	// Not unarmed
-   if (bashing) {
-    dam += 2 * sklevel[sk_bashing];
-    dam += 8 + (str_cur / 2);
-    z->add_effect(ME_STUNNED, int(dam / 20) + sklevel[sk_bashing]);
-    z->moves -= rng(dam, dam * 2);	// Stunning blow
-   }
-   if (cutting) {
-    dam += 3 * sklevel[sk_cutting];
-    headshot &= z->hp < dam;
-    if (headshot && can_see)
-     g->add_msg("%s %s slices the %s's head off!", Your.c_str(),
-                weapon.tname(g).c_str(), z->name().c_str());
-    else if (can_see)
-     g->add_msg("%s stab %s %s through the %s!", You.c_str(), your.c_str(),
-                weapon.tname(g).c_str(), z->name().c_str());
-   } else {	// Not cutting, probably bashing
-    headshot &= z->hp < dam;
-    if (headshot && can_see)
-     g->add_msg("%s crush%s the %s's skull!", You.c_str(), (is_u ? "" : "es"),
-                z->name().c_str());
-    else if (can_see)
-     g->add_msg("%s crush%s the %s's body!", You.c_str(), (is_u ? "" : "es"),
-                z->name().c_str());
-   }
-  }	// End of not-unarmed
- }	// End of critical hit
-
- if (shock_them) {
-  power_level -= 2;
-  if (can_see)
-   g->add_msg("%s shock%s the %s!", You.c_str(), (is_u ? "" : "s"),
-              z->name().c_str());
-  int shock = rng(2, 5);
-  dam += shock * rng(1, 3);
-  z->moves -= shock * 180;
- }
- if (drain_them) {
-  charge_power(rng(0, 4));
-  if (can_see)
-   g->add_msg("%s drain%s the %s's body heat!", You.c_str(), (is_u ? "" : "s"),
-              z->name().c_str());
-  dam += rng(4, 10);
-  z->moves -= rng(80, 120);
- }
- if (bite_them) {
-  if (can_see)
-   g->add_msg("%s sink %s fangs into the %s!", You.c_str(), your.c_str(),
-              z->name().c_str());
-  dam += 18 - z->armor();
- }
- if (peck_them) {
-  if (can_see)
-   g->add_msg("%s peck%s the %s viciously!", You.c_str(), (is_u ? "" : "s"),
-              z->name().c_str());
-  dam += 16 - z->armor();
- }
-
-// Make a rather quiet sound, to alert any nearby monsters
- g->sound(posx, posy, 6, "");
-
-// Glass weapons shatter sometimes
- if (weapon.made_of(GLASS) &&
-     rng(0, weapon.volume() + 8) < weapon.volume() + str_cur) {
-  if (can_see)
-   g->add_msg("%s %s shatters!", Your.c_str(), weapon.tname(g).c_str());
-  g->sound(posx, posy, 16, "");
-// Dump its contents on the ground
-  for (int i = 0; i < weapon.contents.size(); i++)
-   g->m.add_item(posx, posy, weapon.contents[i]);
-  hit(g, bp_arms, 1, 0, rng(0, weapon.volume() * 2));// Take damage
-  if (weapon.is_two_handed(this))// Hurt left arm too, if it was big
-   hit(g, bp_arms, 0, 0, rng(0, weapon.volume()));
-  dam += rng(0, 5 + int(weapon.volume() * 1.5));// Hurt the monster extra
-  remove_weapon();
- }
-
- if (dam <= 0) {
-  if (is_u)
-   g->add_msg("You hit the %s, but do no damage.", z->name().c_str());
-  else if (can_see)
-   g->add_msg("%s's %s hits the %s, but does no damage.", You.c_str(),
-              weapon.tname(g).c_str(), z->name().c_str());
-  practice(sk_melee, rng(2, 5));
-  if (unarmed)
-   practice(sk_unarmed, 2);
-  if (bashing)
-   practice(sk_bashing, 2);
-  if (cutting)
-   practice(sk_cutting, 3);
-  return 0;
- }
- if (is_u)
-  g->add_msg("You hit the %s for %d damage.", z->name().c_str(), dam);
- else if (can_see)
-  g->add_msg("%s hits the %s with %s %s.", You.c_str(), z->name().c_str(),
-             (male ? "his" : "her"),
-             (weapon.type->id == 0 ? "fists" : weapon.tname(g).c_str()));
- practice(sk_melee, rng(5, 10));
- if (unarmed)
-  practice(sk_unarmed, rng(5, 10));
- if (bashing)
-  practice(sk_bashing, rng(5, 10));
- if (cutting)
-  practice(sk_cutting, rng(5, 10));
-
-// Penalize the player if their cutting weapon got stuck
- if (!unarmed && dam < z->hp && cutting_penalty > dice(str_cur, 20)) {
-  if (is_u)
-   g->add_msg("Your %s gets stuck in the %s, pulling it out of your hands!",
-              weapon.tname().c_str(), z->type->name.c_str());
-  z->add_item(remove_weapon());
-  if (weapon.has_weapon_flag(WF_SPEAR) || weapon.has_weapon_flag(WF_STAB))
-   z->speed *= .7;
-  else
-   z->speed *= .85;
- } else {
-  if (dam >= z->hp) {
-   cutting_penalty /= 2;
-   cutting_penalty -= rng(sklevel[sk_cutting], sklevel[sk_cutting] * 2 + 2);
-  }
-  if (cutting_penalty > 0)
-   moves -= cutting_penalty;
-  if (cutting_penalty >= 50 && is_u)
-   g->add_msg("Your %s gets stuck in the %s, but you yank it free.",
-              weapon.tname().c_str(), z->type->name.c_str());
-  if (weapon.has_weapon_flag(WF_SPEAR) || weapon.has_weapon_flag(WF_STAB))
-   z->speed *= .9;
- }
-
- return dam;
-}
-
-bool player::hit_player(player &p, body_part &bp, int &hitdam, int &hitcut)
-{
-// TODO: Add bionics and other bonus (e.g. heat drain, shock, etc)
- if (!is_npc() && p.is_npc()) {
-  npc *foe = dynamic_cast<npc*>(&p);
-  foe->make_angry();
- }
- bool unarmed = unarmed_attack(), bashing = weapon.is_bashing_weapon(),
-      cutting = weapon.is_cutting_weapon();
- int hitit = hit_roll() - p.dodge_roll();
- if (hitit < 0) {	// They dodged
-  practice(sk_melee, rng(2, 4));
-  if (unarmed)
-   practice(sk_unarmed, 3);
-  if (bashing)
-   practice(sk_bashing, 1);
-  if (cutting)
-   practice(sk_cutting, 2);
-  return false;
- }
-
- if (hitit >= 15)
-  bp = bp_eyes;
- else if (hitit >= 12)
-  bp = bp_mouth;
- else if (hitit >= 10)
-  bp = bp_head;
- else if (hitit >= 6)
-  bp = bp_torso;
- else if (hitit >= 2)
-  bp = bp_arms;
- else
-  bp = bp_legs;
-
- hitdam = base_damage();
-
- if (unarmed) {// Unarmed bonuses
-  hitdam += rng(0, sklevel[sk_unarmed]);
-  if (sklevel[sk_unarmed] >= 5)
-   hitdam += rng(sklevel[sk_unarmed], 3 * sklevel[sk_unarmed]);
-  if (has_trait(PF_TALONS))
-   hitcut += 10;
-  if (sklevel[sk_unarmed] >= 8 &&
-      (one_in(3) || rng(5, 20) < sklevel[sk_unarmed]))
-   hitdam *= rng(2, 3);
- }
-// Weapon adds (melee_dam / 4) to (melee_dam)
- hitdam += rng(weapon.type->melee_dam / 4, weapon.type->melee_dam);
- if (bashing)
-  hitdam += rng(0, sklevel[sk_bashing]) * sqrt(str_cur);
-
- hitdam += int(pow(1.5, sklevel[sk_melee]));
- hitcut = weapon.type->melee_cut;
- if (hitcut > 0)
-  hitcut += int(sklevel[sk_cutting] / 3);
- if (hitdam < 0) hitdam = 0;
- if (hitdam > 0 || hitcut > 0) { // Practicing
-  practice(sk_melee, rng(5, 10));
-  if (unarmed)
-   practice(sk_unarmed, rng(5, 10));
-  if (bashing)
-   practice(sk_bashing, rng(5, 10));
-  if (cutting)
-   practice(sk_cutting, rng(5, 10));
- } else { // Less practice if we missed
-  practice(sk_melee, rng(2, 5));
-  if (unarmed)
-   practice(sk_unarmed, 2);
-  if (bashing)
-   practice(sk_bashing, 2);
-  if (cutting)
-   practice(sk_cutting, 3);
- }
- return true;
-}
-
-int player::dodge()
-{
-// If this function is called, it should be assumed that we're exercising
-//  the dodge skill.
- if (has_disease(DI_SLEEP) || has_disease(DI_LYING_DOWN))
-  return 0;
- practice(sk_dodge, 5);
- int ret = 4 + (dex_cur / 2);
- ret += sklevel[sk_dodge];
- ret -= (encumb(bp_legs) / 2) + encumb(bp_torso);
- ret += int(current_speed() / 150);
- if (str_max >= 16)
-  ret--; // Penalty if we're hyuuge
- else if (str_max <= 5)
-  ret++; // Bonus if we're small
- if (!can_dodge) // We already dodged this turn
-  ret = rng(0, ret);
- can_dodge = false;
- return ret;
-}
-
-int player::dodge_roll()
-{
- return dice(dodge(), 6);
-}
-
 int player::throw_range(int index)
 {
  item tmp;
@@ -2384,27 +1888,7 @@ int player::throw_range(int index)
   return str_cur * 2;
  return ret;
 }
-
-int player::base_damage(bool real_life)
-{
- int str = (real_life ? str_cur : str_max);
- int dam = (real_life ? rng(0, str / 2) : str / 2);
-// Bonus for strong characters
- if (str > 10)
-  dam += int((str - 9) / 2);
-// Big bonus for super-human characters
- if (str > 20)
-  dam += int((str - 20) * 1.5);
-
- return dam;
-}
-
-int player::base_to_hit(bool real_life)
-{
- int dex = (real_life ? dex_cur : dex_max);
- return 1 + int(dex / 2) + sklevel[sk_melee];
-}
-
+ 
 int player::ranged_dex_mod(bool real_life)
 {
  int dex = (real_life ? dex_cur : dex_max);
@@ -2452,7 +1936,7 @@ int player::throw_dex_mod(bool real_life)
   return 0;
  if (dex >= 10)
   return (real_life ? 0 - rng(0, dex - 9) : 9 - dex);
-
+ 
  int deviation = 0;
  if (dex < 6)
   deviation = 3 * (8 - dex);
@@ -2754,7 +2238,7 @@ void player::add_disease(dis_type type, int duration, game *g)
   }
   i++;
  }
- if (!found) {
+ if (!found) {   
   if (!is_npc())
    dis_msg(g, type);
   disease tmp(type, duration);
@@ -3233,7 +2717,7 @@ void player::add_morale(morale_type type, int bonus, int max_bonus,
   morale.push_back(tmp);
  }
 }
-
+ 
 void player::sort_inv()
 {
  std::vector<item> types[8]; // guns ammo weaps armor food tools books other
@@ -3267,7 +2751,7 @@ void player::sort_inv()
 
 void player::i_add(item it)
 {
- if (it.is_food() || it.is_ammo() || it.is_gun()  || it.is_armor() ||
+ if (it.is_food() || it.is_ammo() || it.is_gun()  || it.is_armor() || 
      it.is_book() || it.is_tool() || it.is_weap() || it.is_food_container())
   inv_sorted = false;
  if (it.is_ammo()) {	// Possibly combine with other ammo
@@ -3499,7 +2983,7 @@ void player::use_up(itype_id it, int quantity)
  int cur_item = 0;
  while (used < quantity && cur_item < inv.size()) {
   int local_used = 0;
-  if (inv[cur_item].type->id == it) {
+  if (inv[cur_item].type->id == it) { 
    if (inv[cur_item].is_ammo() || inv[cur_item].is_tool()) {
     if (quantity < inv[cur_item].charges) {
      local_used = quantity;
@@ -3562,7 +3046,7 @@ void player::use_amount(itype_id it, int quantity)
  }
 
  while (used < quantity && cur_item < inv.size()) {
-  if (inv[cur_item].type->id == it) {
+  if (inv[cur_item].type->id == it) { 
    used++;
    i_remn(cur_item);
    cur_item--;
@@ -3599,7 +3083,7 @@ void player::use_charges(itype_id it, int quantity)
 
  for (int i = 0; i < inv.size() && used < quantity; i++) {
   int local_used = 0;
-  if (inv[i].type->id == it) {
+  if (inv[i].type->id == it) { 
    local_used = inv[i].charges;
    if (local_used > quantity)
     inv[i].charges = local_used - quantity;
@@ -3724,7 +3208,7 @@ bool player::has_charges(itype_id it, int quantity)
  for (int i = 0; i < inv.size(); i++) {
   if (inv[i].type->id == it)
    i_have += inv[i].charges;
-  else if (inv[i].contents.size() > 0 && inv[i].contents[0].type->id == it)
+  else if (inv[i].contents.size() > 0 && inv[i].contents[0].type->id == it) 
    i_have += inv[i].contents[0].charges;
   if (i_have >= quantity)
    return true;
@@ -3871,7 +3355,7 @@ bool player::eat(game *g, int index)
 
   if (spoiled) {
 // We're only warned if we're a supertaster, OR the food is very old
-   if ((!has_trait(PF_SUPERTASTER) && very_spoiled) ||
+   if ((!has_trait(PF_SUPERTASTER) && very_spoiled) || 
        (!is_npc() && query_yn("This %s smells awful!  Eat it?",
                               eaten->tname(g).c_str()))) {
     if (is_npc())
@@ -3908,7 +3392,7 @@ bool player::eat(game *g, int index)
    use_charges(comest->tool, 1); // Tools like lighters get used
   if (comest->stim > 0 && stim < comest->stim * 3)
    stim += comest->stim;
-
+ 
   iuse use;
   (use.*comest->use)(g, this, eaten, false);
   add_addiction(comest->add, comest->addict);
@@ -3952,7 +3436,7 @@ bool player::eat(game *g, int index)
     thirst = -20;
   }
  }
-
+ 
  eaten->charges--;
  if (eaten->charges <= 0) {
   if (which == -1)
@@ -4307,7 +3791,7 @@ void player::read(game *g, char ch)
  activity = player_activity(ACT_READ, time, index);
  moves = 0;
 }
-
+ 
 void player::try_to_sleep(game *g)
 {
  add_disease(DI_LYING_DOWN, 300, g);
@@ -4525,7 +4009,7 @@ void player::absorb(game *g, body_part bp, int &dam, int &cut)
  if (cut < 0)
   cut = 0;
 }
-
+  
 int player::resist(body_part bp)
 {
  int ret = 0;
@@ -4569,8 +4053,8 @@ void player::practice(skill s, int amount)
    }
   }
  }
- while (amount > 0 && xp_pool >= 1) {
-  amount--;
+ while (amount > 0 && xp_pool >= sklevel[s] + 1) {
+  amount -= sklevel[s] + 1;
   if ((savant == sk_null || savant == s || !one_in(2)) &&
       rng(0, 100) < comprehension_percent(s)) {
    xp_pool--;
