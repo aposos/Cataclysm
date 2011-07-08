@@ -847,7 +847,7 @@
 	"map.h"
 	"game.h"
 
-1309858899 source:c:\cataclysm\game.cpp
+1309874937 source:c:\cataclysm\game.cpp
 	"game.h"
 	"rng.h"
 	"keypress.h"
@@ -1108,7 +1108,7 @@
 	<string>
 	"morale.h"
 
-1309858620 source:c:\cataclysm\ranged.cpp
+1309874647 source:c:\cataclysm\ranged.cpp
 	<vector>
 	<string>
 	"game.h"

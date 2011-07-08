@@ -79,6 +79,7 @@
 		<Unit filename="mapgen.cpp" />
 		<Unit filename="mapitems.h" />
 		<Unit filename="mapitemsdef.cpp" />
+		<Unit filename="melee.cpp" />
 		<Unit filename="mission.cpp" />
 		<Unit filename="mission.h" />
 		<Unit filename="mission_end.cpp" />
