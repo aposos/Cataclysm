@@ -1043,7 +1043,7 @@ void game::get_input()
   list_missions();
  else if (ch == '@') {
   u.disp_info(this);
-  refresh_all();
+
  } else if (ch == '#')
   list_factions();
  else if (ch == '%') {
@@ -2488,7 +2488,7 @@ void game::check_warmth()
 /*
   add_msg("Your body is too hot.");
 =======
-  add_msg("Your body is too hot."); 
+  add_msg("Your body is too hot.");
 >>>>>>> c836c861c16896fb41714ac1c64b47cb01455afb
   u.add_disease(DI_HOT, warmth * 2, this);
  }
