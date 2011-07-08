@@ -95,6 +95,13 @@ void game::init_recipes()
   COMP(itm_2x4, 2, NULL);
   COMP(itm_nail, 4, NULL);
 
+ RECIPE(itm_flamethrower_simple, CC_WEAPON, sk_mechanics, sk_gun, 6, 12000);
+  TOOL(itm_hacksaw, -1, NULL);
+  TOOL(itm_screwdriver, -1, NULL);
+  COMP(itm_pipe, 1, NULL);
+  COMP(itm_hose, 2, NULL);
+  COMP(itm_bottle_glass, 4, itm_bottle_plastic, 6, NULL);
+
  RECIPE(itm_grenade, CC_WEAPON, sk_mechanics, sk_null, 2, 5000);
   TOOL(itm_screwdriver, -1, NULL);
   COMP(itm_superglue, 1, itm_string_36, 1, NULL);
@@ -394,11 +401,11 @@ void game::init_recipes()
   TOOL(itm_sewing_kit, 8, NULL);
   COMP(itm_fur, 3, NULL);
 
- RECIPE(itm_helmet_chitin, CC_ARMOR, sk_tailor, sk_null, 6, 200000);
+ RECIPE(itm_helmet_chitin, CC_ARMOR, sk_tailor, sk_null, 6,  60000);
   COMP(itm_string_36, 1, itm_string_6, 5, NULL);
   COMP(itm_chitin_piece, 5, NULL);
 
- RECIPE(itm_armor_chitin, CC_ARMOR, sk_tailor, sk_null,  7, 500000);
+ RECIPE(itm_armor_chitin, CC_ARMOR, sk_tailor, sk_null,  7, 100000);
   COMP(itm_string_36, 2, itm_string_6, 12, NULL);
   COMP(itm_chitin_piece, 15, NULL);
 

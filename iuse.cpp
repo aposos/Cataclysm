@@ -387,7 +387,8 @@ void iuse::weed(game *g, player *p, item *it, bool t)
  if (p->has_trait(PF_LIGHTWEIGHT))
   duration = 90;
  p->hunger += 8;
- p->pkill += 10;
+ if (p->pkill < 15)
+  p->pkill += 5;
  p->add_disease(DI_HIGH, duration, g);
 }
 
@@ -598,7 +599,7 @@ void iuse::lighter(game *g, player *p, item *it, bool t)
 {
  int dirx, diry;
  g->draw();
- mvprintw(0, 0, "Place where?");
+ mvprintw(0, 0, "Light where?");
  get_direction(dirx, diry, input());
  if (dirx == -2) {
   g->add_msg("Invalid direction.");
