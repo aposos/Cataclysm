@@ -600,13 +600,13 @@
 	<vector>
 	<string>
 
-1309283121 c:\cataclysm\item.h
+1310116563 c:\cataclysm\item.h
 	<string>
 	<vector>
 	"itype.h"
 	"mtype.h"
 
-1309544043 c:\cataclysm\itype.h
+1310116563 c:\cataclysm\itype.h
 	<string>
 	<vector>
 	"color.h"
@@ -632,7 +632,7 @@
 1309283121 c:\cataclysm\skill.h
 	<string>
 
-1309283121 c:\cataclysm\bionics.h
+1310116563 c:\cataclysm\bionics.h
 	<string>
 
 1309283121 c:\cataclysm\mtype.h
@@ -662,7 +662,7 @@
 1309599445 c:\cataclysm\morale.h
 	<string>
 
-1309858168 c:\cataclysm\game.h
+1310116563 c:\cataclysm\game.h
 	"mtype.h"
 	"monster.h"
 	"map.h"
@@ -680,7 +680,7 @@
 	"weather.h"
 	<vector>
 
-1309283121 c:\cataclysm\map.h
+1310116563 c:\cataclysm\map.h
 	<curses.h>
 	<stdlib.h>
 	<vector>
