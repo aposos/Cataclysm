@@ -2,7 +2,7 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="bionics.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="4205" topLine="133" />
+		<Cursor position="2724" topLine="86" />
 	</File>
 	<File name="color.cpp" open="1" top="0" tabpos="24">
 		<Cursor position="122" topLine="14" />
@@ -23,34 +23,37 @@
 		<Cursor position="271" topLine="24" />
 	</File>
 	<File name="game.cpp" open="1" top="0" tabpos="10">
-		<Cursor position="30508" topLine="962" />
+		<Cursor position="52833" topLine="1813" />
 	</File>
 	<File name="game.h" open="1" top="0" tabpos="20">
-		<Cursor position="742" topLine="28" />
+		<Cursor position="3302" topLine="81" />
 	</File>
 	<File name="help.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="11386" topLine="231" />
+		<Cursor position="134" topLine="0" />
 	</File>
 	<File name="item.cpp" open="1" top="0" tabpos="29">
-		<Cursor position="10287" topLine="360" />
+		<Cursor position="10026" topLine="220" />
 	</File>
-	<File name="itype.h" open="1" top="0" tabpos="11">
-		<Cursor position="11141" topLine="253" />
+	<File name="itype.h" open="1" top="1" tabpos="11">
+		<Cursor position="21995" topLine="549" />
 	</File>
-	<File name="itypedef.cpp" open="1" top="1" tabpos="27">
+	<File name="itypedef.cpp" open="1" top="0" tabpos="27">
 		<Cursor position="1364" topLine="320" />
 	</File>
 	<File name="keypress.cpp" open="1" top="0" tabpos="4">
 		<Cursor position="280" topLine="0" />
 	</File>
 	<File name="keypress.h" open="1" top="0" tabpos="5">
-		<Cursor position="407" topLine="0" />
+		<Cursor position="354" topLine="0" />
 	</File>
 	<File name="line.cpp" open="1" top="0" tabpos="28">
-		<Cursor position="0" topLine="0" />
+		<Cursor position="170" topLine="0" />
+	</File>
+	<File name="line.h" open="1" top="0" tabpos="30">
+		<Cursor position="277" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="413" topLine="3" />
+		<Cursor position="412" topLine="1" />
 	</File>
 	<File name="map.cpp" open="1" top="0" tabpos="13">
 		<Cursor position="30104" topLine="1220" />
@@ -58,26 +61,29 @@
 	<File name="mapgen.cpp" open="1" top="0" tabpos="12">
 		<Cursor position="0" topLine="0" />
 	</File>
+	<File name="newcharacter.cpp" open="1" top="0" tabpos="31">
+		<Cursor position="203" topLine="0" />
+	</File>
 	<File name="npc.cpp" open="1" top="0" tabpos="1">
 		<Cursor position="17345" topLine="586" />
 	</File>
 	<File name="output.cpp" open="1" top="0" tabpos="7">
-		<Cursor position="3811" topLine="133" />
+		<Cursor position="265" topLine="0" />
 	</File>
 	<File name="output.h" open="1" top="0" tabpos="14">
-		<Cursor position="875" topLine="0" />
+		<Cursor position="164" topLine="0" />
 	</File>
 	<File name="overmap.cpp" open="1" top="0" tabpos="22">
 		<Cursor position="26209" topLine="772" />
 	</File>
 	<File name="player.cpp" open="1" top="0" tabpos="17">
-		<Cursor position="33565" topLine="1034" />
+		<Cursor position="98352" topLine="3483" />
 	</File>
 	<File name="player.h" open="1" top="0" tabpos="23">
-		<Cursor position="882" topLine="26" />
+		<Cursor position="3338" topLine="66" />
 	</File>
 	<File name="ranged.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="341" topLine="480" />
+		<Cursor position="10774" topLine="304" />
 	</File>
 	<File name="skill.cpp" open="1" top="0" tabpos="16">
 		<Cursor position="177" topLine="108" />
