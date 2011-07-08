@@ -130,6 +130,7 @@ void game::fire(player &p, int tarx, int tary, std::vector<point> &trajectory,
   return;
  }
  bool is_bolt = false;
+ unsigned int flags = p.weapon.curammo->weapon_flags;
  if (p.weapon.curammo->type == AT_BOLT)	// Bolts are silent
   is_bolt = true;
 
@@ -311,8 +312,11 @@ missed_by, deviation, trange, p.weapon.charges, p.posx, p.posy, tarx, tary);
 // Drawing the bullet uses player u, and not player p, because it's drawn
 // relative to YOUR position, which may not be the gunman's position.
    if (u_see(trajectory[i].x, trajectory[i].y, junk)) {
+    char bullet = '`';
+    if (flags & mfb(WF_AMMO_FLAME))
+     bullet = '#';
     mvwputch(w_terrain, trajectory[i].y + SEEY - u.posy,
-                        trajectory[i].x + SEEX - u.posx, c_red, '`');
+                        trajectory[i].x + SEEX - u.posx, c_red, bullet);
     wrefresh(w_terrain);
     #if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
     _nanosleep(&ts, NULL);
@@ -395,6 +399,8 @@ missed_by, deviation, trange, p.weapon.charges, p.posx, p.posy, tarx, tary);
                z[mondex].name().c_str());
       if (z[mondex].hurt(dam))
        kill_mon(mondex);
+      else if (flags != 0)
+       hit_monster_with_flags(z[mondex], flags);
       dam = 0;
      }
     }
@@ -473,7 +479,7 @@ missed_by, deviation, trange, p.weapon.charges, p.posx, p.posy, tarx, tary);
      }
     }
    } else
-    m.shoot(this, tx, ty, dam, i == trajectory.size() - 1);
+    m.shoot(this, tx, ty, dam, i == trajectory.size() - 1, flags);
   }
   if (is_bolt &&
       ((p.weapon.curammo->m1 == WOOD && !one_in(5)) ||
@@ -605,7 +611,7 @@ void game::throw_item(player &p, int tarx, int tary, item &thrown,
     kill_mon(mon_at(tx, ty));
    return;
   } else // No monster hit, but the terrain might be.
-   m.shoot(this, tx, ty, dam, false);
+   m.shoot(this, tx, ty, dam, false, 0);
   if (m.move_cost(tx, ty) == 0) {
    if (i > 0) {
     tx = trajectory[i - 1].x;
@@ -770,4 +776,25 @@ std::vector<point> game::target(int &x, int &y, int lowx, int lowy, int hix,
    return ret;
   }
  } while (true);
+}
+
+void game::hit_monster_with_flags(monster &z, unsigned int flags)
+{
+ if (flags & mfb(WF_AMMO_FLAME)) {
+
+  if (z.made_of(VEGGY) || z.made_of(COTTON) || z.made_of(WOOL) ||
+      z.made_of(PAPER) || z.made_of(WOOD))
+   z.add_effect(ME_ONFIRE, rng(8, 20));
+  else if (z.made_of(FLESH))
+   z.add_effect(ME_ONFIRE, rng(5, 10));
+  
+ } else if (flags & mfb(WF_AMMO_INCENDIARY)) {
+
+  if (z.made_of(VEGGY) || z.made_of(COTTON) || z.made_of(WOOL) ||
+      z.made_of(PAPER) || z.made_of(WOOD))
+   z.add_effect(ME_ONFIRE, rng(2, 6));
+  else if (z.made_of(FLESH) && one_in(4))
+   z.add_effect(ME_ONFIRE, rng(1, 4));
+
+ }
 }

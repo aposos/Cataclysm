@@ -253,7 +253,7 @@ std::string item::info(bool showtext)
   }
    
   dump << " Skill used: " << skill_name(gun->skill_used) << "\n Ammunition: " <<
-          clip_size() << " rounds of " << ammo_name(ammo());
+          clip_size() << " rounds of " << ammo_name(ammo_type());
 
   dump << "\n Damage: ";
   if (has_ammo)
@@ -386,16 +386,16 @@ nc_color item::color(player *u)
  nc_color ret = c_ltgray;
 
  if (is_gun()) { // Guns are green if you are carrying ammo for them
-  ammotype amtype = ammo();
+  ammotype amtype = ammo_type();
   if (u->has_ammo(amtype).size() > 0)
    ret = c_green;
  } else if (is_ammo()) { // Likewise, ammo is green if you have guns that use it
-  ammotype amtype = ammo();
-  if (u->weapon.is_gun() && u->weapon.ammo() == amtype)
+  ammotype amtype = ammo_type();
+  if (u->weapon.is_gun() && u->weapon.ammo_type() == amtype)
    ret = c_green;
   else {
    for (int i = 0; i < u->inv.size(); i++) {
-    if (u->inv[i].is_gun() && u->inv[i].ammo() == amtype) {
+    if (u->inv[i].is_gun() && u->inv[i].ammo_type() == amtype) {
      i = u->inv.size();
      ret = c_green;
     }
@@ -718,12 +718,12 @@ bool item::is_weap()
 
 bool item::is_bashing_weapon()
 {
- return (type->melee_dam > 7);
+ return (type->melee_dam >= 8);
 }
 
 bool item::is_cutting_weapon()
 {
- return (type->melee_cut > 5);
+ return (type->melee_cut >= 8 && !has_weapon_flag(WF_SPEAR));
 }
 
 bool item::is_armor()
@@ -892,7 +892,7 @@ int item::recoil(bool with_ammo)
  return ret;
 }
 
-ammotype item::ammo()
+ammotype item::ammo_type()
 {
  if (is_gun()) {
   it_gun* gun = dynamic_cast<it_gun*>(type);
@@ -934,14 +934,14 @@ int item::pick_reload_ammo(player &u, bool interactive)
    }
   } else {
   it_gun* tmp = dynamic_cast<it_gun*>(type);
-   am = u.has_ammo(ammo());
+   am = u.has_ammo(ammo_type());
    max_load = tmp->clip;
    if (tmp->skill_used == sk_shotgun)
     single_load = true;
   }
  } else {
   it_tool* tmp = dynamic_cast<it_tool*>(type);
-  am = u.has_ammo(ammo());
+  am = u.has_ammo(ammo_type());
   max_load = tmp->max_charges;
  }
 
@@ -994,11 +994,11 @@ Choose ammo type:         Damage     Armor Pierce     Range     Accuracy");
 
 bool item::reload(player &u, int index)
 {
- bool single_load;
+ bool single_load = false;
  int max_load;
  if (is_gun()) {
   it_gun* reloading = dynamic_cast<it_gun*>(type);
-  single_load = (reloading->skill_used == sk_shotgun);
+  single_load = has_weapon_flag(WF_RELOAD_ONE);
   max_load = clip_size();
  } else if (is_tool()) {
   it_tool* tool = dynamic_cast<it_tool*>(type);

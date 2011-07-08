@@ -762,9 +762,9 @@ void game::process_activity()
     if (u.weapon.is_gun())
      reloading = dynamic_cast<it_gun*>(u.weapon.type);
     if (u.weapon.is_gun() && reloading->ammo != AT_BB &&
-        reloading->ammo != AT_NAIL && one_in(u.sklevel[reloading->skill_used]))
+        reloading->ammo != AT_NAIL && u.sklevel[reloading->skill_used] == 0)
      u.practice(reloading->skill_used, rng(2, 6));
-    if (u.weapon.is_gun() && reloading->skill_used == sk_shotgun) {
+    if (u.weapon.is_gun() && reloading->weapon_flags & mfb(WF_RELOAD_ONE)) {
      add_msg("You insert a cartridge into your %s.",
              u.weapon.tname(this).c_str());
      if (u.recoil < 8)
@@ -2447,6 +2447,7 @@ void game::om_npcs_move()
 
 void game::check_warmth()
 {
+/*
  // HEAD
  int warmth = u.warmth(bp_head) + int((temperature - 65) / 10);
  if (warmth <= -6) {
@@ -2457,10 +2458,8 @@ void game::check_warmth()
   add_msg("Your head is cold.");
   u.add_disease(DI_COLD, abs(warmth * 2), this);
  } else if (warmth >= 8) {
-/*
   add_msg("Your head is overheating!");
   u.add_disease(DI_HOT, warmth * 1.5, this);
-*/
  }
  // FACE -- Mouth and eyes
  warmth = u.warmth(bp_eyes) + u.warmth(bp_mouth) + int((temperature - 65) / 10);
@@ -2485,10 +2484,13 @@ void game::check_warmth()
   add_msg("Your body is cold.");
   u.add_disease(DI_COLD, abs(warmth), this);
  } else if (warmth >= 12) {
+<<<<<<< HEAD
 /*
   add_msg("Your body is too hot.");
+=======
+  add_msg("Your body is too hot."); 
+>>>>>>> c836c861c16896fb41714ac1c64b47cb01455afb
   u.add_disease(DI_HOT, warmth * 2, this);
-*/
  }
  // HANDS
  warmth = u.warmth(bp_hands) + int((temperature - 65) / 10);
@@ -2508,10 +2510,8 @@ void game::check_warmth()
   add_msg("Your legs are very cold.");
   u.add_disease(DI_COLD_LEGS, abs(warmth), this);
  } else if (warmth >= 8) {
-/*
   add_msg("Your legs are overheating!");
   u.add_disease(DI_HOT, rng(0, warmth), this);
-*/
  }
  // FEET
  warmth = u.warmth(bp_feet) + int((temperature - 65) / 10);
@@ -2522,6 +2522,7 @@ void game::check_warmth()
   add_msg("Your feet are overheating!");
   u.add_disease(DI_HOT, rng(0, warmth), this);
  }
+*/
 }
 
 void game::sound(int x, int y, int vol, std::string description)
@@ -2703,7 +2704,7 @@ void game::explosion(int x, int y, int power, int shrapnel, bool fire)
     add_msg("Shrapnel hits your %s!", body_part_name(hit, side).c_str());
     u.hit(this, hit, rng(0, 1), 0, dam);
    } else
-    m.shoot(this, tx, ty, dam, j == traj.size() - 1);
+    m.shoot(this, tx, ty, dam, j == traj.size() - 1, 0);
   }
  }
 }
@@ -3788,7 +3789,7 @@ bool game::handle_liquid(item &liquid, bool from_ground, bool infinite)
   if (!u.has_item(ch))
    return false;
   item *cont = &(u.i_at(ch));
-  ammotype type = cont->ammo();
+  ammotype type = cont->ammo_type();
   if (cont->type->id == itm_null) {
    add_msg("Never mind.");
    return false;
@@ -4350,7 +4351,7 @@ void game::reload()
 void game::unload()
 {
  if (!u.weapon.is_gun() && u.weapon.contents.size() == 0 &&
-     (!u.weapon.is_tool() || u.weapon.ammo() == AT_NULL)){
+     (!u.weapon.is_tool() || u.weapon.ammo_type() == AT_NULL)) {
   add_msg("You can't unload a %s!", u.weapon.tname(this).c_str());
   return;
  } else if (u.weapon.is_container() || u.weapon.charges == 0) {
@@ -4362,11 +4363,13 @@ void game::unload()
     add_msg("Your %s isn't charged." , u.weapon.tname(this).c_str());
    return;
   }
+// Unloading a container!
   u.moves -= 40 * u.weapon.contents.size();
   std::vector<item> new_contents;	// In case we put stuff back
   while (u.weapon.contents.size() > 0) {
    item content = u.weapon.contents[0];
    int iter = 0;
+// Pick an inventory item for the contents
    while ((content.invlet == 0 || u.has_item(content.invlet)) && iter < 52) {
     content.invlet = nextinv;
     advance_nextinv();
@@ -4391,6 +4394,7 @@ void game::unload()
   u.weapon.contents = new_contents;
   return;
  }
+// Unloading a gun or tool!
  u.moves -= int(u.weapon.reload_time(u) / 2);
  it_ammo* tmpammo;
  if (u.weapon.is_gun()) {	// Gun ammo is combined with existing items
@@ -4410,13 +4414,12 @@ void game::unload()
   }
  }
  item newam;
- int iter;
+ if (u.weapon.curammo != NULL)
+  newam = item(u.weapon.curammo, turn);
+ else
+  newam = item(itypes[default_ammo(u.weapon.ammo_type())], turn);
  while (u.weapon.charges > 0) {
-  if (u.weapon.curammo != NULL)
-   newam = item(u.weapon.curammo, turn);
-  else
-   newam = item(itypes[default_ammo(u.weapon.ammo())], turn);
-  iter = 0;
+  int iter = 0;
   while ((newam.invlet == 0 || u.has_item(newam.invlet)) && iter < 52) {
    newam.invlet = nextinv;
    advance_nextinv();
@@ -5008,6 +5011,7 @@ void game::spawn_mon(int shiftx, int shifty)
  int iter;
  int t;
  // Create a new NPC?
+/*	DISABLED AGAIN
   if (one_in(50 + 5 * cur_om.npcs.size())) {
    npc temp;
    temp.randomize(this);
@@ -5017,6 +5021,7 @@ void game::spawn_mon(int shiftx, int shifty)
    temp.attitude = NPCATT_TALK;
    active_npc.push_back(temp);
   }
+*/
 
 // Now, spawn monsters (perhaps)
  monster zom;
