@@ -580,7 +580,7 @@
 	"game.h"
 	"output.h"
 
-1309283121 source:c:\cataclysm\bionics.cpp
+1310116563 source:c:\cataclysm\bionics.cpp
 	"player.h"
 	"game.h"
 	"rng.h"
@@ -779,7 +779,7 @@
 	"color.h"
 	<string>
 
-1309858168 c:\cataclysm\keypress.h
+1311093020 c:\cataclysm\keypress.h
 	<curses.h>
 
 1309283121 c:\cataclysm\line.h
@@ -806,7 +806,7 @@
 	<vector>
 	<string>
 
-1309858168 source:c:\cataclysm\crafting.cpp
+1310116563 source:c:\cataclysm\crafting.cpp
 	<string>
 	<sstream>
 	"keypress.h"
@@ -847,7 +847,7 @@
 	"map.h"
 	"game.h"
 
-1309874937 source:c:\cataclysm\game.cpp
+1310116834 source:c:\cataclysm\game.cpp
 	"game.h"
 	"rng.h"
 	"keypress.h"
@@ -867,7 +867,7 @@
 1309283121 c:\cataclysm\weather_data.h
 	"weather.h"
 
-1309599445 source:c:\cataclysm\item.cpp
+1310116563 source:c:\cataclysm\item.cpp
 	"item.h"
 	"player.h"
 	"output.h"
@@ -876,11 +876,11 @@
 	<sstream>
 	<curses.h>
 
-1309858168 source:c:\cataclysm\itypedef.cpp
+1310116563 source:c:\cataclysm\itypedef.cpp
 	"itype.h"
 	"game.h"
 
-1309283121 source:c:\cataclysm\iuse.cpp
+1310116563 source:c:\cataclysm\iuse.cpp
 	"iuse.h"
 	"game.h"
 	"mapdata.h"
@@ -904,7 +904,7 @@
 	"color.h"
 	<SDL/SDL.h>
 
-1309283121 source:c:\cataclysm\map.cpp
+1310116563 source:c:\cataclysm\map.cpp
 	"map.h"
 	"output.h"
 	"rng.h"
@@ -914,7 +914,7 @@
 	<stdlib.h>
 	<fstream>
 
-1309858168 source:c:\cataclysm\mapgen.cpp
+1310116563 source:c:\cataclysm\mapgen.cpp
 	"map.h"
 	"omdata.h"
 	"mapitems.h"
@@ -923,7 +923,7 @@
 	"rng.h"
 	"line.h"
 
-1309858168 source:c:\cataclysm\mapitemsdef.cpp
+1310116563 source:c:\cataclysm\mapitemsdef.cpp
 	"game.h"
 	"itype.h"
 	"omdata.h"
@@ -1079,7 +1079,7 @@
 	"npc.h"
 	"keypress.h"
 
-1309858168 source:c:\cataclysm\player.cpp
+1310116830 source:c:\cataclysm\player.cpp
 	"player.h"
 	"bionics.h"
 	"mission.h"
@@ -1108,7 +1108,7 @@
 	<string>
 	"morale.h"
 
-1309874647 source:c:\cataclysm\ranged.cpp
+1310116563 source:c:\cataclysm\ranged.cpp
 	<vector>
 	<string>
 	"game.h"
@@ -1148,7 +1148,7 @@
 	"trap.h"
 	"rng.h"
 
-1309283121 source:c:\cataclysm\weather.cpp
+1310116563 source:c:\cataclysm\weather.cpp
 	"weather.h"
 	"game.h"
 	<vector>
@@ -1360,7 +1360,7 @@
 	<sys/stat.h>
 	<windows.h>
 
-1309858168 source:c:\cataclysm\melee.cpp
+1310116563 source:c:\cataclysm\melee.cpp
 	"player.h"
 	"bionics.h"
 	"game.h"
