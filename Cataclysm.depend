@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1309253416 source:c:\cata\bionics.cpp
+1311421143 source:c:\cata\bionics.cpp
 	"player.h"
 	"game.h"
 	"rng.h"
@@ -8,7 +8,7 @@
 	"bionics.h"
 	"line.h"
 
-1309253416 c:\cata\player.h
+1311421144 c:\cata\player.h
 	"item.h"
 	"monster.h"
 	"pldata.h"
@@ -19,13 +19,13 @@
 	<vector>
 	<string>
 
-1309253416 c:\cata\item.h
+1311421143 c:\cata\item.h
 	<string>
 	<vector>
 	"itype.h"
 	"mtype.h"
 
-1309253416 c:\cata\itype.h
+1311421143 c:\cata\itype.h
 	<string>
 	<vector>
 	"color.h"
@@ -35,15 +35,16 @@
 	"bodypart.h"
 	"skill.h"
 	"bionics.h"
+	"posix_time.h"
 
-1309340893 c:\cata\color.h
+1311421143 c:\cata\color.h
 	<curses.h>
 
 1309253416 c:\cata\enums.h
 
 1309253416 c:\cata\iuse.h
 
-1309253416 c:\cata\pldata.h
+1311421144 c:\cata\pldata.h
 
 1309253416 c:\cata\bodypart.h
 	<string>
@@ -51,10 +52,10 @@
 1309253416 c:\cata\skill.h
 	<string>
 
-1309253416 c:\cata\bionics.h
+1311421143 c:\cata\bionics.h
 	<string>
 
-1309253416 c:\cata\mtype.h
+1309445739 c:\cata\mtype.h
 	<string>
 	<math.h>
 	"mondeath.h"
@@ -78,10 +79,10 @@
 	"itype.h"
 	<string>
 
-1309253416 c:\cata\morale.h
+1311421143 c:\cata\morale.h
 	<string>
 
-1309328237 c:\cata\game.h
+1311421143 c:\cata\game.h
 	"mtype.h"
 	"monster.h"
 	"map.h"
@@ -97,9 +98,10 @@
 	"event.h"
 	"mission.h"
 	"weather.h"
+	"posix_time.h"
 	<vector>
 
-1309253416 c:\cata\map.h
+1311421143 c:\cata\map.h
 	<curses.h>
 	<stdlib.h>
 	<vector>
@@ -111,7 +113,7 @@
 	"monster.h"
 	"npc.h"
 
-1309253416 c:\cata\mapdata.h
+1311421143 c:\cata\mapdata.h
 	<vector>
 	<string>
 	"color.h"
@@ -119,8 +121,9 @@
 	"trap.h"
 	"monster.h"
 	"enums.h"
+	"computer.h"
 
-1309253416 c:\cata\mapitems.h
+1311421143 c:\cata\mapitems.h
 
 1309253416 c:\cata\overmap.h
 	"enums.h"
@@ -132,7 +135,7 @@
 	<vector>
 	<curses.h>
 
-1309253416 c:\cata\omdata.h
+1311421143 c:\cata\omdata.h
 	<string>
 	<vector>
 	<bitset>
@@ -140,7 +143,7 @@
 	"itype.h"
 	"output.h"
 
-1309253416 c:\cata\output.h
+1311421143 c:\cata\output.h
 	"color.h"
 	<cstdarg>
 	<string>
@@ -190,7 +193,7 @@
 	"itype.h"
 	"texthash.h"
 
-1309253416 c:\cata\texthash.h
+1311421144 c:\cata\texthash.h
 	<string>
 	<vector>
 
@@ -198,7 +201,7 @@
 	"color.h"
 	<string>
 
-1309254342 c:\cata\keypress.h
+1311421143 c:\cata\keypress.h
 	<curses.h>
 
 1309253416 c:\cata\line.h
@@ -214,18 +217,23 @@
 	<curses.h>
 	"color.h"
 
-1309253416 source:c:\cata\computer.cpp
+1311421143 source:c:\cata\computer.cpp
 	"computer.h"
 	"game.h"
 	"monster.h"
 	"overmap.h"
+	"output.h"
 	<fstream>
+	<string>
+	<sstream>
 
-1309253416 c:\cata\computer.h
+1311421143 c:\cata\computer.h
+	"texthash.h"
+	"output.h"
 	<vector>
 	<string>
 
-1309253416 source:c:\cata\crafting.cpp
+1311421143 source:c:\cata\crafting.cpp
 	<string>
 	<sstream>
 	"keypress.h"
@@ -242,13 +250,13 @@
 	"crafting.h"
 	"mission.h"
 
-1309253416 source:c:\cata\event.cpp
+1311421143 source:c:\cata\event.cpp
 	"event.h"
 	"npc.h"
 	"game.h"
 	"rng.h"
 
-1309253416 source:c:\cata\faction.cpp
+1311421143 source:c:\cata\faction.cpp
 	"faction.h"
 	"facdata.h"
 	"rng.h"
@@ -266,13 +274,14 @@
 	"map.h"
 	"game.h"
 
-1309328237 source:c:\cata\game.cpp
+1311421143 source:c:\cata\game.cpp
 	"game.h"
 	"rng.h"
 	"keypress.h"
 	"output.h"
 	"skill.h"
 	"line.h"
+	"posix_time.h"
 	"computer.h"
 	"weather_data.h"
 	<fstream>
@@ -281,16 +290,15 @@
 	<unistd.h>
 	<dirent.h>
 	<sys/stat.h>
-	<windows.h>
 
 1309253416 c:\cata\weather_data.h
 	"weather.h"
 
-1309328237 source:c:\cata\help.cpp
+1311421143 source:c:\cata\help.cpp
 	"game.h"
 	"keypress.h"
 
-1309253416 source:c:\cata\item.cpp
+1311421143 source:c:\cata\item.cpp
 	"item.h"
 	"player.h"
 	"output.h"
@@ -299,11 +307,11 @@
 	<sstream>
 	<curses.h>
 
-1309253416 source:c:\cata\itypedef.cpp
+1311421143 source:c:\cata\itypedef.cpp
 	"itype.h"
 	"game.h"
 
-1309253416 source:c:\cata\iuse.cpp
+1311421143 source:c:\cata\iuse.cpp
 	"iuse.h"
 	"game.h"
 	"mapdata.h"
@@ -1379,6 +1387,11 @@
 	<stdlib.h>
 
 1311379658 c:\cataclysm\posix_time.h
+	<time.h>
+	<errno.h>
+	<windows.h>
+
+1311421144 c:\cata\posix_time.h
 	<time.h>
 	<errno.h>
 	<windows.h>

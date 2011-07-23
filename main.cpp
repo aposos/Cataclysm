@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 #endif
  rand();
  game g;
- while (!g.do_turn());
+ while(!g.do_turn());
  erase();
  endwin();
  system("clear");
