@@ -3,7 +3,6 @@
 	<FileVersion major="1" minor="6" />
 	<Project>
 		<Option title="Cataclysm" />
-		<Option makefile_is_custom="1" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -18,7 +17,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-static -lpdcurses" />
-					<Add library="C:\SDL-1.2.14\lib\libSDL.dll.a" />
+					<Add library="..\MinGW\lib\libSDL.dll.a" />
 				</Linker>
 				<MakeCommands>
 					<Build command="$make -f $makefile " />
@@ -122,6 +121,8 @@
 		<Unit filename="player.cpp" />
 		<Unit filename="player.h" />
 		<Unit filename="pldata.h" />
+		<Unit filename="posix_time.cpp" />
+		<Unit filename="posix_time.h" />
 		<Unit filename="ranged.cpp" />
 		<Unit filename="rng.cpp" />
 		<Unit filename="rng.h" />

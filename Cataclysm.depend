@@ -328,14 +328,14 @@
 	"line.h"
 	"map.h"
 
-1309266412 source:c:\cata\main.cpp
+1311423790 source:c:\cata\main.cpp
 	<curses.h>
 	<ctime>
 	"game.h"
 	"color.h"
-	<windows.h>
+	<SDL/SDL.h>
 
-1309253416 source:c:\cata\map.cpp
+1311421143 source:c:\cata\map.cpp
 	"map.h"
 	"output.h"
 	"rng.h"
@@ -345,7 +345,7 @@
 	<stdlib.h>
 	<fstream>
 
-1309253416 source:c:\cata\mapgen.cpp
+1311421143 source:c:\cata\mapgen.cpp
 	"map.h"
 	"omdata.h"
 	"mapitems.h"
@@ -354,7 +354,7 @@
 	"rng.h"
 	"line.h"
 
-1309253416 source:c:\cata\mapitemsdef.cpp
+1311421143 source:c:\cata\mapitemsdef.cpp
 	"game.h"
 	"itype.h"
 	"omdata.h"
@@ -383,7 +383,7 @@
 	"setvector.h"
 	"game.h"
 
-1309328237 source:c:\cata\monattack.cpp
+1311421143 source:c:\cata\monattack.cpp
 	"mondeath.h"
 	"monster.h"
 	"game.h"
@@ -417,7 +417,7 @@
 	<stdlib.h>
 	<curses.h>
 
-1309253416 source:c:\cata\monster.cpp
+1311421143 source:c:\cata\monster.cpp
 	"monster.h"
 	"map.h"
 	"mondeath.h"
@@ -429,13 +429,13 @@
 	<stdlib.h>
 	<curses.h>
 
-1309328237 source:c:\cata\mtypedef.cpp
+1311421143 source:c:\cata\mtypedef.cpp
 	"game.h"
 	"mondeath.h"
 	"monattack.h"
 	"itype.h"
 
-1309253416 source:c:\cata\newcharacter.cpp
+1311421143 source:c:\cata\newcharacter.cpp
 	"player.h"
 	"output.h"
 	"rng.h"
@@ -455,7 +455,7 @@
 	"output.h"
 	"line.h"
 
-1309253416 source:c:\cata\npcmove.cpp
+1311421143 source:c:\cata\npcmove.cpp
 	<sstream>
 	"npc.h"
 	"rng.h"
@@ -482,7 +482,7 @@
 	<vector>
 	<string>
 
-1309273118 source:c:\cata\output.cpp
+1311421143 source:c:\cata\output.cpp
 	<curses.h>
 	<string>
 	<vector>
@@ -494,7 +494,7 @@
 	"rng.h"
 	"keypress.h"
 
-1309279032 source:c:\cata\overmap.cpp
+1311421143 source:c:\cata\overmap.cpp
 	<curses.h>
 	<stdlib.h>
 	<time.h>
@@ -510,7 +510,7 @@
 	"npc.h"
 	"keypress.h"
 
-1309328237 source:c:\cata\player.cpp
+1311421144 source:c:\cata\player.cpp
 	"player.h"
 	"bionics.h"
 	"mission.h"
@@ -539,7 +539,7 @@
 	<string>
 	"morale.h"
 
-1309327992 source:c:\cata\ranged.cpp
+1311421144 source:c:\cata\ranged.cpp
 	<vector>
 	<string>
 	"game.h"
@@ -548,7 +548,6 @@
 	"line.h"
 	"skill.h"
 	"rng.h"
-	<windows.h>
 
 1309253416 source:c:\cata\rng.cpp
 	"output.h"
@@ -567,7 +566,7 @@
 1309253416 source:c:\cata\skill.cpp
 	"skill.h"
 
-1309253416 source:c:\cata\texthash.cpp
+1311421144 source:c:\cata\texthash.cpp
 	"texthash.h"
 	<sstream>
 
@@ -579,14 +578,15 @@
 	"trap.h"
 	"rng.h"
 
-1309253416 source:c:\cata\weather.cpp
+1311421144 source:c:\cata\weather.cpp
 	"weather.h"
 	"game.h"
 	<vector>
 
-1309253416 source:c:\cata\wish.cpp
+1311421144 source:c:\cata\wish.cpp
 	"game.h"
 	"output.h"
+	"keypress.h"
 
 1310116563 source:c:\cataclysm\bionics.cpp
 	"player.h"
@@ -1395,4 +1395,16 @@
 	<time.h>
 	<errno.h>
 	<windows.h>
+
+1311421143 source:c:\cata\melee.cpp
+	"player.h"
+	"bionics.h"
+	"game.h"
+	"keypress.h"
+	<sstream>
+	<curses.h>
+	<stdlib.h>
+
+1311421144 source:c:\cata\posix_time.cpp
+	"posix_time.h"
 
