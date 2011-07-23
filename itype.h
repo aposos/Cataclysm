@@ -10,7 +10,7 @@
 #include "bodypart.h"
 #include "skill.h"
 #include "bionics.h"
-
+#include "posix_time.h"
 // mfb(n) converts a flag to its appropriate position in covers's bitfield
 #ifndef mfb
 #define mfb(n) long(pow(2,(long)n))

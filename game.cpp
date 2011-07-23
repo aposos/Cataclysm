@@ -4,7 +4,7 @@
 #include "output.h"
 #include "skill.h"
 #include "line.h"
-
+#include "posix_time.h"
 #include "computer.h"
 #include "weather_data.h"
 #include <fstream>
@@ -15,9 +15,7 @@
 #include <sys/stat.h>
 void intro();
 nc_color sev(int a);	// Right now, ONLY used for scent debugging....
-moncat_id mt_to_mc(mon_id type);	// Pick the moncat that contains type
-
-// This is the main game set-up process.
+moncat_id mt_to_mc(mon_id type);	// Pick the moncat that contains type// This is the main game set-up process.
 game::game()
 {
 /*
@@ -2375,7 +2373,7 @@ void game::check_warmth()
   add_msg("Your body is cold.");
   u.add_disease(DI_COLD, abs(warmth), this);
  } else if (warmth >= 12) {
-  add_msg("Your body is too hot."); 
+  add_msg("Your body is too hot.");
   u.add_disease(DI_HOT, warmth * 2, this);
  }
  // HANDS
@@ -2603,7 +2601,7 @@ void game::use_computer(int x, int y)
   debugmsg("Tried to use computer at (%d, %d) - none there", x, y);
   return;
  }
- 
+
  used->use(this);
 
  refresh_all();

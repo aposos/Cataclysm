@@ -10,7 +10,7 @@
 	<File name="color.cpp" open="1" top="0" tabpos="24">
 		<Cursor position="122" topLine="13" />
 	</File>
-	<File name="color.h" open="1" top="1" tabpos="25">
+	<File name="color.h" open="1" top="0" tabpos="25">
 		<Cursor position="1892" topLine="40" />
 	</File>
 	<File name="computer.cpp" open="1" top="0" tabpos="21">
@@ -26,7 +26,7 @@
 		<Cursor position="271" topLine="24" />
 	</File>
 	<File name="game.cpp" open="1" top="0" tabpos="10">
-		<Cursor position="60908" topLine="2086" />
+		<Cursor position="143" topLine="0" />
 	</File>
 	<File name="game.h" open="1" top="0" tabpos="20">
 		<Cursor position="3302" topLine="81" />
@@ -38,7 +38,7 @@
 		<Cursor position="10026" topLine="220" />
 	</File>
 	<File name="itype.h" open="1" top="0" tabpos="11">
-		<Cursor position="21995" topLine="531" />
+		<Cursor position="246" topLine="0" />
 	</File>
 	<File name="itypedef.cpp" open="1" top="0" tabpos="27">
 		<Cursor position="1364" topLine="320" />
@@ -55,8 +55,8 @@
 	<File name="line.h" open="1" top="0" tabpos="30">
 		<Cursor position="277" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="412" topLine="1" />
+	<File name="main.cpp" open="1" top="1" tabpos="8">
+		<Cursor position="573" topLine="2" />
 	</File>
 	<File name="map.cpp" open="1" top="0" tabpos="13">
 		<Cursor position="21857" topLine="625" />
@@ -86,15 +86,15 @@
 		<Cursor position="3338" topLine="66" />
 	</File>
 	<File name="ranged.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="10774" topLine="297" />
+		<Cursor position="472" topLine="0" />
 	</File>
 	<File name="skill.cpp" open="1" top="0" tabpos="16">
 		<Cursor position="177" topLine="108" />
 	</File>
 	<File name="trap.h" open="1" top="0" tabpos="9">
-		<Cursor position="3053" topLine="83" />
+		<Cursor position="36" topLine="0" />
 	</File>
 	<File name="wish.cpp" open="1" top="0" tabpos="26">
-		<Cursor position="1403" topLine="53" />
+		<Cursor position="1453" topLine="49" />
 	</File>
 </CodeBlocks_layout_file>
