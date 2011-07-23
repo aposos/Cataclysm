@@ -228,7 +228,7 @@ const trait traits[] = {
 {"Fleet-Footed", 3, false, "\
 You can run more quickly than most, resulting in a 15%% speed bonus on sure\n\
 footing."},
-{"Parkour Expert", 1, false, "\
+{"Parkour Expert", 2, false, "\
 You're skilled at clearing obstacles; terrain like railings or counters are\n\
 as easy for you to move on as solid ground."},
 {"Quick", 3, false, "\
@@ -239,7 +239,7 @@ Nothing gets you down!  Your morale will generally be higher than average."},
 You heal a little faster than most; sleeping will heal more lost HP."},
 {"Light Eater", 3, false, "\
 Your metabolism is a little slower, and you require less food than most."},
-{"Pain Resistant", 4, false, "\
+{"Pain Resistant", 2, false, "\
 You have a high tolerance for pain."},
 {"Night Vision", 1, false, "\
 You possess natural night vision, and can see two squares instead of one in\n\
