@@ -2062,7 +2062,7 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
     place_items(mi_allguns, 96, SEEX - 2, SEEY, SEEX + 1, SEEY, false, 0);
    }
    break;
-  case 2:	// Netherworld access
+  case 2: {	// Netherworld access
    if (!one_in(4)) {	// Trapped netherworld monsters
     tw = rng(SEEY + 3, SEEY + 5);
     bw = tw + 4;
@@ -2086,12 +2086,18 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
      }
     }
    }
-   ter(SEEX    , 8) = t_computer_nether;
+   computer* tmpcomp = add_computer(SEEX, 8, "Sub-prime contact console", 7);
+   tmpcomp->add_option("Terminate Specimens", COMPACT_TERMINATE, 2);
+   tmpcomp->add_option("Release Specimens", COMPACT_RELEASE, 4);
+   tmpcomp->add_option("Toggle Portal", COMPACT_PORTAL, 8);
+   tmpcomp->add_option("Activate Resonance Cascade", COMPACT_CASCADE, 10);
+   tmpcomp->add_failure(COMPFAIL_MANHACKS);
+   tmpcomp->add_failure(COMPFAIL_SECUBOTS);
    ter(SEEX - 2, 4) = t_radio_tower;
    ter(SEEX + 1, 4) = t_radio_tower;
    ter(SEEX - 2, 7) = t_radio_tower;
    ter(SEEX + 1, 7) = t_radio_tower;
-   break;
+   } break;
   }
   break;
 
@@ -2157,7 +2163,7 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
   }
   break;
 
- case ot_silo_finale:
+ case ot_silo_finale: {
   for (int i = 0; i < SEEX * 2; i++) {
    for (int j = 0; j < SEEY * 2; j++) {
     if (i == 5) {
@@ -2172,8 +2178,12 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
    }
   }
   ter(0, 0) = t_stairs_up;
-  ter(4, 5) = t_computer_silo;
-  break;
+  computer* tmpcomp = add_computer(4, 5, "Missile Controls", 8);
+  tmpcomp->add_option("Launch Missile", COMPACT_MISS_LAUNCH, 10);
+  tmpcomp->add_option("Disarm Missile", COMPACT_MISS_DISARM,  8);
+  tmpcomp->add_failure(COMPFAIL_SECUBOTS);
+  tmpcomp->add_failure(COMPFAIL_DAMAGE);
+  } break;
 
  case ot_temple:
  case ot_temple_stairs:
@@ -2235,7 +2245,7 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
  case ot_police_north:
  case ot_police_east:
  case ot_police_south:
- case ot_police_west:
+ case ot_police_west: {
   for (int i = 0; i < SEEX * 2; i++) {
    for (int j = 0; j < SEEY * 2; j++) {
     if ((j ==  7 && i != 17 && i != 18) ||
@@ -2271,12 +2281,22 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
   ter(rng( 1,  4), 12) = t_door_c;
   ter(rng( 6,  9), 12) = t_door_c;
   ter(rng(11, 15), 12) = t_door_c;
-  ter(rng(21, 22), 12) = t_door_c;
+  ter(21, 12) = t_door_metal_locked;
+  computer* tmpcomp = add_computer(22, 13, "PolCom OS v1.47", 3);
+  tmpcomp->add_option("Open Supply Room", COMPACT_OPEN, 3);
+  tmpcomp->add_failure(COMPFAIL_SHUTDOWN);
+  tmpcomp->add_failure(COMPFAIL_ALARM);
+  tmpcomp->add_failure(COMPFAIL_MANHACKS);
   ter( 7, 14) = t_door_c;
   ter(11, 14) = t_door_c;
   ter(15, 14) = t_door_c;
   ter(rng(20, 22), 15) = t_door_c;
-  ter(rng( 1,  4), 17) = t_door_c;
+  ter(2, 17) = t_door_metal_locked;
+  tmpcomp = add_computer(22, 13, "PolCom OS v1.47", 3);
+  tmpcomp->add_option("Open Evidence Locker", COMPACT_OPEN, 3);
+  tmpcomp->add_failure(COMPFAIL_SHUTDOWN);
+  tmpcomp->add_failure(COMPFAIL_ALARM);
+  tmpcomp->add_failure(COMPFAIL_MANHACKS);
   ter(17, 18) = t_door_c;
   for (int i = 18; i < SEEX * 2 - 1; i++)
    ter(i, 20) = t_window;
@@ -2317,22 +2337,22 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
    rotate(2);
   if (terrain_type == ot_police_east)
    rotate(3);
-  break;
+  } break;
 
  case ot_bank_north:
  case ot_bank_east:
  case ot_bank_south:
- case ot_bank_west:
+ case ot_bank_west: {
   for (int i = 0; i < SEEX * 2; i++) {
    for (int j = 0; j < SEEY * 2; j++)
     ter(i, j) = grass_or_dirt();
   }
-  square(this, t_floor, 1, 1, 22, 22);
+  square(this, t_floor, 1,  1, 22, 22);
   line(this, t_wall_h,  1,  1, 22,  1);
   line(this, t_wall_h,  2,  6, 19,  6);
   line(this, t_wall_h,  2, 13, 18, 13);
   line(this, t_wall_h,  1, 22, 22, 22);
-  line(this, t_wall_h,  9,  9, 18,  8);
+  line(this, t_wall_h,  9,  9, 18,  9);
   line(this, t_wall_v,  1,  2,  1, 21);
   line(this, t_wall_v, 22,  2, 22, 21);
   line(this, t_wall_v, 19,  9, 19, 21);
@@ -2347,6 +2367,10 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
   line(this, t_counter,  2,  4,  14,  4);
   ter(13, 17) = t_door_metal_locked;
   ter(13, 18) = t_door_metal_locked;
+  computer* tmpcomp = add_computer(14, 16, "First United Bank", 3);
+  tmpcomp->add_option("Open Vault", COMPACT_OPEN, 3);
+  tmpcomp->add_failure(COMPFAIL_SHUTDOWN);
+  tmpcomp->add_failure(COMPFAIL_ALARM);
 // Front wall--glass or windows?
   if (!one_in(4)) {
    line(this, t_wall_glass_h, 2, 1, 21, 1);
@@ -2388,7 +2412,7 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
   place_items(mi_office,       60,  2,  7,  7, 12,    false, 0);
   place_items(mi_office,       60,  9, 10, 18, 12,    false, 0);
   place_items(mi_office,       70, 14, 14, 18, 21,    false, 0);
-  place_items(mi_vault,        15,  3, 15, 11, 20,    false, 0);
+  place_items(mi_vault,        45,  3, 15, 11, 20,    false, 0);
 
   if (terrain_type == ot_bank_east)
    rotate(1);
@@ -2396,7 +2420,7 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
    rotate(2);
   if (terrain_type == ot_bank_west)
    rotate(3);
-  break;
+  } break;
 
  case ot_set_center:
   tw = rng(4, SEEY * 2 - 5);
@@ -3973,6 +3997,15 @@ void map::add_spawn(mon_id type, int count, int x, int y)
  grid[nonant].spawns.push_back(tmp);
 }
 
+computer* map::add_computer(int x, int y, std::string name, int security)
+{
+ ter(x, y) = t_console; // TODO: Turn this off?
+ int nonant = int(x / SEEX) + int(y / SEEY) * 3;
+ computer tmp(name, security);
+ grid[nonant].comp = tmp;
+ return &(grid[nonant].comp);
+}
+
 void map::make_all_items_owned()
 {
  for (int i = 0; i < SEEX * 2; i++) {
@@ -3989,6 +4022,7 @@ void map::rotate(int turns)
  trap_id traprot        [SEEX*2][SEEY*2];
  std::vector<item> itrot[SEEX*2][SEEY*2];
  std::vector<spawn_point> sprot[9];
+ computer tmpcomp, comprot[9];
 
  switch (turns) {
  case 1:
@@ -4016,6 +4050,12 @@ void map::rotate(int turns)
     sprot[n].push_back(tmp);
    }
   }
+// Finally, computers
+  tmpcomp = grid[0].comp;
+  grid[0].comp = grid[3].comp;
+  grid[3].comp = grid[4].comp;
+  grid[4].comp = grid[1].comp;
+  grid[1].comp = tmpcomp;
   break;
     
  case 2:
@@ -4043,6 +4083,12 @@ void map::rotate(int turns)
     sprot[n].push_back(tmp);
    }
   }
+  tmpcomp = grid[0].comp;
+  grid[0].comp = grid[4].comp;
+  grid[4].comp = tmpcomp;
+  tmpcomp = grid[1].comp;
+  grid[1].comp = grid[3].comp;
+  grid[3].comp = tmpcomp;
   break;
     
  case 3:
@@ -4070,6 +4116,11 @@ void map::rotate(int turns)
     sprot[n].push_back(tmp);
    }
   }
+  tmpcomp = grid[0].comp;
+  grid[0].comp = grid[1].comp;
+  grid[1].comp = grid[4].comp;
+  grid[4].comp = grid[3].comp;
+  grid[3].comp = tmpcomp;
   break;
 
  default:
@@ -4334,13 +4385,25 @@ void science_room(map *m, int x1, int y1, int x2, int y2, int rotate)
     int desk = y1 + rng(int(height / 2) - int(height / 4), int(height / 2) + 1);
     for (int x = x1 + int(width / 4); x < x2 - int(width / 4); x++)
      m->ter(x, desk) = t_counter;
-    m->ter(x2 - int(width / 4), desk) = t_computer_lab;
+    computer* tmpcomp = m->add_computer(x2 - int(width / 4), desk,
+                                        "Log Console", 3);
+    tmpcomp->add_option("View Research Logs", COMPACT_RESEARCH, 0);
+    tmpcomp->add_option("Download Map Data", COMPACT_MAPS, 0);
+    tmpcomp->add_failure(COMPFAIL_SHUTDOWN);
+    tmpcomp->add_failure(COMPFAIL_ALARM);
+    tmpcomp->add_failure(COMPFAIL_DAMAGE);
     m->add_spawn(mon_turret, 1, int((x1 + x2) / 2), desk);
    } else {
     int desk = x1 + rng(int(height / 2) - int(height / 4), int(height / 2) + 1);
     for (int y = y1 + int(width / 4); y < y2 - int(width / 4); y++)
      m->ter(desk, y) = t_counter;
-    m->ter(desk, y2 - int(width / 4)) = t_computer_lab;
+    computer* tmpcomp = m->add_computer(desk, y2 - int(width / 4),
+                                        "Log Console", 3);
+    tmpcomp->add_option("View Research Logs", COMPACT_RESEARCH, 0);
+    tmpcomp->add_option("Download Map Data", COMPACT_MAPS, 0);
+    tmpcomp->add_failure(COMPFAIL_SHUTDOWN);
+    tmpcomp->add_failure(COMPFAIL_ALARM);
+    tmpcomp->add_failure(COMPFAIL_DAMAGE);
     m->add_spawn(mon_turret, 1, desk, int((y1 + y2) / 2));
    }
    break;

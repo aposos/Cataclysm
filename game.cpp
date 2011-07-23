@@ -17,125 +17,15 @@ void intro();
 nc_color sev(int a);	// Right now, ONLY used for scent debugging....
 moncat_id mt_to_mc(mon_id type);	// Pick the moncat that contains type
 
-
-/* Windows lacks the nanosleep() function. The following code was stuffed
-   together from GNUlib (http://www.gnu.org/software/gnulib/), which is
-   licensed under the GPLv3. */
-#if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
-/* Windows platforms.  */
-
-#   ifdef __cplusplus
-extern "C" {
-#   endif
-
-struct timespec
-{
-  time_t tv_sec;
-  long int tv_nsec;
-};
-
-#   ifdef __cplusplus
-}
-#   endif
-
-enum { BILLION = 1000 * 1000 * 1000 };
-
-# define WIN32_LEAN_AND_MEAN
-# include <windows.h>
-
-/* The Win32 function Sleep() has a resolution of about 15 ms and takes
-   at least 5 ms to execute.  We use this function for longer time periods.
-   Additionally, we use busy-looping over short time periods, to get a
-   resolution of about 0.01 ms.  In order to measure such short timespans,
-   we use the QueryPerformanceCounter() function.  */
-
-int
-nanosleep (const struct timespec *requested_delay,
-           struct timespec *remaining_delay)
-{
-  static bool initialized;
-  /* Number of performance counter increments per nanosecond,
-     or zero if it could not be determined.  */
-  static double ticks_per_nanosecond;
-
-  if (requested_delay->tv_nsec < 0 || BILLION <= requested_delay->tv_nsec)
-    {
-      errno = EINVAL;
-      return -1;
-    }
-
-  /* For requested delays of one second or more, 15ms resolution is
-     sufficient.  */
-  if (requested_delay->tv_sec == 0)
-    {
-      if (!initialized)
-        {
-          /* Initialize ticks_per_nanosecond.  */
-          LARGE_INTEGER ticks_per_second;
-
-          if (QueryPerformanceFrequency (&ticks_per_second))
-            ticks_per_nanosecond =
-              (double) ticks_per_second.QuadPart / 1000000000.0;
-
-          initialized = true;
-        }
-      if (ticks_per_nanosecond)
-        {
-          /* QueryPerformanceFrequency worked.  We can use
-             QueryPerformanceCounter.  Use a combination of Sleep and
-             busy-looping.  */
-          /* Number of milliseconds to pass to the Sleep function.
-             Since Sleep can take up to 8 ms less or 8 ms more than requested
-             (or maybe more if the system is loaded), we subtract 10 ms.  */
-          int sleep_millis = (int) requested_delay->tv_nsec / 1000000 - 10;
-          /* Determine how many ticks to delay.  */
-          LONGLONG wait_ticks = requested_delay->tv_nsec * ticks_per_nanosecond;
-          /* Start.  */
-          LARGE_INTEGER counter_before;
-          if (QueryPerformanceCounter (&counter_before))
-            {
-              /* Wait until the performance counter has reached this value.
-                 We don't need to worry about overflow, because the performance
-                 counter is reset at reboot, and with a frequency of 3.6E6
-                 ticks per second 63 bits suffice for over 80000 years.  */
-              LONGLONG wait_until = counter_before.QuadPart + wait_ticks;
-              /* Use Sleep for the longest part.  */
-              if (sleep_millis > 0)
-                Sleep (sleep_millis);
-              /* Busy-loop for the rest.  */
-              for (;;)
-                {
-                  LARGE_INTEGER counter_after;
-                  if (!QueryPerformanceCounter (&counter_after))
-                    /* QueryPerformanceCounter failed, but succeeded earlier.
-                       Should not happen.  */
-                    break;
-                  if (counter_after.QuadPart >= wait_until)
-                    /* The requested time has elapsed.  */
-                    break;
-                }
-              goto done;
-            }
-        }
-    }
-  /* Implementation for long delays and as fallback.  */
-  Sleep (requested_delay->tv_sec * 1000 + requested_delay->tv_nsec / 1000000);
-
- done:
-  /* Sleep is not interruptible.  So there is no remaining delay.  */
-  if (remaining_delay != NULL)
-    {
-      remaining_delay->tv_sec = 0;
-      remaining_delay->tv_nsec = 0;
-    }
-  return 0;
-}
-
-#endif
-
 // This is the main game set-up process.
 game::game()
 {
+/*
+ std::vector<computer> test_vec;
+ computer tmpcomp("test computer", 5, 6, 6);
+ test_vec.push_back(tmpcomp);
+ debugmsg("%s", test_vec[0].save_data().c_str());
+*/
  clear();	// Clear the screen
  intro();	// Print an intro screen, make sure we're at least 80x25
 // Gee, it sure is init-y around here!
@@ -238,6 +128,7 @@ fivedozenwhales@gmail.com.");
   if (tmp.find(".sav") != std::string::npos && savegames.size() < 18)
    savegames.push_back(tmp.substr(0, tmp.find(".sav")));
  }
+ closedir(dir);
  int sel1 = 0, sel2 = 1, layer = 1;
  char ch;
  bool start = false;
@@ -580,7 +471,7 @@ bool game::do_turn()
 {
  if (is_game_over()) {
   if (uquit == QUIT_DIED)
-   popup_top("Game over!");
+   popup_top("Game over! Press spacebar...");
   if (uquit == QUIT_DIED || uquit == QUIT_SUICIDE)
    death_screen();
   return true;
@@ -659,7 +550,7 @@ bool game::do_turn()
   get_input();
   if (is_game_over()) {
    if (uquit == QUIT_DIED)
-    popup_top("Game over!");
+    popup_top("Game over! Press spacebar...");
    if (uquit == QUIT_DIED || uquit == QUIT_SUICIDE)
     death_screen();
    return true;
@@ -764,7 +655,7 @@ void game::process_activity()
     if (u.weapon.is_gun() && reloading->ammo != AT_BB &&
         reloading->ammo != AT_NAIL && u.sklevel[reloading->skill_used] == 0)
      u.practice(reloading->skill_used, rng(2, 6));
-    if (u.weapon.is_gun() && reloading->weapon_flags & mfb(WF_RELOAD_ONE)) {
+    if (u.weapon.is_gun() && u.weapon.has_weapon_flag(WF_RELOAD_ONE)) {
      add_msg("You insert a cartridge into your %s.",
              u.weapon.tname(this).c_str());
      if (u.recoil < 8)
@@ -2706,44 +2597,16 @@ void game::explosion(int x, int y, int power, int shrapnel, bool fire)
 
 void game::use_computer(int x, int y)
 {
- computerk used;
- u.practice(sk_computer, 5);
- switch (m.ter(x, y)) {
- case t_computer_nether:
-  used.difficulty = 4;
-  used.failure = &computerk::spawn_manhacks;
-  used.add_opt("Release Specimens",		&computerk::release);
-  used.add_opt("Terminate Specimens",		&computerk::terminate);
-  used.add_opt("Flash Portal",			&computerk::portal);
-  used.add_opt("Activate Resonance Cascade",	&computerk::cascade);
-  break;
- case t_computer_lab:
-  used.difficulty = 2;
-  used.failure = &computerk::spawn_manhacks;
-  used.add_opt("Read Research Logs",		&computerk::research);
-  used.add_opt("Download Map Data",		&computerk::maps);
-  break;
- case t_computer_silo:
-  used.difficulty = 5;
-  used.failure = &computerk::spawn_secubots;
-  used.add_opt("Download Map Data",		&computerk::maps);
-  used.add_opt("Launch Missile",		&computerk::launch);
-  used.add_opt("Disarm Missile",		&computerk::disarm);
-  break;
- default:
-  debugmsg("%s is not a computer!", m.tername(x, y).c_str());
+ computer* used = m.computer_at(x, y);
+
+ if (used == NULL) {
+  debugmsg("Tried to use computer at (%d, %d) - none there", x, y);
   return;
  }
- int success = u.sklevel[sk_computer] + int((u.int_cur - 8) / 3) +
-               rng(int(used.difficulty * .5), int(used.difficulty * 1.5));
- int choice = menu_vec(m.tername(x, y).c_str(), used.list_opts());
- choice--;
- if (success < -2) {
-  (used.*used.failure)(this);
-   return;
- }
- if (!(used.*used.options[choice].action)(this, success))
-  m.ter(x, y) = t_computer_broken;
+ 
+ used->use(this);
+
+ refresh_all();
 }
 
 void game::resonance_cascade(int x, int y)
@@ -2819,9 +2682,9 @@ void game::resonance_cascade(int x, int y)
 void game::emp_blast(int x, int y)
 {
  int rn;
- if (m.has_flag(computer, x, y)) {
+ if (m.has_flag(console, x, y)) {
   add_msg("The %s is rendered non-functional!", m.tername(x, y).c_str());
-  m.ter(x, y) = t_computer_broken;
+  m.ter(x, y) = t_console_broken;
   return;
  }
 // TODO: More terrain effects.
@@ -3180,7 +3043,7 @@ void game::examine()
   else
    pickup(examx, examy, 0);
  }
- if (m.has_flag(computer, examx, examy)) {
+ if (m.has_flag(console, examx, examy)) {
   use_computer(examx, examy);
   return;
  }
@@ -4621,9 +4484,11 @@ void game::plmove(int x, int y)
       u.per_cur - u.encumb(bp_eyes) >= traps[m.tr_at(x, y)]->visibility &&
       !query_yn("Really step onto that %s?",traps[m.tr_at(x, y)]->name.c_str()))
    return;
-  if (u.has_trait(PF_PARKOUR) && m.move_cost(x, y) <= 4)
-   movecost = 100 + u.encumb(bp_feet) * 5 + u.encumb(bp_legs) * 3;
-  else
+  if (u.has_trait(PF_PARKOUR) && m.move_cost(x, y) > 2) {
+   movecost = m.move_cost(x, y) * 20 + u.encumb(bp_feet) * 5 + u.encumb(bp_legs) * 3;
+   if (movecost < 100)
+    movecost = 100;
+  } else
    movecost = m.move_cost(x, y) * 50 + u.encumb(bp_feet) * 5 +
                                        u.encumb(bp_legs) * 3;
   if (u.has_trait(PF_FLEET) && m.move_cost(x, y) == 2)
@@ -4640,8 +4505,8 @@ void game::plmove(int x, int y)
    }
   }
   u.moves -= movecost;
-  if (m.move_cost(x, y) > 2 &&
-      (!u.has_trait(PF_PARKOUR) || m.move_cost(x, y) > 4))
+  if ((!u.has_trait(PF_PARKOUR) && m.move_cost(x, y) > 2) ||
+      ( u.has_trait(PF_PARKOUR) && m.move_cost(x, y) > 4    ))
    add_msg("Moving past this %s is slow!", m.tername(x, y).c_str());
   if (m.has_flag(rough, x, y)) {
    if (one_in(5) && u.armor_bash(bp_feet) < rng(1, 5)) {
@@ -4651,8 +4516,10 @@ void game::plmove(int x, int y)
    }
   }
   if (m.has_flag(sharp, x, y) && !one_in(3) && !one_in(40 - int(u.dex_cur/2))) {
-   add_msg("You cut yourself on the %s!", m.tername(x, y).c_str());
-   u.hit(this, bp_torso, 0, 0, rng(1, 4));
+   if (!u.has_trait(PF_PARKOUR) || one_in(4)) {
+    add_msg("You cut yourself on the %s!", m.tername(x, y).c_str());
+    u.hit(this, bp_torso, 0, 0, rng(1, 4));
+   }
   }
   if (u.has_trait(PF_LIGHTSTEP))
    sound(x, y, 2, "");	// Sound of footsteps may awaken nearby monsters
