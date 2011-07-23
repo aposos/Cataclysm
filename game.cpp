@@ -2484,12 +2484,7 @@ void game::check_warmth()
   add_msg("Your body is cold.");
   u.add_disease(DI_COLD, abs(warmth), this);
  } else if (warmth >= 12) {
-<<<<<<< HEAD
-/*
-  add_msg("Your body is too hot.");
-=======
-  add_msg("Your body is too hot.");
->>>>>>> c836c861c16896fb41714ac1c64b47cb01455afb
+  add_msg("Your body is too hot."); 
   u.add_disease(DI_HOT, warmth * 2, this);
  }
  // HANDS
