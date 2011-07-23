@@ -600,13 +600,13 @@
 	<vector>
 	<string>
 
-1310116563 c:\cataclysm\item.h
+1311379658 c:\cataclysm\item.h
 	<string>
 	<vector>
 	"itype.h"
 	"mtype.h"
 
-1311093392 c:\cataclysm\itype.h
+1311380389 c:\cataclysm\itype.h
 	<string>
 	<vector>
 	"color.h"
@@ -616,6 +616,7 @@
 	"bodypart.h"
 	"skill.h"
 	"bionics.h"
+	"posix_time.h"
 
 1309461616 c:\cataclysm\color.h
 	<curses.h>
@@ -624,7 +625,7 @@
 
 1309283121 c:\cataclysm\iuse.h
 
-1309283121 c:\cataclysm\pldata.h
+1311379658 c:\cataclysm\pldata.h
 
 1309283121 c:\cataclysm\bodypart.h
 	<string>
@@ -662,7 +663,7 @@
 1309599445 c:\cataclysm\morale.h
 	<string>
 
-1310116563 c:\cataclysm\game.h
+1311379658 c:\cataclysm\game.h
 	"mtype.h"
 	"monster.h"
 	"map.h"
@@ -678,9 +679,10 @@
 	"event.h"
 	"mission.h"
 	"weather.h"
+	"posix_time.h"
 	<vector>
 
-1310116563 c:\cataclysm\map.h
+1311379658 c:\cataclysm\map.h
 	<curses.h>
 	<stdlib.h>
 	<vector>
@@ -692,7 +694,7 @@
 	"monster.h"
 	"npc.h"
 
-1309858168 c:\cataclysm\mapdata.h
+1311379658 c:\cataclysm\mapdata.h
 	<vector>
 	<string>
 	"color.h"
@@ -700,6 +702,7 @@
 	"trap.h"
 	"monster.h"
 	"enums.h"
+	"computer.h"
 
 1309858168 c:\cataclysm\mapitems.h
 
@@ -771,7 +774,7 @@
 	"itype.h"
 	"texthash.h"
 
-1309283121 c:\cataclysm\texthash.h
+1311379658 c:\cataclysm\texthash.h
 	<string>
 	<vector>
 
@@ -795,14 +798,19 @@
 	<curses.h>
 	"color.h"
 
-1309283121 source:c:\cataclysm\computer.cpp
+1311379658 source:c:\cataclysm\computer.cpp
 	"computer.h"
 	"game.h"
 	"monster.h"
 	"overmap.h"
+	"output.h"
 	<fstream>
+	<string>
+	<sstream>
 
-1309283121 c:\cataclysm\computer.h
+1311379658 c:\cataclysm\computer.h
+	"texthash.h"
+	"output.h"
 	<vector>
 	<string>
 
@@ -823,13 +831,13 @@
 	"crafting.h"
 	"mission.h"
 
-1309283121 source:c:\cataclysm\event.cpp
+1311379658 source:c:\cataclysm\event.cpp
 	"event.h"
 	"npc.h"
 	"game.h"
 	"rng.h"
 
-1309283121 source:c:\cataclysm\faction.cpp
+1311379658 source:c:\cataclysm\faction.cpp
 	"faction.h"
 	"facdata.h"
 	"rng.h"
@@ -847,13 +855,14 @@
 	"map.h"
 	"game.h"
 
-1310116834 source:c:\cataclysm\game.cpp
+1311380428 source:c:\cataclysm\game.cpp
 	"game.h"
 	"rng.h"
 	"keypress.h"
 	"output.h"
 	"skill.h"
 	"line.h"
+	"posix_time.h"
 	"computer.h"
 	"weather_data.h"
 	<fstream>
@@ -862,7 +871,6 @@
 	<unistd.h>
 	<dirent.h>
 	<sys/stat.h>
-	<windows.h>
 
 1309283121 c:\cataclysm\weather_data.h
 	"weather.h"
@@ -876,11 +884,11 @@
 	<sstream>
 	<curses.h>
 
-1310116563 source:c:\cataclysm\itypedef.cpp
+1311379658 source:c:\cataclysm\itypedef.cpp
 	"itype.h"
 	"game.h"
 
-1310116563 source:c:\cataclysm\iuse.cpp
+1311379658 source:c:\cataclysm\iuse.cpp
 	"iuse.h"
 	"game.h"
 	"mapdata.h"
@@ -904,7 +912,7 @@
 	"color.h"
 	<SDL/SDL.h>
 
-1310116563 source:c:\cataclysm\map.cpp
+1311379658 source:c:\cataclysm\map.cpp
 	"map.h"
 	"output.h"
 	"rng.h"
@@ -914,7 +922,7 @@
 	<stdlib.h>
 	<fstream>
 
-1310116563 source:c:\cataclysm\mapgen.cpp
+1311379658 source:c:\cataclysm\mapgen.cpp
 	"map.h"
 	"omdata.h"
 	"mapitems.h"
@@ -923,7 +931,7 @@
 	"rng.h"
 	"line.h"
 
-1310116563 source:c:\cataclysm\mapitemsdef.cpp
+1311379658 source:c:\cataclysm\mapitemsdef.cpp
 	"game.h"
 	"itype.h"
 	"omdata.h"
@@ -986,7 +994,7 @@
 	<stdlib.h>
 	<curses.h>
 
-1309283121 source:c:\cataclysm\monster.cpp
+1311379658 source:c:\cataclysm\monster.cpp
 	"monster.h"
 	"map.h"
 	"mondeath.h"
@@ -1004,7 +1012,7 @@
 	"monattack.h"
 	"itype.h"
 
-1309862333 source:c:\cataclysm\newcharacter.cpp
+1311379658 source:c:\cataclysm\newcharacter.cpp
 	"player.h"
 	"output.h"
 	"rng.h"
@@ -1063,7 +1071,7 @@
 	"rng.h"
 	"keypress.h"
 
-1309468756 source:c:\cataclysm\overmap.cpp
+1311379658 source:c:\cataclysm\overmap.cpp
 	<curses.h>
 	<stdlib.h>
 	<time.h>
@@ -1079,7 +1087,7 @@
 	"npc.h"
 	"keypress.h"
 
-1310116830 source:c:\cataclysm\player.cpp
+1311379658 source:c:\cataclysm\player.cpp
 	"player.h"
 	"bionics.h"
 	"mission.h"
@@ -1136,7 +1144,7 @@
 1309283121 source:c:\cataclysm\skill.cpp
 	"skill.h"
 
-1309283121 source:c:\cataclysm\texthash.cpp
+1311379658 source:c:\cataclysm\texthash.cpp
 	"texthash.h"
 	<sstream>
 
@@ -1153,9 +1161,10 @@
 	"game.h"
 	<vector>
 
-1309283121 source:c:\cataclysm\wish.cpp
+1311379658 source:c:\cataclysm\wish.cpp
 	"game.h"
 	"output.h"
+	"keypress.h"
 
 1309862197 source:c:\cataclysm\help.cpp
 	"game.h"
@@ -1360,7 +1369,7 @@
 	<sys/stat.h>
 	<windows.h>
 
-1310116563 source:c:\cataclysm\melee.cpp
+1311379658 source:c:\cataclysm\melee.cpp
 	"player.h"
 	"bionics.h"
 	"game.h"
@@ -1368,4 +1377,9 @@
 	<sstream>
 	<curses.h>
 	<stdlib.h>
+
+1311379658 c:\cataclysm\posix_time.h
+	<time.h>
+	<errno.h>
+	<windows.h>
 
