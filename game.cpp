@@ -55,6 +55,7 @@ game::game()
 // Even though we may already have 'd', nextinv will be incremented as needed
  nextinv = 'd';
  next_npc_id = 1;
+ next_faction_id = 1;
  next_mission_id = 1;
  last_target = -1;	// We haven't targeted any monsters yet
  curmes = 0;		// We haven't read any messages yet
@@ -168,11 +169,17 @@ fivedozenwhales@gmail.com.");
    wrefresh(w_open);
    refresh();
    ch = input();
-   if (ch == 'k' && sel1 > 0)
-    sel1--;
-   if (ch == 'j' && sel1 < 5)
-    sel1++;
-   if ((ch == 'l' || ch == '\n' || ch == '>') && sel1 > 0) {
+   if (ch == 'k') {
+    if (sel1 > 0)
+     sel1--;
+    else
+     sel1 = 5;
+   } else if (ch == 'j') {
+    if (sel1 < 5)
+     sel1++;
+    else
+     sel1 = 0;
+   } else if ((ch == 'l' || ch == '\n' || ch == '>') && sel1 > 0) {
     if (sel1 == 5) {
      uquit = QUIT_MENU;
      return false;
@@ -212,11 +219,17 @@ fivedozenwhales@gmail.com.");
     wrefresh(w_open);
     refresh();
     ch = input();
-    if (ch == 'k' && sel2 > 1)
-     sel2--;
-    if (ch == 'j' && sel2 < 3)
-     sel2++;
-    if (ch == 'h' || ch == '<' || ch == KEY_ESCAPE) {
+    if (ch == 'k') {
+     if (sel2 > 1)
+      sel2--;
+     else
+      sel2 = 3;
+    } if (ch == 'j') {
+     if (sel2 < 3)
+      sel2++;
+     else
+      sel2 = 1;
+    } else if (ch == 'h' || ch == '<' || ch == KEY_ESCAPE) {
      mvwprintz(w_open, 5, 12, c_black, "                ");
      mvwprintz(w_open, 6, 12, c_black, "                ");
      mvwprintz(w_open, 7, 12, c_black, "                ");
@@ -258,10 +271,6 @@ fivedozenwhales@gmail.com.");
     else {
      int savestart = (sel2 < 7 ?  0 : sel2 - 7),
          saveend   = (sel2 < 7 ? 14 : sel2 + 7);
-/*
-     if (saveend > savegames.size())
-      saveend = savegames.size();
-*/
      for (int i = savestart; i < saveend; i++) {
       int line = 6 + i - savestart;
       mvwprintz(w_open, line, 12, c_black, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
@@ -273,11 +282,17 @@ fivedozenwhales@gmail.com.");
     wrefresh(w_open);
     refresh();
     ch = input();
-    if (ch == 'k' && sel2 > 1)
-     sel2--;
-    if (ch == 'j' && sel2 < savegames.size())
-     sel2++;
-    if (ch == 'h' || ch == '<' || ch == KEY_ESCAPE) {
+    if (ch == 'k') {
+     if (sel2 > 1)
+      sel2--;
+     else
+      sel2 = savegames.size();
+    } else if (ch == 'j') {
+     if (sel2 < savegames.size())
+      sel2++;
+     else
+      sel2 = 1;
+    } else if (ch == 'h' || ch == '<' || ch == KEY_ESCAPE) {
      layer = 1;
      for (int i = 0; i < 14; i++)
       mvwprintz(w_open, 6 + i, 12, c_black, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
@@ -301,14 +316,20 @@ fivedozenwhales@gmail.com.");
    wrefresh(w_open);
    refresh();
    ch = input();
-   if (ch == 'k' && sel1 > 2)
-    sel1--;
-   if (ch == 'j' && sel1 < PLTYPE_MAX - 1)
-    sel1++;
-   if (ch == 'h' || ch == '<' || ch == KEY_ESCAPE) {
+   if (ch == 'k') {
+    if (sel1 > 2)
+     sel1--;
+    else
+     sel1 = PLTYPE_MAX - 1;
+   } else if (ch == 'j') {
+    if (sel1 < PLTYPE_MAX - 1)
+     sel1++;
+    else
+     sel1 = 2;
+   } else if (ch == 'h' || ch == '<' || ch == KEY_ESCAPE) {
     sel1 = 1;
     layer = 2;
-    for (int i = 2; i < PLTYPE_MAX; i++)
+    for (int i = 2; i <= PLTYPE_MAX; i++)
      mvwprintz(w_open, 3 + i, 12, c_black, "                                 ");
     for (int i = 22; i < 25; i++)
      mvwprintw(w_open, i, 0, "                                                 \
@@ -450,12 +471,12 @@ void game::start_tutorial(tut_type type)
 void game::create_factions()
 {
  int num = dice(4, 3);
- faction tmp;
+ faction tmp(0);
  tmp.make_army();
  factions.push_back(tmp);
  for (int i = 0; i < num; i++) {
+  tmp = faction(assign_faction_id());
   tmp.randomize();
-  tmp.id = i + 1;
   tmp.likes_u = 100;
   tmp.respects_u = 100;
   tmp.known_by_u = true;
@@ -531,7 +552,7 @@ bool game::do_turn()
   if (u.radiation > 1 && one_in(3))
    u.radiation--;
   u.get_sick(this);
-// On the half-hour, we also save and update the weather.
+// On the half-hour, we also autosave and update the weather.
   update_weather();
   save();
  }
@@ -620,6 +641,7 @@ void game::update_skills()
 void game::process_events()
 {
  for (int i = 0; i < events.size(); i++) {
+  events[i].per_turn(this);
   if (events[i].turn <= turn) {
    events[i].actualize(this);
    events.erase(events.begin() + i);
@@ -1048,6 +1070,9 @@ bool game::is_game_over()
    for (int i = 0; i < tmp.size(); i++)
     m.add_item(u.posx, u.posy, tmp[i]);
    m.save(&cur_om, turn, levx, levy);
+   std::stringstream playerfile;
+   playerfile << "save/" << u.name << ".sav";
+   unlink(playerfile.str().c_str());
    uquit = QUIT_DIED;
    return true;
   }
@@ -1127,8 +1152,8 @@ void game::load(std::string name)
  u.weapon = item(itypes[0], 0);
  int tmprun, tmptar, tmptemp, comx, comy;
  fin >> turn >> tmptar >> tmprun >> mostseen >> nextinv >> next_npc_id >>
-        next_mission_id >> nextspawn >> tmptemp >> levx >> levy >> levz >>
-        comx >> comy;
+        next_faction_id >> next_mission_id >> nextspawn >> tmptemp >> levx >>
+        levy >> levz >> comx >> comy;
  cur_om = overmap(this, comx, comy, levz);
 // m = map(&itypes, &mapitems, &traps); // Init the root map with our vectors
  m.load(this, levx, levy);
@@ -1198,9 +1223,9 @@ void game::save()
 // First, write out basic game state information.
  fout << turn << " " << int(last_target) << " " << int(run_mode) << " " <<
          mostseen << " " << nextinv << " " << next_npc_id << " " <<
-         next_mission_id << " " << nextspawn << " " << int(temperature) <<
-         " " << levx << " " << levy << " " << levz << " " << cur_om.posx <<
-         " " << cur_om.posy << " " << std::endl;
+         next_faction_id << " " << next_mission_id << " " << nextspawn <<
+         " " << int(temperature) << " " << levx << " " << levy << " " <<
+         levz << " " << cur_om.posx << " " << cur_om.posy << " " << std::endl;
 // Next, the scent map.
  for (int i = 0; i < SEEX * 3; i++) {
   for (int j = 0; j < SEEY * 3; j++)
@@ -1261,11 +1286,20 @@ void game::add_msg(const char* msg, ...)
  messages.push_back(s);
 }
 
-void game::add_event(event_type type, int on_turn, faction* rel)
+void game::add_event(event_type type, int on_turn, int faction_id = -1,
+                     int x = -1, int y = -1)
 {
- debugmsg("type %d, on turn %d (%d)", type, on_turn, turn);
- event tmp(type, on_turn, rel);
+ event tmp(type, on_turn, faction_id, x, y);
  events.push_back(tmp);
+}
+
+bool game::event_queued(event_type type)
+{
+ for (int i = 0; i < events.size(); i++) {
+  if (events[i].type == type)
+   return true;
+  }
+  return false;
 }
 
 void game::debug()
@@ -1961,6 +1995,22 @@ int game::assign_npc_id()
  return ret;
 }
 
+int game::assign_faction_id()
+{
+ int ret = next_faction_id;
+ next_faction_id++;
+ return ret;
+}
+
+faction* game::faction_by_id(int id)
+{
+ for (int i = 0; i < factions.size(); i++) {
+  if (factions[i].id == id)
+   return &(factions[i]);
+ }
+ return NULL;
+}
+
 faction* game::random_good_faction()
 {
  std::vector<int> valid;
@@ -1973,7 +2023,7 @@ faction* game::random_good_faction()
   return &(factions[index]);
  }
 // No good factions exist!  So create one!
- faction newfac;
+ faction newfac(assign_faction_id());
  do
   newfac.randomize();
  while (newfac.good < 5);
@@ -1994,7 +2044,7 @@ faction* game::random_evil_faction()
   return &(factions[index]);
  }
 // No good factions exist!  So create one!
- faction newfac;
+ faction newfac(assign_faction_id());
  do
   newfac.randomize();
  while (newfac.good > -5);
@@ -2890,6 +2940,7 @@ void game::open()
  if (!didit) {
   switch(m.ter(u.posx + openx, u.posy + openy)) {
   case t_door_locked:
+  case t_door_locked_alarm:
    add_msg("The door is locked!");
    break;	// Trying to open a locked door uses the full turn's movement
   case t_door_o:
@@ -2947,6 +2998,12 @@ void game::smash()
  }
  int smashx, smashy;
  get_direction(smashx, smashy, ch);
+// TODO: Move this elsewhere.
+ if (m.has_flag(alarmed, u.posx + smashx, u.posy + smashy) &&
+     !event_queued(EVENT_WANTED)) {
+  sound(u.posx, u.posy, 30, "An alarm sounds!");
+  add_event(EVENT_WANTED, turn + 300, 0, levx, levy);
+ }
  if (smashx != -2 && smashy != -2)
   didit = m.bash(u.posx + smashx, u.posy + smashy, smashskill, bashsound);
  else
@@ -4375,10 +4432,6 @@ void game::plmove(int x, int y)
    int udam = u.hit_mon(this, &z[mondex]);
    if (z[mondex].hurt(udam))
     kill_mon(mondex);
-/*
-   else if (udam > 0)	// Stun them
-    z[mondex].moves -= udam + int((udam / z[mondex].hp) * z[mondex].speed);
-*/
    return;
   } else
    displace = true;
@@ -4606,7 +4659,7 @@ void game::plmove(int x, int y)
    u.moves -= 100;
   } else if (m.open_door(x, y, m.ter(u.posx, u.posy) == t_floor))
    u.moves -= 100;
-  else if (m.ter(x, y) == t_door_locked) {
+  else if (m.ter(x, y) == t_door_locked || m.ter(x, y) == t_door_locked_alarm) {
    u.moves -= 100;
    add_msg("That door is locked!");
    if (in_tutorial)
@@ -4858,6 +4911,7 @@ void game::update_map(int &x, int &y)
    scent(i, j) = newscent[i][j];
  }
  draw_minimap();
+ save(); // We autosave every time the map gets updated.
 }
 
 void game::spawn_mon(int shiftx, int shifty)
@@ -5016,6 +5070,13 @@ void game::gameover()
  erase();
  mvprintw(0, 35, "GAME OVER");
  inv();
+}
+
+bool game::game_quit()
+{
+ if (uquit == QUIT_MENU)
+  return true;
+ return false;
 }
 
 void game::write_msg()
