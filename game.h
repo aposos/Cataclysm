@@ -48,6 +48,7 @@ class game
  public:
   game();
   ~game();
+  bool game_quit(); // True if we actually quit the game - used in main.cpp
   void save();
   bool do_turn();
   void tutorial_message(tut_lesson lesson);
@@ -55,7 +56,8 @@ class game
   void draw_ter();
   void advance_nextinv();	// Increment the next inventory letter
   void add_msg(const char* msg, ...);
-  void add_event(event_type type, int on_turn, faction* rel);
+  void add_event(event_type type, int on_turn, int faction_id, int x, int y);
+  bool event_queued(event_type type);
 // Sound at (x, y) of intensity (vol), described to the player is (description)
   void sound(int x, int y, int vol, std::string description);
 // Explosion at (x, y) of intensity (power), with (shrapnel) chunks of shrapnel
@@ -93,6 +95,8 @@ class game
   int& scent(int x, int y);
   unsigned char light_level();
   int assign_npc_id();
+  int assign_faction_id();
+  faction* faction_by_id(int it);
   bool sees_u(int x, int y, int &t);
   bool u_see (int x, int y, int &t);
   bool u_see (monster *mon, int &t);
@@ -145,14 +149,14 @@ class game
   void start_tutorial(tut_type type);	// Starts a new tutorial
 
 // Data Initialization
-  void init_itypes();	// Initializes item types
-  void init_mapitems();	// Initializes item placement
-  void init_mtypes();	// Initializes monster types
-  void init_moncats();	// Initializes monster categories
-  void init_monitems();	// Initializes monster inventory selection
-  void init_traps();	// Initializes trap types
-  void init_recipes();	// Initializes crafting recipes
-  void init_missions();	// Initializes mission templates
+  void init_itypes();       // Initializes item types
+  void init_mapitems();     // Initializes item placement
+  void init_mtypes();       // Initializes monster types
+  void init_moncats();      // Initializes monster categories
+  void init_monitems();     // Initializes monster inventory selection
+  void init_traps();        // Initializes trap types
+  void init_recipes();      // Initializes crafting recipes
+  void init_missions();     // Initializes mission templates
 
   void create_factions();	// Creates new factions (for a new game world)
 
@@ -251,7 +255,7 @@ class game
   quit_status uquit;    // Set to true if the player quits ('Q')
 
   int nextspawn;          // The turn on which monsters will spawn next.
-  int next_npc_id, next_mission_id;	// Keep track of UIDs
+  int next_npc_id, next_faction_id, next_mission_id; // Keep track of UIDs
   signed char temperature;              // The air temperature
   weather_type weather;			// Weather pattern--SEE weather.h
   season_type season;

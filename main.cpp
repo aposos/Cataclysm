@@ -25,8 +25,15 @@ int main(int argc, char *argv[])
     SDL_WM_SetCaption("Cataclysm",NULL);
 #endif
  rand();
- game g;
- while(!g.do_turn());
+ bool quit_game = false;
+ game *g;
+ do {
+  g = new game();
+  while (!g->do_turn());
+  if (g->game_quit())
+   quit_game = true;
+  delete g;
+ } while (!quit_game);
  erase();
  endwin();
  #if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
