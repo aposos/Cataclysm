@@ -1077,7 +1077,7 @@ encumb(bp_feet) * 5);
  delwin(w_effects);
  delwin(w_skills);
  delwin(w_speed);
- delwin(w_info);
+// delwin(w_info);
  erase();
  g->refresh_all();
 
@@ -2012,7 +2012,7 @@ void player::hit(game *g, body_part bphurt, int side, int dam, int cut)
   }
 
  case bp_mouth: // Fall through to head damage
- case bp_head: 
+ case bp_head:
   pain++;
   hp_cur[hp_head] -= dam;
   if (hp_cur[hp_head] < 0)

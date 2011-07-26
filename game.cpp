@@ -954,7 +954,7 @@ void game::get_input()
   list_missions();
  else if (ch == '@') {
   u.disp_info(this);
-
+  refresh_all();
  } else if (ch == '#')
   list_factions();
  else if (ch == '%') {
@@ -3944,7 +3944,7 @@ void game::plthrow()
  int x1 = x + range;
  int y1 = y + range;
  int junk;
-
+ refresh_all();
  for (int j = u.posx - SEEX; j <= u.posx + SEEX; j++) {
   for (int k = u.posy - SEEY; k <= u.posy + SEEY; k++) {
    if (u_see(j, k, junk)) {
