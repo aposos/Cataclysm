@@ -1171,6 +1171,8 @@ int npc::player_danger(player *u)
 
  if (u->has_disease(DI_DRUNK))
   ret -= 2;
+
+ return ret;
 }
 
 void npc::make_angry()

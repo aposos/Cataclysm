@@ -116,7 +116,18 @@ bool map::is_outside(int x, int y)
          ter(x - 1, y    ) != t_floor && ter(x - 1, y + 1) != t_floor &&
          ter(x    , y - 1) != t_floor && ter(x    , y    ) != t_floor &&
          ter(x    , y + 1) != t_floor && ter(x + 1, y - 1) != t_floor &&
-         ter(x + 1, y    ) != t_floor && ter(x + 1, y + 1) != t_floor   );
+         ter(x + 1, y    ) != t_floor && ter(x + 1, y + 1) != t_floor &&
+         ter(x    , y    ) != t_floor_wax &&
+         ter(x - 1, y - 1) != t_floor_wax &&
+         ter(x - 1, y    ) != t_floor_wax &&
+         ter(x - 1, y + 1) != t_floor_wax &&
+         ter(x    , y - 1) != t_floor_wax &&
+         ter(x    , y    ) != t_floor_wax &&
+         ter(x    , y + 1) != t_floor_wax &&
+         ter(x + 1, y - 1) != t_floor_wax &&
+         ter(x + 1, y    ) != t_floor_wax &&
+         ter(x + 1, y + 1) != t_floor_wax   );
+;
 }
 
 point map::random_outdoor_tile()
@@ -213,7 +224,7 @@ bool map::bash(int x, int y, int str, std::string &sound)
   }
   break;
  case t_paper:
-  if (str >= dice(2, 6)) {
+  if (str >= dice(2, 6) - 2) {
    sound += "rrrrip!";
    ter(x, y) = t_dirt;
    return true;
@@ -223,7 +234,7 @@ bool map::bash(int x, int y, int str, std::string &sound)
   }
   break;
  case t_toilet:
-  if (str >= dice(8, 10)) {
+  if (str >= dice(8, 10) - 8) {
    sound += "porcelain breaking!";
    ter(x, y) = t_rubble;
    return true;
