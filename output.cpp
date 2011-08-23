@@ -378,6 +378,101 @@ std::string string_input_popup(const char *mes, ...)
  } while (true);
 }
 
+std::string string_input_popup(int max_length, const char *mes, ...)
+{
+ std::string ret;
+ va_list ap;
+ va_start(ap, mes);
+ char buff[1024];
+ vsprintf(buff, mes, ap);
+ va_end(ap);
+ int startx = strlen(buff) + 2;
+ WINDOW* w = newwin(3, 80, 11, 0);
+ wborder(w, LINE_XOXO, LINE_XOXO, LINE_OXOX, LINE_OXOX,
+            LINE_OXXO, LINE_OOXX, LINE_XXOO, LINE_XOOX );
+ mvwprintz(w, 1, 1, c_ltred, "%s", buff);
+ for (int i = startx + 1; i < 79; i++)
+  mvwputch(w, 1, i, c_ltgray, '_');
+ int posx = startx;
+ mvwputch(w, 1, posx, h_ltgray, '_');
+ do {
+  wrefresh(w);
+  long ch = getch();
+  if (ch == 27) {	// Escape
+   werase(w);
+   wrefresh(w);
+   delwin(w);
+   refresh();
+   return "";
+  } else if (ch == '\n') {
+   werase(w);
+   wrefresh(w);
+   delwin(w);
+   refresh();
+   return ret;
+  } else if (ch == KEY_BACKSPACE && posx > startx) {
+   ret = ret.substr(0, ret.size() - 1);
+   mvwputch(w, 1, posx, c_ltgray, '_');
+   posx--;
+   mvwputch(w, 1, posx, h_ltgray, '_');
+  } else if(ret.size() < max_length){
+   ret += ch;
+   mvwputch(w, 1, posx, c_magenta, ch);
+   posx++;
+   mvwputch(w, 1, posx, h_ltgray, '_');
+  }
+ } while (true);
+}
+
+char popup_getkey(const char *mes, ...)
+{
+ va_list ap;
+ va_start(ap, mes);
+ char buff[8192];
+ vsprintf(buff, mes, ap);
+ va_end(ap);
+ std::string tmp = buff;
+ int width = 0;
+ int height = 2;
+ size_t pos = tmp.find_first_of('\n');
+ while (pos != std::string::npos) {
+  height++;
+  if (pos > width)
+   width = pos;
+  tmp = tmp.substr(pos + 1);
+  pos = tmp.find_first_of('\n');
+ }
+ if (width == 0 || tmp.length() > width)
+  width = tmp.length();
+ width += 2;
+ if (height > 25)
+  height = 25;
+ WINDOW* w = newwin(height + 1, width, int((25 - height) / 2),
+                    int((80 - width) / 2));
+ wborder(w, LINE_XOXO, LINE_XOXO, LINE_OXOX, LINE_OXOX,
+            LINE_OXXO, LINE_OOXX, LINE_XXOO, LINE_XOOX );
+ tmp = buff;
+ pos = tmp.find_first_of('\n');
+ int line_num = 0;
+ while (pos != std::string::npos) {
+  std::string line = tmp.substr(0, pos);
+  line_num++;
+  mvwprintz(w, line_num, 1, c_white, line.c_str());
+  tmp = tmp.substr(pos + 1);
+  pos = tmp.find_first_of('\n');
+ }
+ line_num++;
+ mvwprintz(w, line_num, 1, c_white, tmp.c_str());
+ 
+ wrefresh(w);
+ char ch = getch();;
+ werase(w);
+ wrefresh(w);
+ delwin(w);
+ refresh();
+ return ch;
+}
+
 int menu_vec(const char *mes, std::vector<std::string> options)
 {
  if (options.size() == 0) {
