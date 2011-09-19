@@ -5,6 +5,7 @@
 #include "output.h"
 #include "rng.h"
 #include "line.h"
+#include "player.h"
 #include <sstream>
 
 void iuse::royal_jelly(game *g, player *p, item *it, bool t)
@@ -407,7 +408,7 @@ void iuse::coke(game *g, player *p, item *it, bool t)
 void iuse::meth(game *g, player *p, item *it, bool t)
 {
  int duration = 10 * (40 - p->str_cur);
- if (p->has_amount(itm_lighter, 1)) {
+ if (p->has_charges(itm_lighter, 1)) {
   if (!p->is_npc())
    g->add_msg("You smoke some crystals.");
   duration *= 1.5;
@@ -731,6 +732,7 @@ void iuse::scissors(game *g, player *p, item *it, bool t)
    else
     p->i_add(string);
   }
+  return;
  }
  if (!cut->made_of(COTTON)) {
   g->add_msg("You can only slice items made of cotton.");
@@ -876,12 +878,12 @@ void iuse::hammer(game *g, player *p, item *it, bool t)
  }
  nc_color col;
  mvwprintz(w, 1, 1, c_white, title.c_str());
- col = (p->has_amount(itm_nail, nails) ? c_green : c_red);
+ col = (p->has_charges(itm_nail, nails) ? c_green : c_red);
  mvwprintz(w, 2, 1, col, "> %d nails", nails);
  col = (p->has_amount(itm_2x4, boards) ? c_green : c_red);
  mvwprintz(w, 3, 1, col, "> %d two by fours", boards);
 
- if (p->has_amount(itm_nail, nails) && p->has_amount(itm_2x4, boards)) {
+ if (p->has_charges(itm_nail, nails) && p->has_amount(itm_2x4, boards)) {
   mvwprintz(w, 5, 1, c_yellow, "Perform action? (y/n)");
   wrefresh(w);
   char ch;
@@ -890,8 +892,8 @@ void iuse::hammer(game *g, player *p, item *it, bool t)
   while (ch != 'y' && ch != 'Y' && ch != 'n' && ch != 'N');
   if (ch == 'y' || ch == 'Y') {
    p->moves -= boards * 50;
-   p->use_up(itm_nail, nails);
-   p->use_up(itm_2x4, boards);
+   p->use_charges(itm_nail, nails);
+   p->use_amount(itm_2x4, boards);
    g->m.ter(dirx, diry) = newter;
   }
  } else {
@@ -1399,11 +1401,11 @@ void iuse::can_goo(game *g, player *p, item *it, bool t)
 
 void iuse::pipebomb(game *g, player *p, item *it, bool t)
 {
- if (!p->has_amount(itm_lighter, 1)) {
+ if (!p->has_charges(itm_lighter, 1)) {
   g->add_msg("You need a lighter!");
   return;
  }
- p->use_up(itm_lighter, 1);
+ p->use_charges(itm_lighter, 1);
  g->add_msg("You light the fuse on the pipe bomb.");
  it->make(g->itypes[itm_pipebomb_act]);
  it->charges = 3;
@@ -1531,11 +1533,11 @@ void iuse::smokebomb_act(game *g, player *p, item *it, bool t)
 
 void iuse::molotov(game *g, player *p, item *it, bool t)
 {
- if (!p->has_amount(itm_lighter, 1)) {
+ if (!p->has_charges(itm_lighter, 1)) {
   g->add_msg("You need a lighter!");
   return;
  }
- p->use_up(itm_lighter, 1);
+ p->use_charges(itm_lighter, 1);
  g->add_msg("You light the molotov cocktail.");
  p->moves -= 150;
  it->make(g->itypes[itm_molotov_lit]);
@@ -1563,11 +1565,11 @@ void iuse::molotov_lit(game *g, player *p, item *it, bool t)
 
 void iuse::dynamite(game *g, player *p, item *it, bool t)
 {
- if (!p->has_amount(itm_lighter, 1)) {
+ if (!p->has_charges(itm_lighter, 1)) {
   g->add_msg("You need a lighter!");
   return;
  }
- p->use_up(itm_lighter, 1);
+ p->use_charges(itm_lighter, 1);
  g->add_msg("You light the dynamite.");
  it->make(g->itypes[itm_dynamite_act]);
  it->charges = 20;
