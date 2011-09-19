@@ -18,7 +18,6 @@
 				</Compiler>
 				<Linker>
 					<Add option="-static -lpdcurses" />
-					<Add library="..\MinGW\lib\libSDL.dll.a" />
 				</Linker>
 				<MakeCommands>
 					<Build command="$make -f $makefile " />
@@ -32,7 +31,7 @@
 			<Target title="Release">
 				<Option output="bin\Release\Cataclysm" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Release\" />
-				<Option type="1" />
+				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
@@ -46,7 +45,15 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Linker>
+			<Add library="C:\Program Files\CodeBlocks\MinGW\lib\libSDL.dll.a" />
+			<Add library="C:\Program Files\CodeBlocks\MinGW\lib\libSDLmain.a" />
+		</Linker>
+		<Unit filename="Copy of bodypart.h" />
+		<Unit filename="Copy of color.h" />
 		<Unit filename="Keybinds.h" />
+		<Unit filename="Makefile" />
+		<Unit filename="README" />
 		<Unit filename="addiction.h" />
 		<Unit filename="artifact.h" />
 		<Unit filename="bionics.cpp" />
@@ -57,6 +64,8 @@
 		<Unit filename="color.h" />
 		<Unit filename="computer.cpp" />
 		<Unit filename="computer.h" />
+		<Unit filename="construction.cpp" />
+		<Unit filename="construction.h" />
 		<Unit filename="crafting.cpp" />
 		<Unit filename="crafting.h" />
 		<Unit filename="dialogue.h" />
@@ -71,6 +80,9 @@
 		<Unit filename="game.cpp" />
 		<Unit filename="game.h" />
 		<Unit filename="help.cpp" />
+		<Unit filename="inventory.cpp" />
+		<Unit filename="inventory.h" />
+		<Unit filename="inventory_ui.cpp" />
 		<Unit filename="item.cpp" />
 		<Unit filename="item.h" />
 		<Unit filename="itype.h" />
