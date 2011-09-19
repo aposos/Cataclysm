@@ -25,6 +25,7 @@ int main(int argc, char *argv[])
  curs_set(0); // Invisible cursor
 #if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
     SDL_WM_SetCaption("Cataclysm",NULL);
+#endif
 
  rand();  // For some reason a call to rand() seems to be necessary to avoid
           // repetion.
