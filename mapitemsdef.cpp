@@ -164,7 +164,7 @@ void game::init_mapitems()
 	itm_2x4, itm_machete, itm_boots_steel, itm_hat_hard, itm_mask_filter,
 	itm_glasses_safety, itm_bb, itm_bbgun, itm_beartrap, itm_two_way_radio,
 	itm_radio, itm_hotplate, itm_extinguisher, itm_nailgun,
-	itm_manual_mechanics, NULL);
+	itm_manual_mechanics, itm_manual_carpentry, NULL);
 
  setvector(
    mapitems[mi_sports],
@@ -311,12 +311,13 @@ void game::init_mapitems()
 	itm_manual_brawl, itm_manual_knives, itm_manual_mechanics,
 	itm_manual_speech, itm_manual_business, itm_manual_first_aid,
 	itm_manual_computers, itm_cookbook, itm_manual_electronics,
-	itm_manual_tailor, itm_manual_traps, NULL);
+	itm_manual_tailor, itm_manual_traps, itm_manual_carpentry, NULL);
 
  setvector(
    mapitems[mi_textbooks],
 	itm_textbook_computers, itm_textbook_electronics, itm_textbook_business,
-	itm_textbook_chemistry, itm_SICP, itm_textbook_robots, NULL);
+	itm_textbook_chemistry, itm_textbook_carpentry, itm_SICP,
+	itm_textbook_robots, NULL);
 
  setvector(
    mapitems[mi_cop_weapons],
