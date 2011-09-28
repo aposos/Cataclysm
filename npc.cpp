@@ -617,15 +617,12 @@ void npc::make_shopkeep(game *g, oter_id type)
   do {
    items_location place = pool[rng(0, pool.size() - 1)];
    item_type = g->mapitems[place][rng(0, g->mapitems[place].size() - 1)];
-   if(item_type >= 0)
-   {
    tmp = item(g->itypes[item_type], g->turn);
    if (volume_carried() + tmp.volume() > volume_capacity() ||
        weight_carried() + tmp.weight() > weight_capacity()   )
     done = true;
    else
     inv.push_back(tmp);
-    }
   } while (!done);
  }
  mission = NPC_MISSION_SHOPKEEP;

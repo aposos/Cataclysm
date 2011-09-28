@@ -13,9 +13,12 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <sys/stat.h>
+
 void intro();
 nc_color sev(int a);	// Right now, ONLY used for scent debugging....
-moncat_id mt_to_mc(mon_id type);	// Pick the moncat that contains type// This is the main game set-up process.
+moncat_id mt_to_mc(mon_id type);	// Pick the moncat that contains type
+
+// This is the main game set-up process.
 game::game()
 {
 /*
@@ -919,10 +922,8 @@ void game::get_input()
  else if (ch == '~') {
   debugmon = !debugmon;
   add_msg("Debug messages %s!", (debugmon ? "ON" : "OFF"));
- } else if (ch == ':' || ch == 'm') {
+ } else if (ch == ':' || ch == 'm')
   draw_overmap();
-  refresh_all();
-}
  else if (ch == 'M')
   list_missions();
  else if (ch == '@') {
@@ -954,14 +955,7 @@ void game::get_input()
   save();
   u.moves = 0;
   uquit = QUIT_SAVED;
- }
-   else if (ch == 'V')
-   {
-    save();
-    add_msg("Game saved!");
-   }
-
-  else if (ch == 'Q' && query_yn("Commit suicide?")) {
+ } else if (ch == 'Q' && query_yn("Commit suicide?")) {
   u.moves = 0;
   std::vector<item> tmp = u.inv_dump();
   item your_body;
@@ -1770,9 +1764,9 @@ void game::refresh_all()
 {
  draw();
  draw_minimap();
- werase(w_HP);
+
+ werase(w_HP); // TODO_WIN if werase isn't called here, the HP/POW indicators stop showing up entirely.
  draw_HP();
- wrefresh((w_HP));
  wrefresh(w_moninfo);
  wrefresh(w_messages);
  refresh();
@@ -1805,13 +1799,13 @@ void game::draw_HP()
     mvwprintz(w_HP, i * 2 + 1, 0, col, "  %d    ", curhp);
   }
  }
- mvwprintz(w_HP,  0, 0, c_ltgray, "HEAD:");
- mvwprintz(w_HP,  2, 0, c_ltgray, "TORSO:");
+ mvwprintz(w_HP,  0, 0, c_ltgray, "HEAD:  ");
+ mvwprintz(w_HP,  2, 0, c_ltgray, "TORSO: ");
  mvwprintz(w_HP,  4, 0, c_ltgray, "L. ARM:");
  mvwprintz(w_HP,  6, 0, c_ltgray, "R. ARM:");
  mvwprintz(w_HP,  8, 0, c_ltgray, "L. LEG:");
  mvwprintz(w_HP, 10, 0, c_ltgray, "R. LEG:");
- mvwprintz(w_HP, 12, 0, c_ltgray, "POW:");
+ mvwprintz(w_HP, 12, 0, c_ltgray, "POW:   ");
  if (u.max_power_level == 0)
   mvwprintz(w_HP, 13, 0, c_ltgray, " --   ");
  else {

@@ -223,9 +223,9 @@ struct itype
  signed char melee_dam;	// Bonus for melee damage; may be a penalty
  signed char melee_cut;	// Cutting damage in melee
  signed char m_to_hit;	// To-hit bonus for melee combat; -5 to 5 is reasonable
- 
+
  unsigned item_flags : NUM_ITEM_FLAGS;
- 
+
  virtual bool is_food()      { return false; }
  virtual bool is_ammo()      { return false; }
  virtual bool is_gun()       { return false; }
@@ -303,6 +303,7 @@ struct it_comest : public itype
            unsigned char pvolume, unsigned char pweight,
            signed char pmelee_dam, signed char pmelee_cut,
            signed char pm_to_hit, unsigned pitem_flags,
+
            signed char pquench, unsigned char pnutr, signed char pspoils,
            signed char pstim, signed char phealthy, unsigned char paddict,
            unsigned char pcharges, signed char pfun, itype_id pcontainer,

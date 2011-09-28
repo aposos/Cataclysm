@@ -50,7 +50,7 @@ h_pink    = COLOR_PAIR(21) | A_BOLD,
 h_yellow  = COLOR_PAIR(22) | A_BOLD,
 
 i_black   = COLOR_PAIR(30),
-i_white   = COLOR_PAIR(8) | A_BLINK,
+i_white   = COLOR_PAIR(8)  | A_BLINK,
 i_ltgray  = COLOR_PAIR(8),
 i_dkgray  = COLOR_PAIR(30) | A_BLINK,
 i_red     = COLOR_PAIR(9),

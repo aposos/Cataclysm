@@ -260,11 +260,11 @@ point overmap::display_notes()
   if (start > 0)
    mvwprintw(w_notes, maxitems + 4, 0, "< Go Back");
   if (cur_it < notes.size())
-   mvwprintw(w_notes, maxitems + 4, 12, "> More notes"); 
+   mvwprintw(w_notes, maxitems + 4, 12, "> More notes");
   if(ch >= 'a' && ch <= 't'){
    int chosen_line = (int)(ch % (int)'a');
    if(chosen_line < last_line)
-    return point(notes[start + chosen_line].x, notes[start + chosen_line].y); 
+    return point(notes[start + chosen_line].x, notes[start + chosen_line].y);
   }
   mvwprintz(w_notes, 0, 40, c_white, "Press letter to center on note");
   mvwprintz(w_notes, 24, 40, c_white, "Spacebar - Return to map  ");
@@ -644,12 +644,12 @@ std::vector<point> overmap::find_terrain(std::string term, int cursx, int cursy)
  return found;
 }
 
-void overmap::draw(WINDOW *w, game *g, int &cursx, int &cursy, 
+void overmap::draw(WINDOW *w, game *g, int &cursx, int &cursy,
                    int &origx, int &origy, char &ch, bool blink)
 {
  bool legend = true, note_here = false, npc_here = false;
  std::string note_text, npc_name;
- 
+
  int omx, omy;
  overmap hori, vert, diag; // Adjacent maps
  point target(-1, -1);
@@ -850,8 +850,8 @@ point overmap::choose_point(game *g)
  int origx = cursx, origy = cursy;
  char ch = 0;
  point ret(-1, -1);
- 
- do {  
+
+ do {
   draw(w_map, g, cursx, cursy, origx, origy, ch, blink);
   ch = input();
   int dirx, diry;
@@ -926,11 +926,11 @@ point overmap::choose_point(game *g)
         i = terlist.size() - 1;
       }
       cursx = terlist[i].x;
-      cursy = terlist[i].y;       
+      cursy = terlist[i].y;
       draw(w_map, g, cursx, cursy, origx, origy, ch, blink);
       wrefresh(w_search);
       timeout(BLINK_SPEED);
-     } while(ch != '\n' && ch != ' ' && ch != 'q'); 
+     } while(ch != '\n' && ch != ' ' && ch != 'q');
      //If q is hit, return to the last position
      if(ch == 'q'){
       cursx = tmpx;
@@ -954,7 +954,7 @@ point overmap::choose_point(game *g)
  wrefresh(w_map);
  delwin(w_map);
  erase();
- //g->refresh_all();
+ g->refresh_all();
  return ret;
 }
 
@@ -2062,7 +2062,7 @@ void overmap::place_mongroups()
    ter(x, y) = ot_silo;
  }
 
-// Place the "put me anywhere" grounds
+// Place the "put me anywhere" groups
  int numgroups = rng(0, 3);
  for (int i = 0; i < numgroups; i++) {
   zg.push_back(

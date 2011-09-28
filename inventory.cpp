@@ -1,6 +1,7 @@
 #include <sstream>
 #include "inventory.h"
 #include "game.h"
+#include "keypress.h"
 
 item& inventory::operator[] (int i)
 {
@@ -33,7 +34,8 @@ inventory& inventory::operator= (inventory &rhs)
  if (this == &rhs)
   return *this; // No self-assignment
 
- items.clear();
+// items.clear();   WIN_TODO this may be related to the no-hp-on-exit-inventory bug
+ clear();
  for (int i = 0; i < rhs.size(); i++)
   items.push_back(rhs.stack_at(i));
  return *this;
@@ -76,6 +78,12 @@ inventory inventory::operator+ (const item &rhs)
 
 void inventory::clear()
 {
+/*
+ for (int i = 0; i < items.size(); i++) {
+  for (int j = 0; j < items[j].size(); j++)
+   delete items[i][j];
+ }
+*/
  items.clear();
 }
 
@@ -248,6 +256,8 @@ item& inventory::item_by_letter(char ch)
 
 int inventory::index_by_letter(char ch)
 {
+ if (ch == KEY_ESCAPE)
+  return -1;
  for (int i = 0; i < items.size(); i++) {
   if (items[i][0].invlet == ch)
    return i;

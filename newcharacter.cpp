@@ -805,7 +805,7 @@ Gender: Male Female                      (Press spacebar to toggle)");
 When your character is finished and you're ready to start playing, press '>'.");
  mvwprintz(w,12, 2, c_ltgray, "\
 To go back and review your character, press '<'.");
-
+ 
  int line = 1;
  bool noname = false;
  long ch;

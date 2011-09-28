@@ -8,7 +8,6 @@
 #include "rng.h"
 
 
-
 void game::fire(player &p, int tarx, int tary, std::vector<point> &trajectory,
                 bool burst)
 {
@@ -74,7 +73,7 @@ void game::fire(player &p, int tarx, int tary, std::vector<point> &trajectory,
 
  if (num_shots == 0)
   debugmsg("game::fire() - num_shots = 0!");
-
+ 
  // Make a sound at our location - Zombies will chase it
  std::string gunsound;
  int noise = p.weapon.noise();
@@ -105,10 +104,9 @@ void game::fire(player &p, int tarx, int tary, std::vector<point> &trajectory,
  else if (!is_bolt)
   sound(p.posx, p.posy, noise, gunsound);
 // Set up a timespec for use in the nanosleep function below
-    timespec ts;
-
-   ts.tv_sec = 0;
-  ts.tv_nsec = BULLET_SPEED;
+ timespec ts;
+ ts.tv_sec = 0;
+ ts.tv_nsec = BULLET_SPEED;
 
 // Use up some ammunition
  p.weapon.charges -= num_shots;
@@ -206,9 +204,9 @@ missed_by, deviation, trange, p.weapon.charges, p.posx, p.posy, tarx, tary);
     mvwputch(w_terrain, trajectory[i].y + SEEY - u.posy,
                         trajectory[i].x + SEEX - u.posx, c_red, bullet);
     wrefresh(w_terrain);
-    nanosleep(&ts,NULL);
+    nanosleep(&ts, NULL);
    }
-
+   
    if (dam <= 0) {
     if (is_bolt &&
         ((p.weapon.curammo->m1 == WOOD && !one_in(5)) ||
@@ -670,10 +668,10 @@ void game::hit_monster_with_flags(monster &z, unsigned int flags)
       z.made_of(PAPER) || z.made_of(WOOD))
    z.add_effect(ME_ONFIRE, rng(8, 20));
   else if (z.made_of(FLESH))
-   z.add_effect(ME_ONFIRE, rng(5, 10));  
- }
- else if (flags & mfb(IF_AMMO_INCENDIARY)) {
- 
+   z.add_effect(ME_ONFIRE, rng(5, 10));
+  
+ } else if (flags & mfb(IF_AMMO_INCENDIARY)) {
+
   if (z.made_of(VEGGY) || z.made_of(COTTON) || z.made_of(WOOL) ||
       z.made_of(PAPER) || z.made_of(WOOD))
    z.add_effect(ME_ONFIRE, rng(2, 6));
