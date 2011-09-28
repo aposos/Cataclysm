@@ -50,8 +50,6 @@
 			<Add library="C:\Program Files\CodeBlocks\MinGW\lib\libSDL.dll.a" />
 			<Add library="C:\Program Files\CodeBlocks\MinGW\lib\libSDLmain.a" />
 		</Linker>
-		<Unit filename="Copy of bodypart.h" />
-		<Unit filename="Copy of color.h" />
 		<Unit filename="Keybinds.h" />
 		<Unit filename="Makefile" />
 		<Unit filename="README" />

@@ -46,8 +46,8 @@
 	<File name="itypedef.cpp" open="1" top="0" tabpos="8">
 		<Cursor position="104197" topLine="2306" />
 	</File>
-	<File name="iuse.cpp" open="1" top="1" tabpos="6">
-		<Cursor position="18323" topLine="658" />
+	<File name="iuse.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="18207" topLine="658" />
 	</File>
 	<File name="keypress.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="406" topLine="0" />
@@ -76,8 +76,8 @@
 	<File name="npc.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="17345" topLine="586" />
 	</File>
-	<File name="output.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="265" topLine="0" />
+	<File name="output.cpp" open="1" top="1" tabpos="9">
+		<Cursor position="3345" topLine="106" />
 	</File>
 	<File name="output.h" open="0" top="0" tabpos="14">
 		<Cursor position="164" topLine="0" />
