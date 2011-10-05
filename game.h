@@ -17,7 +17,8 @@
 #include "mission.h"
 #include "weather.h"
 #include "construction.h"
-//#include "posix_time.h"
+#include "calendar.h"
+#include "posix_time.h"
 #include <vector>
 
 #define LONG_RANGE 10
@@ -43,6 +44,7 @@ struct mtype;
 struct mission_type;
 class map;
 class player;
+class calendar;
 
 class game
 {
@@ -118,7 +120,7 @@ class game
   std::vector <trap*> traps;
   std::vector <itype_id> mapitems[num_itloc]; // Items at various map types
   std::vector <items_location_and_chance> monitems[num_monsters];
-  unsigned int turn;
+  calendar turn;
   char nextinv;	// Determines which letter the next inv item will have
   overmap cur_om;
   map m;
@@ -265,11 +267,10 @@ class game
 
   quit_status uquit;    // Set to true if the player quits ('Q')
 
-  int nextspawn;          // The turn on which monsters will spawn next.
+  calendar nextspawn; // The turn on which monsters will spawn next.
   int next_npc_id, next_faction_id, next_mission_id; // Keep track of UIDs
   signed char temperature;              // The air temperature
   weather_type weather;			// Weather pattern--SEE weather.h
-  season_type season;
   std::vector <std::string> messages;   // Messages to be printed
   unsigned char curmes;	  // The last-seen message.  Older than 256 is deleted.
   int grscent[SEEX * 3][SEEY * 3];	// The scent map

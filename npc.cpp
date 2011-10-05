@@ -484,7 +484,7 @@ void npc::randomize_from_faction(game *g, faction *fac)
    case 4: sklevel[sk_tailor] += dice(2,  4);		break;
   }
  }
-
+   
  if (fac->has_value(FACVAL_CHARITABLE)) {
   personality.aggression -= rng(2, 5);
   personality.bravery += rng(0, 4);
@@ -566,6 +566,7 @@ void npc::make_shopkeep(game *g, oter_id type)
  std::vector<items_location> pool;
  bool done = false;
  switch (type) {
+/*
  case ot_set_food:
   pool.push_back(mi_snacks);
   for (int i = 0; i < 4; i++)	// Weighted to be more likely
@@ -611,6 +612,7 @@ void npc::make_shopkeep(game *g, oter_id type)
   pool.push_back(mi_electronics);
   pool.push_back(mi_bionics);
   break;
+*/
  }
 
  if (pool.size() > 0) {
@@ -871,7 +873,7 @@ std::vector<item> starting_inv(npc *me, npc_class type, game *g)
    total_space -= ret[ret.size() - 1].volume();
   }
  }
-
+ 
  return ret;
 }
 
@@ -1035,7 +1037,7 @@ bool npc::wear_if_wanted(item it)
   }
  }
  return false;
-}
+} 
 
 bool npc::wield(game *g, int index)
 {
@@ -1061,7 +1063,7 @@ void npc::perform_mission(game *g)
 {
  switch (mission) {
  case NPC_MISSION_RESCUE_U:
-  if (g->turn % 24 == 0) {
+  if (int(g->turn) % 24 == 0) {
    if (mapx > g->levx)
     mapx--;
    else if (mapx < g->levx)
@@ -1076,7 +1078,7 @@ void npc::perform_mission(game *g)
  case NPC_MISSION_SHOPKEEP:
   break;	// Just stay where we are
  default:	// Random Walk
-  if (g->turn % 24 == 0) {
+  if (int(g->turn) % 24 == 0) {
    mapx += rng(-1, 1);
    mapy += rng(-1, 1);
   }
@@ -1518,14 +1520,14 @@ int npc::danger_assessment(game *g)
   if (rl_dist(posx, posy, g->u.posx, g->u.posy) < 10) {
    if (g->u.weapon.is_gun())
     ret += 10;
-   else
+   else 
     ret += 10 - rl_dist(posx, posy, g->u.posx, g->u.posy);
   }
  } else if (is_friend()) {
   if (rl_dist(posx, posy, g->u.posx, g->u.posy) < 8) {
    if (g->u.weapon.is_gun())
     ret -= 8;
-   else
+   else 
     ret -= 8 - rl_dist(posx, posy, g->u.posx, g->u.posy);
   }
  }
@@ -1597,7 +1599,7 @@ void npc::told_to_wait(game *g)
   say(g, "No way, man!");
  }
 }
-
+ 
 void npc::told_to_leave(game *g)
 {
  if (!is_following()) {
@@ -1678,7 +1680,7 @@ void npc::print_info(WINDOW* w)
   line++;
  } while (split != std::string::npos && line <= 11);
 }
-
+  
 
 void npc::shift(int sx, int sy)
 {
@@ -1704,7 +1706,7 @@ void npc::die(game *g, bool your_fault)
   else if (!is_enemy())
    g->u.add_morale(MORALE_KILLED_INNOCENT, -100);
  }
-
+  
  item my_body;
  my_body.make_corpse(g->itypes[itm_corpse], g->mtypes[mon_null], g->turn);
  my_body.name = name;

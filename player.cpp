@@ -115,7 +115,7 @@ void player::normalize(game *g)
   hp_cur[i] = hp_max[i];
  }
 }
-
+ 
 void player::reset()
 {
 // Reset our stats to normal levels
@@ -174,7 +174,7 @@ void player::reset()
  dex_cur += int(stim / 10);
  per_cur += int(stim /  7);
  int_cur += int(stim /  6);
- if (stim >= 30) {
+ if (stim >= 30) { 
   dex_cur -= int(abs(stim - 15) /  8);
   per_cur -= int(abs(stim - 15) / 12);
   int_cur -= int(abs(stim - 15) / 14);
@@ -192,7 +192,7 @@ void player::reset()
   per_cur = 0;
  if (int_cur < 0)
   int_cur = 0;
-
+ 
  int mor = morale_level();
  if (mor >= 0 && mor < 100 && rng(0, 100) <= mor)
   xp_pool++;
@@ -469,12 +469,12 @@ void player::disp_info(game *g)
   int dexbonus = int(stim / 10);
   int perbonus = int(stim /  7);
   int intbonus = int(stim /  6);
-  if (abs(stim) >= 30) {
+  if (abs(stim) >= 30) { 
    dexbonus -= int(abs(stim - 15) /  8);
    perbonus -= int(abs(stim - 15) / 12);
    intbonus -= int(abs(stim - 15) / 14);
   }
-
+  
   if (dexbonus < 0)
    effect_name.push_back("Stimulant Overdose");
   else
@@ -781,7 +781,7 @@ which require brute force.");
     mvwprintz(w_stats, 3, 2, h_ltgray, "Dexterity:");
     mvwprintz(w_info, 0, 0, c_magenta, "\
 Dexterity affects your chance to hit in melee combat, helps you steady your\n\
-gun for ranged combat, and enhances many actions that require finesse.");
+gun for ranged combat, and enhances many actions that require finesse."); 
    } else if (line == 2) {
     mvwprintz(w_stats, 4, 2, h_ltgray, "Intelligence:");
     mvwprintz(w_info, 0, 0, c_magenta, "\
@@ -1057,7 +1057,7 @@ encumb(bp_feet) * 5);
     } else {
      mvwprintz(w_skills, 2 + i - min, 1, status, "%s:",
                skill_name(skillslist[i]).c_str());
-     mvwprintz(w_skills, 2 + i - min,19, status, "%d (%s%d%%%%)",
+     mvwprintz(w_skills, 2 + i - min,19, status, "%d (%s%d%%%%)", 
                sklevel[skillslist[i]],
                (skexercise[skillslist[i]] < 10 &&
                 skexercise[skillslist[i]] >= 0 ? " " : ""),
@@ -1107,7 +1107,7 @@ encumb(bp_feet) * 5);
    }
   }
  } while (!done);
-
+ 
  werase(w_info);
  werase(w_grid);
  werase(w_stats);
@@ -1127,8 +1127,6 @@ encumb(bp_feet) * 5);
  delwin(w_skills);
  delwin(w_speed);
  erase();
- g->refresh_all();
-
 }
 
 void player::disp_morale()
@@ -1172,7 +1170,7 @@ void player::disp_morale()
  werase(w);
  delwin(w);
 }
-
+ 
 
 void player::disp_status(WINDOW *w)
 {
@@ -1877,10 +1875,10 @@ int player::sight_range(int light_level)
      has_active_bionic(bio_night_vision)) &&
      ret < 12)
   ret = 12;
- if (has_trait(PF_NIGHTVISION) && ret == 1)
-  ret = 2;
- if (has_trait(PF_NIGHTVISION2) && ret < 4)
-  ret = 4;
+ if (has_trait(PF_NIGHTVISION) && ret < 12)
+  ret += 1;
+ if (has_trait(PF_NIGHTVISION2) && ret < 12)
+  ret += 3;
  if (underwater && !has_bionic(bio_membrane) && !has_trait(PF_MEMBRANE) &&
      !is_wearing(itm_goggles_swim))
   ret = 1;
@@ -1951,7 +1949,7 @@ int player::throw_range(int index)
   return str_cur * 2;
  return ret;
 }
-
+ 
 int player::ranged_dex_mod(bool real_life)
 {
  int dex = (real_life ? dex_cur : dex_max);
@@ -1999,7 +1997,7 @@ int player::throw_dex_mod(bool real_life)
   return 0;
  if (dex >= 10)
   return (real_life ? 0 - rng(0, dex - 9) : 9 - dex);
-
+ 
  int deviation = 0;
  if (dex < 6)
   deviation = 3 * (8 - dex);
@@ -2075,7 +2073,7 @@ void player::hit(game *g, body_part bphurt, int side, int dam, int cut)
   }
 
  case bp_mouth: // Fall through to head damage
- case bp_head:
+ case bp_head: 
   pain++;
   hp_cur[hp_head] -= dam;
   if (hp_cur[hp_head] < 0)
@@ -2298,7 +2296,7 @@ void player::add_disease(dis_type type, int duration, game *g)
   }
   i++;
  }
- if (!found) {
+ if (!found) {   
   if (!is_npc())
    dis_msg(g, type);
   disease tmp(type, duration);
@@ -2599,7 +2597,7 @@ void player::suffer(game *g)
            g->m.field_at(posx, posy).density < 3)
    g->m.field_at(posx, posy).density++;
  }
- if (has_trait(PF_RADIOGENIC) && g->turn % 50 == 0 && radiation >= 10) {
+ if (has_trait(PF_RADIOGENIC) && int(g->turn) % 50 == 0 && radiation >= 10) {
   radiation -= 10;
   healall(1);
  }
@@ -2610,7 +2608,7 @@ void player::suffer(game *g)
  if (has_trait(PF_UNSTABLE) && one_in(28800))	// Average once per 2 days
   mutate(g);
  radiation += rng(0, g->m.radiation(posx, posy) / 4);
- if (rng(1, 1000) < radiation && g->turn % 600 == 0) {
+ if (rng(1, 1000) < radiation && int(g->turn) % 600 == 0) {
   mutate(g);
   if (radiation > 2000)
    radiation = 2000;
@@ -2783,7 +2781,7 @@ void player::add_morale(morale_type type, int bonus, int max_bonus,
   morale.push_back(tmp);
  }
 }
-
+ 
 void player::sort_inv()
 {
  // guns ammo weaps armor food tools books other
@@ -2818,7 +2816,7 @@ void player::sort_inv()
 
 void player::i_add(item it)
 {
- if (it.is_food() || it.is_ammo() || it.is_gun()  || it.is_armor() ||
+ if (it.is_food() || it.is_ammo() || it.is_gun()  || it.is_armor() || 
      it.is_book() || it.is_tool() || it.is_weap() || it.is_food_container())
   inv_sorted = false;
  if (it.is_ammo()) {	// Possibly combine with other ammo
@@ -2879,7 +2877,7 @@ void player::process_active_items(game *g)
   }
   tmp = dynamic_cast<it_tool*>(weapon.type);
   (use.*tmp->use)(g, this, &weapon, true);
-  if (tmp->turns_per_charge > 0 && g->turn % tmp->turns_per_charge == 0)
+  if (tmp->turns_per_charge > 0 && int(g->turn) % tmp->turns_per_charge == 0)
    weapon.charges--;
   if (weapon.charges <= 0) {
    (use.*tmp->use)(g, this, &weapon, false);
@@ -2895,7 +2893,7 @@ void player::process_active_items(game *g)
    if (tmp_it->active) {
     tmp = dynamic_cast<it_tool*>(tmp_it->type);
     (use.*tmp->use)(g, this, tmp_it, true);
-    if (tmp->turns_per_charge > 0 && g->turn % tmp->turns_per_charge == 0)
+    if (tmp->turns_per_charge > 0 && int(g->turn) % tmp->turns_per_charge == 0)
     tmp_it->charges--;
     if (tmp_it->charges <= 0) {
      (use.*tmp->use)(g, this, tmp_it, false);
@@ -3048,7 +3046,7 @@ void player::use_charges(itype_id it, int quantity)
    }
   }
  }
-
+  
  if (weapon.type->id == it) {
   if (weapon.charges <= quantity) {
    quantity -= weapon.charges;
@@ -3231,23 +3229,21 @@ bool player::eat(game *g, int index)
    debugmsg("player::eat(%s); comest is NULL!", eaten->tname(g).c_str());
    return false;
   }
-  if (comest != NULL && comest->tool != itm_null && !has_amount(comest->tool, 1)) {
+  if (comest->tool != itm_null && !has_amount(comest->tool, 1)) {
    if (!is_npc())
     g->add_msg("You need a %s to consume that!",
                g->itypes[comest->tool]->name.c_str());
    return false;
   }
-  bool overeating = (!has_trait(PF_GOURMAND) && hunger < 0 && comest->nutr >= 15);
-  bool spoiled = (comest->spoils != 0 &&
-                  (g->turn - eaten->bday) / 600 > comest->spoils);
-  bool very_spoiled = (spoiled &&
-                       (g->turn - eaten->bday / 600) > comest->spoils * 1.2);
+  bool overeating = (!has_trait(PF_GOURMAND) && hunger < 0 &&
+                     comest->nutr >= 15);
+  bool spoiled = eaten->rotten(g);
 
   if (overeating && !is_npc() &&
       !query_yn("You're full.  Force yourself to eat?"))
    return false;
 
-  if (has_trait(PF_CARNIVORE) && eaten->made_of(VEGGY)) {
+  if (has_trait(PF_CARNIVORE) && eaten->made_of(VEGGY) && comest->nutr > 0) {
    if (!is_npc())
     g->add_msg("You can only eat meat!");
    else
@@ -3261,19 +3257,16 @@ bool player::eat(game *g, int index)
 
   if (spoiled) {
 // We're only warned if we're a supertaster, OR the food is very old
-   if ((!has_trait(PF_SUPERTASTER) && very_spoiled) ||
-       (!is_npc() && query_yn("This %s smells awful!  Eat it?",
-                              eaten->tname(g).c_str()))) {
-    if (is_npc())
-     return false;
-    g->add_msg("Ick, this %s doesn't taste so good...",eaten->tname(g).c_str());
-    if (!has_bionic(bio_digestion) || one_in(3))
-     add_disease(DI_FOODPOISON, rng(60, (comest->nutr + 1) * 60), g);
-    hunger -= rng(0, comest->nutr);
-    if (!has_bionic(bio_digestion))
-     health -= 3;
-   } else
+   if (is_npc())
     return false;
+   if (!query_yn("This %s smells awful!  Eat it?", eaten->tname(g).c_str()))
+    return false;
+   g->add_msg("Ick, this %s doesn't taste so good...",eaten->tname(g).c_str());
+   if (!has_bionic(bio_digestion) || one_in(3))
+    add_disease(DI_FOODPOISON, rng(60, (comest->nutr + 1) * 60), g);
+   hunger -= rng(0, comest->nutr);
+   if (!has_bionic(bio_digestion))
+    health -= 3;
   } else {
    hunger -= comest->nutr;
    thirst -= comest->quench;
@@ -3301,9 +3294,15 @@ bool player::eat(game *g, int index)
 
   if (g->itypes[comest->tool]->is_tool())
    use_charges(comest->tool, 1); // Tools like lighters get used
-  if (comest->stim > 0 && stim < comest->stim * 3)
-   stim += comest->stim;
-
+  if (comest->stim > 0) {
+   if (comest->stim < 10 && stim < comest->stim) {
+    stim += comest->stim;
+    if (stim > comest->stim)
+     stim = comest->stim;
+   } else if (comest->stim >= 10 && stim < comest->stim * 3)
+    stim += comest->stim;
+  }
+ 
   iuse use;
   (use.*comest->use)(g, this, eaten, false);
   add_addiction(comest->add, comest->addict);
@@ -3347,7 +3346,7 @@ bool player::eat(game *g, int index)
     thirst = -20;
   }
  }
-
+ 
  eaten->charges--;
  if (eaten->charges <= 0) {
   if (which == -1)
@@ -3535,7 +3534,7 @@ void player::use(game *g, char let)
   used = &copy;
   replace_item = true;
  }
-
+ 
  if (used->is_null()) {
   g->add_msg("You do not have that item.");
   return;
@@ -3551,7 +3550,7 @@ void player::use(game *g, char let)
   } else
    g->add_msg("Your %s has %d charges but needs %d.", used->tname(g).c_str(),
               used->charges, tool->charges_per_use);
-  if (replace_item)
+  if (replace_item && tool->use != &iuse::set_trap)
    inv.add_item(copy);
   return;
 
@@ -3768,7 +3767,7 @@ void player::read(game *g, char ch)
  activity = player_activity(ACT_READ, time, index);
  moves = 0;
 }
-
+ 
 void player::try_to_sleep(game *g)
 {
  add_disease(DI_LYING_DOWN, 300, g);
@@ -3986,7 +3985,7 @@ void player::absorb(game *g, body_part bp, int &dam, int &cut)
  if (cut < 0)
   cut = 0;
 }
-
+  
 int player::resist(body_part bp)
 {
  int ret = 0;
@@ -4091,3 +4090,4 @@ nc_color encumb_color(int level)
   return c_ltred;
  return c_red;
 }
+

@@ -59,6 +59,8 @@
 		<Unit filename="bionics.h" />
 		<Unit filename="bodypart.cpp" />
 		<Unit filename="bodypart.h" />
+		<Unit filename="calendar.cpp" />
+		<Unit filename="calendar.h" />
 		<Unit filename="color.cpp" />
 		<Unit filename="color.h" />
 		<Unit filename="computer.cpp" />

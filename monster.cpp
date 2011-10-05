@@ -97,6 +97,18 @@ std::string monster::name()
  return type->name;
 }
 
+std::string monster::name_with_armor()
+{
+ std::string ret = type->name;
+ switch (type->mat) {
+  case VEGGY: ret += "'s thick bark";    break;
+  case FLESH: ret += "'s thick hide";    break;
+  case IRON:
+  case STEEL: ret += "'s armor plating"; break;
+ }
+ return ret;
+}
+
 void monster::print_info(game *g, WINDOW* w)
 {
 // First line of w is the border; the next two are terrain info, and after that
@@ -430,6 +442,38 @@ void monster::die(game *g)
    animal_done = true;	// Only drop ONE item.
  }
 
+// If we're a queen, make nearby groups of our type start to die out
+ if (has_flag(MF_QUEEN)) {
+  std::vector<mongroup*> groups = g->cur_om.monsters_at(g->levx, g->levy);
+  for (int i = 0; i < groups.size(); i++) {
+   moncat_id moncat_type = groups[i]->type;
+   bool match = false;
+   for (int j = 0; !match && j < g->moncats[moncat_type].size(); j++) {
+    if (g->moncats[moncat_type][j] == type->id)
+     match = true;
+   }
+   if (match)
+    groups[i]->dying = true;
+  }
+// Do it for overmap above/below too
+  overmap tmp;
+  if (g->cur_om.posz == 0)
+   tmp = overmap(g, g->cur_om.posx, g->cur_om.posy, -1);
+  else
+   tmp = overmap(g, g->cur_om.posx, g->cur_om.posy, 0);
+
+  groups = tmp.monsters_at(g->levx, g->levy);
+  for (int i = 0; i < groups.size(); i++) {
+   moncat_id moncat_type = groups[i]->type;
+   bool match = false;
+   for (int j = 0; !match && j < g->moncats[moncat_type].size(); j++) {
+    if (g->moncats[moncat_type][j] == type->id)
+     match = true;
+   }
+   if (match)
+    groups[i]->dying = true;
+  }
+ }
 // Also, perform our death function
  mdeath md;
  (md.*type->dies)(g, this);
