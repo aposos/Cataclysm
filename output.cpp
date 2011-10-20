@@ -332,6 +332,32 @@ bool query_yn(const char *mes, ...)
  return false;
 }
 
+int query_int(const char *mes, ...)
+{
+ va_list ap;
+ va_start(ap, mes);
+ char buff[1024];
+ vsprintf(buff, mes, ap);
+ va_end(ap);
+ int win_width = strlen(buff) + 10;
+ WINDOW* w = newwin(3, win_width, 11, 0);
+ wborder(w, LINE_XOXO, LINE_XOXO, LINE_OXOX, LINE_OXOX,
+            LINE_OXXO, LINE_OOXX, LINE_XXOO, LINE_XOOX );
+ mvwprintz(w, 1, 1, c_ltred, "%s (0-9)", buff);
+ wrefresh(w);
+
+ int temp;
+ do
+  temp = getch();
+ while ((temp-48)<0 || (temp-48)>9);
+ werase(w);
+ wrefresh(w);
+ delwin(w);
+ refresh();
+
+ return temp-48;
+}
+
 std::string string_input_popup(const char *mes, ...)
 {
  std::string ret;
@@ -463,7 +489,7 @@ char popup_getkey(const char *mes, ...)
  }
  line_num++;
  mvwprintz(w, line_num, 1, c_white, tmp.c_str());
-
+ 
  wrefresh(w);
  char ch = getch();;
  werase(w);
@@ -557,7 +583,7 @@ void popup_top(const char *mes, ...)
  }
  line_num++;
  mvwprintz(w, line_num, 1, c_white, tmp.c_str());
-
+ 
  wrefresh(w);
  char ch;
  do
@@ -608,7 +634,7 @@ void popup(const char *mes, ...)
  }
  line_num++;
  mvwprintz(w, line_num, 1, c_white, tmp.c_str());
-
+ 
  wrefresh(w);
  char ch;
  do

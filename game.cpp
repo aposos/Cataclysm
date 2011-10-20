@@ -61,13 +61,21 @@ game::game()
  next_npc_id = 1;
  next_faction_id = 1;
  next_mission_id = 1;
+// Clear monstair values
+ monstairx = -1;
+ monstairy = -1;
+ monstairz = -1;
  last_target = -1;	// We haven't targeted any monsters yet
  curmes = 0;		// We haven't read any messages yet
  uquit = QUIT_NO;	// We haven't quit the game
  debugmon = false;	// We're not printing debug messages
  in_tutorial = false;	// We're not in a tutorial game
  weather = WEATHER_CLEAR; // Start with some nice weather...
+ turnssincelastmon = 0; //Auto run mode init
+ autorunmode = true;
+
  turn.season = SPRING;    // ... with winter conveniently a long ways off
+
  for (int i = 0; i < num_monsters; i++)	// Reset kill counts to 0
   kills[i] = 0;
 // Set the scent map to 0
@@ -493,6 +501,7 @@ void game::create_factions()
 bool game::do_turn()
 {
  if (is_game_over()) {
+  write_msg();
   if (uquit == QUIT_DIED)
    popup_top("Game over! Press spacebar...");
   if (uquit == QUIT_DIED || uquit == QUIT_SUICIDE)
@@ -571,6 +580,10 @@ bool game::do_turn()
   nextspawn = turn;
  }
  process_activity();
+
+
+
+
  while (u.moves > 0) {
   draw();
   get_input();
@@ -607,6 +620,11 @@ bool game::do_turn()
   draw();
   refresh();
  }
+
+
+
+
+
  return false;
 }
 
@@ -625,7 +643,7 @@ void game::update_skills()
   tmp = u.sklevel[i] > 7 ? 7 : u.sklevel[i];
   if (u.sklevel[i] > 0 && turn % (4096 / int(pow(2, tmp - 1))) == 0 &&
       (( u.has_trait(PF_FORGETFUL) && one_in(3)) ||
-       (!u.has_trait(PF_FORGETFUL) && one_in(4))  )) {
+       (!u.has_trait(PF_FORGETFUL) && one_in(4))   )) {
    if (u.has_bionic(bio_memory) && u.power_level > 0) {
     if (one_in(5))
      u.power_level--;
@@ -964,7 +982,11 @@ void game::get_input()
    run_mode = 1;
    add_msg("Run mode ON!");
   } else {
+   turnssincelastmon = 0;
    run_mode = 0;
+   if(autorunmode)
+   add_msg("Run mode OFF! (Auto run mode still enabled!)");
+   else
    add_msg("Run mode OFF!");
   }
  } else if (ch == 's')
@@ -987,6 +1009,19 @@ void game::get_input()
  } else if (ch == '?') {
   help();
   refresh_all();
+ } else if (ch == '"') {
+	 if(autorunmode){
+		 add_msg("Auto run mode OFF!");
+		 autorunmode = false;
+	 } else {
+		 add_msg("Auto run mode ON");
+		 autorunmode = true;
+	 }
+ } else if (ch == ' '){
+	 if(run_mode == 2){
+		 add_msg("Ignoring enemy!");
+		 run_mode = 1;
+	 }
  }
 }
 
@@ -1725,10 +1760,16 @@ void game::draw()
  write_msg();
 }
 
+bool game::isBetween(int test, int down, int up)
+{
+	if(test>down && test<up) return true;
+	else return false;
+}
+
 void game::draw_ter()
 {
  int t = 0;
- m.draw(this, w_terrain);
+	m.draw(this, w_terrain);
 
  // Draw monsters
  int distx, disty;
@@ -1750,6 +1791,23 @@ void game::draw_ter()
       u_see(active_npc[i].posx, active_npc[i].posy, t))
    active_npc[i].draw(w_terrain, u.posx, u.posy, false);
  }
+	if (u.has_active_bionic(bio_scent_vision)) {
+		for (int realx = u.posx - SEEX; realx <= u.posx + SEEX; realx++) {
+			for (int realy = u.posy - SEEY; realy <= u.posy + SEEY; realy++) {
+				if (scent(realx, realy) != 0) {
+					int tempx = u.posx - realx, tempy = u.posy - realy;
+					if (!(isBetween(tempx, -2, 2) && isBetween(tempy, -2, 2))) {
+						mvwputch(w_terrain, realy + SEEY - u.posy,
+								realx + SEEX - u.posx, c_magenta, '#');
+						if (mon_at(realx, realy) != -1)
+							mvwputch(w_terrain, realy + SEEY - u.posy,
+									realx + SEEX - u.posx, c_white, '?');
+
+					}
+				}
+			}
+		}
+	}
  wrefresh(w_terrain);
  if (u.has_disease(DI_VISUALS))
   hallucinate();
@@ -2242,9 +2300,23 @@ void game::mon_info()
 
  if (newseen > mostseen) {
   cancel_activity_query("Monster spotted!");
+  turnssincelastmon = 0;
   if (run_mode == 1)
    run_mode = 2;	// Stop movement!
  }
+ //Auto run mode
+ if(autorunmode){
+	 if(newseen<=mostseen){
+		 turnssincelastmon++;
+		 if(turnssincelastmon >= 50){
+			 if(run_mode == 0){
+				 run_mode = 1;
+			 }
+		 }
+	 }
+ }
+
+
  mostseen = newseen;
  int line = 0;
  nc_color tmpcol;
@@ -3547,7 +3619,7 @@ void game::pickup(int posx, int posy, int min)
     update = true;
    }
   }
-  if (ch == ',' || ch == 'g') {
+  if (ch == ',') {
    int count = 0;
    for (int i = 0; i < here.size(); i++) {
     if (getitem[i])
@@ -3876,8 +3948,10 @@ void game::drop_in_direction()
 
  std::vector<item> dropped = multidrop();
 
- if (dropped.size() == 0)
+ if (dropped.size() == 0) {
   add_msg("Never mind.");
+  return;
+ }
 
  itype_id first = itype_id(dropped[0].type->id);
  bool same = true;
@@ -4120,10 +4194,10 @@ void game::complete_butcher(int index)
   case MS_LARGE:  pieces =  8; pelts = 10; break;
   case MS_HUGE:   pieces = 16; pelts = 18; break;
  }
- if (u.sklevel[sk_butcher] < 3)
-  skill_shift -= rng(0, 8 - u.sklevel[sk_butcher]);
+ if (u.sklevel[sk_survival] < 3)
+  skill_shift -= rng(0, 8 - u.sklevel[sk_survival]);
  else
-  skill_shift += rng(0, u.sklevel[sk_butcher]);
+  skill_shift += rng(0, u.sklevel[sk_survival]);
  if (u.dex_cur < 8)
   skill_shift -= rng(0, 8 - u.dex_cur) / 4;
  else
@@ -4136,7 +4210,7 @@ void game::complete_butcher(int index)
  int practice = 4 + pieces;
  if (practice > 20)
   practice = 20;
- u.practice(sk_butcher, practice);
+ u.practice(sk_survival, practice);
 
  pieces += int(skill_shift);
  if (skill_shift < 5)	// Lose some pelts
@@ -4429,7 +4503,7 @@ void game::chat()
 void game::plmove(int x, int y)
 {
  if (run_mode == 2) { // Monsters around and we don't wanna run
-  add_msg("Monster spotted--run mode is on! (Press '!' to turn it off.)");
+  add_msg("Monster spotted--run mode is on! (Press '!' to turn it off or space to ignore monster.)");
   return;
  }
  x += u.posx;
@@ -5056,10 +5130,11 @@ void game::spawn_mon(int shiftx, int shifty)
  int iter;
  int t;
  // Create a new NPC?
-/*	DISABLED AGAIN
+/*
   if (one_in(50 + 5 * cur_om.npcs.size())) {
    npc temp;
    temp.randomize(this);
+   temp.normalize(this);
    temp.spawn_at(&cur_om, levx + (1 * rng(-2, 2)), levy + (1 * rng(-2, 2)));
    temp.posx = SEEX * 2 * (temp.mapx - levx) + rng(0 - SEEX, SEEX);
    temp.posy = SEEY * 2 * (temp.mapy - levy) + rng(0 - SEEY, SEEY);

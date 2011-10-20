@@ -13,11 +13,11 @@
 	<File name="addiction.h" open="0" top="0" tabpos="11">
 		<Cursor position="120" topLine="0" />
 	</File>
-	<File name="bionics.cpp" open="0" top="0" tabpos="8">
-		<Cursor position="6218" topLine="170" />
+	<File name="bionics.cpp" open="0" top="0" tabpos="10">
+		<Cursor position="17025" topLine="551" />
 	</File>
-	<File name="bionics.h" open="1" top="1" tabpos="0">
-		<Cursor position="1817" topLine="32" />
+	<File name="bionics.h" open="0" top="0" tabpos="1">
+		<Cursor position="14109" topLine="231" />
 	</File>
 	<File name="color.cpp" open="0" top="0" tabpos="24">
 		<Cursor position="122" topLine="12" />
@@ -25,17 +25,20 @@
 	<File name="color.h" open="0" top="0" tabpos="25">
 		<Cursor position="1892" topLine="40" />
 	</File>
-	<File name="computer.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="3722" topLine="144" />
+	<File name="computer.cpp" open="0" top="0" tabpos="13">
+		<Cursor position="13838" topLine="482" />
 	</File>
-	<File name="crafting.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="19978" topLine="531" />
+	<File name="crafting.cpp" open="0" top="0" tabpos="11">
+		<Cursor position="1986" topLine="24" />
 	</File>
 	<File name="crafting.h" open="0" top="0" tabpos="15">
 		<Cursor position="277" topLine="15" />
 	</File>
-	<File name="disease.h" open="0" top="0" tabpos="6">
-		<Cursor position="11032" topLine="433" />
+	<File name="disease.h" open="0" top="0" tabpos="3">
+		<Cursor position="8437" topLine="323" />
+	</File>
+	<File name="event.cpp" open="0" top="0" tabpos="14">
+		<Cursor position="2859" topLine="80" />
 	</File>
 	<File name="facdata.h" open="0" top="0" tabpos="0">
 		<Cursor position="624" topLine="9" />
@@ -44,19 +47,22 @@
 		<Cursor position="97" topLine="0" />
 	</File>
 	<File name="field.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="16242" topLine="450" />
+		<Cursor position="16665" topLine="470" />
 	</File>
-	<File name="game.cpp" open="0" top="0" tabpos="8">
-		<Cursor position="16259" topLine="515" />
+	<File name="game.cpp" open="0" top="0" tabpos="7">
+		<Cursor position="48235" topLine="1751" />
 	</File>
 	<File name="game.h" open="0" top="0" tabpos="1">
 		<Cursor position="361" topLine="0" />
 	</File>
 	<File name="help.cpp" open="0" top="0" tabpos="6">
-		<Cursor position="12471" topLine="278" />
+		<Cursor position="9538" topLine="217" />
 	</File>
 	<File name="inventory.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="84" topLine="0" />
+	</File>
+	<File name="inventory_ui.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="5781" topLine="156" />
 	</File>
 	<File name="item.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="5598" topLine="234" />
@@ -64,14 +70,14 @@
 	<File name="item.h" open="0" top="0" tabpos="12">
 		<Cursor position="1692" topLine="49" />
 	</File>
-	<File name="itype.h" open="0" top="0" tabpos="11">
-		<Cursor position="10623" topLine="364" />
+	<File name="itype.h" open="0" top="0" tabpos="7">
+		<Cursor position="2662" topLine="40" />
 	</File>
-	<File name="itypedef.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="85685" topLine="1968" />
+	<File name="itypedef.cpp" open="1" top="1" tabpos="4">
+		<Cursor position="98538" topLine="2246" />
 	</File>
-	<File name="iuse.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="10787" topLine="370" />
+	<File name="iuse.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="12888" topLine="498" />
 	</File>
 	<File name="keypress.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="406" topLine="0" />
@@ -94,20 +100,20 @@
 	<File name="map.h" open="0" top="0" tabpos="8">
 		<Cursor position="3752" topLine="94" />
 	</File>
-	<File name="mapdata.h" open="0" top="0" tabpos="6">
-		<Cursor position="11714" topLine="330" />
+	<File name="mapdata.h" open="0" top="0" tabpos="15">
+		<Cursor position="11774" topLine="338" />
 	</File>
-	<File name="mapgen.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="3625" topLine="120" />
+	<File name="mapgen.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="95031" topLine="2805" />
 	</File>
 	<File name="mapitems.h" open="0" top="0" tabpos="0">
 		<Cursor position="860" topLine="7" />
 	</File>
 	<File name="mapitemsdef.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="14581" topLine="384" />
+		<Cursor position="16739" topLine="438" />
 	</File>
 	<File name="melee.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="894" topLine="13" />
+		<Cursor position="18502" topLine="551" />
 	</File>
 	<File name="monattack.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="20685" topLine="564" />
@@ -139,17 +145,17 @@
 	<File name="mtype.h" open="0" top="0" tabpos="0">
 		<Cursor position="1257" topLine="29" />
 	</File>
-	<File name="mtypedef.cpp" open="0" top="0" tabpos="9">
-		<Cursor position="9268" topLine="232" />
+	<File name="mtypedef.cpp" open="0" top="0" tabpos="6">
+		<Cursor position="11766" topLine="285" />
 	</File>
-	<File name="newcharacter.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="897" topLine="9" />
+	<File name="newcharacter.cpp" open="0" top="0" tabpos="5">
+		<Cursor position="29175" topLine="842" />
 	</File>
 	<File name="npc.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="6796" topLine="233" />
 	</File>
 	<File name="omdata.h" open="0" top="0" tabpos="9">
-		<Cursor position="486" topLine="6" />
+		<Cursor position="2505" topLine="48" />
 	</File>
 	<File name="output.cpp" open="0" top="0" tabpos="9">
 		<Cursor position="3349" topLine="106" />
@@ -163,14 +169,14 @@
 	<File name="overmap.h" open="0" top="0" tabpos="11">
 		<Cursor position="3467" topLine="96" />
 	</File>
-	<File name="player.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="59283" topLine="2101" />
+	<File name="player.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="69995" topLine="2538" />
 	</File>
-	<File name="player.h" open="0" top="0" tabpos="12">
-		<Cursor position="3986" topLine="97" />
+	<File name="player.h" open="0" top="0" tabpos="9">
+		<Cursor position="1325" topLine="32" />
 	</File>
-	<File name="pldata.h" open="0" top="0" tabpos="5">
-		<Cursor position="1426" topLine="20" />
+	<File name="pldata.h" open="1" top="0" tabpos="2">
+		<Cursor position="18528" topLine="392" />
 	</File>
 	<File name="posix_time.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="95" topLine="0" />
