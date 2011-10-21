@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Release" />
+	<ActiveTarget name="Debug" />
 	<File name="Keybinds.h" open="1" top="0" tabpos="32">
 		<Cursor position="524" topLine="8" />
 	</File>
@@ -28,11 +28,14 @@
 	<File name="computer.cpp" open="0" top="0" tabpos="13">
 		<Cursor position="13838" topLine="482" />
 	</File>
+	<File name="construction.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="719" topLine="10" />
+	</File>
 	<File name="crafting.cpp" open="0" top="0" tabpos="11">
 		<Cursor position="1986" topLine="24" />
 	</File>
-	<File name="crafting.h" open="0" top="0" tabpos="15">
-		<Cursor position="277" topLine="15" />
+	<File name="crafting.h" open="1" top="1" tabpos="6">
+		<Cursor position="299" topLine="7" />
 	</File>
 	<File name="disease.h" open="0" top="0" tabpos="3">
 		<Cursor position="8437" topLine="323" />
@@ -50,7 +53,7 @@
 		<Cursor position="16665" topLine="470" />
 	</File>
 	<File name="game.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="48235" topLine="1751" />
+		<Cursor position="21455" topLine="741" />
 	</File>
 	<File name="game.h" open="0" top="0" tabpos="1">
 		<Cursor position="361" topLine="0" />
@@ -65,16 +68,16 @@
 		<Cursor position="5781" topLine="156" />
 	</File>
 	<File name="item.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="5598" topLine="234" />
+		<Cursor position="18623" topLine="728" />
 	</File>
 	<File name="item.h" open="0" top="0" tabpos="12">
 		<Cursor position="1692" topLine="49" />
 	</File>
 	<File name="itype.h" open="0" top="0" tabpos="7">
-		<Cursor position="2662" topLine="40" />
+		<Cursor position="14163" topLine="280" />
 	</File>
-	<File name="itypedef.cpp" open="1" top="1" tabpos="4">
-		<Cursor position="98538" topLine="2246" />
+	<File name="itypedef.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="98276" topLine="2246" />
 	</File>
 	<File name="iuse.cpp" open="1" top="0" tabpos="1">
 		<Cursor position="12888" topLine="498" />
@@ -92,7 +95,7 @@
 		<Cursor position="277" topLine="0" />
 	</File>
 	<File name="main.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="709" topLine="2" />
+		<Cursor position="843" topLine="12" />
 	</File>
 	<File name="map.cpp" open="0" top="0" tabpos="13">
 		<Cursor position="12238" topLine="521" />
