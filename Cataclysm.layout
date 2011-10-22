@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
+	<ActiveTarget name="Release" />
 	<File name="Keybinds.h" open="1" top="0" tabpos="32">
 		<Cursor position="524" topLine="8" />
 	</File>
@@ -34,8 +34,8 @@
 	<File name="crafting.cpp" open="0" top="0" tabpos="11">
 		<Cursor position="1986" topLine="24" />
 	</File>
-	<File name="crafting.h" open="1" top="1" tabpos="6">
-		<Cursor position="299" topLine="7" />
+	<File name="crafting.h" open="1" top="0" tabpos="6">
+		<Cursor position="248" topLine="7" />
 	</File>
 	<File name="disease.h" open="0" top="0" tabpos="3">
 		<Cursor position="8437" topLine="323" />
@@ -52,8 +52,8 @@
 	<File name="field.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="16665" topLine="470" />
 	</File>
-	<File name="game.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="21455" topLine="741" />
+	<File name="game.cpp" open="1" top="0" tabpos="9">
+		<Cursor position="156961" topLine="5323" />
 	</File>
 	<File name="game.h" open="0" top="0" tabpos="1">
 		<Cursor position="361" topLine="0" />
@@ -77,10 +77,10 @@
 		<Cursor position="14163" topLine="280" />
 	</File>
 	<File name="itypedef.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="98276" topLine="2246" />
+		<Cursor position="112181" topLine="2526" />
 	</File>
 	<File name="iuse.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="12888" topLine="498" />
+		<Cursor position="36813" topLine="1355" />
 	</File>
 	<File name="keypress.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="406" topLine="0" />
@@ -106,8 +106,8 @@
 	<File name="mapdata.h" open="0" top="0" tabpos="15">
 		<Cursor position="11774" topLine="338" />
 	</File>
-	<File name="mapgen.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="95031" topLine="2805" />
+	<File name="mapgen.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="95561" topLine="2805" />
 	</File>
 	<File name="mapitems.h" open="0" top="0" tabpos="0">
 		<Cursor position="860" topLine="7" />
@@ -136,7 +136,7 @@
 	<File name="monmove.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="13631" topLine="412" />
 	</File>
-	<File name="monster.cpp" open="0" top="0" tabpos="0">
+	<File name="monster.cpp" open="1" top="0" tabpos="7">
 		<Cursor position="11161" topLine="473" />
 	</File>
 	<File name="monster.h" open="0" top="0" tabpos="0">
@@ -148,8 +148,8 @@
 	<File name="mtype.h" open="0" top="0" tabpos="0">
 		<Cursor position="1257" topLine="29" />
 	</File>
-	<File name="mtypedef.cpp" open="0" top="0" tabpos="6">
-		<Cursor position="11766" topLine="285" />
+	<File name="mtypedef.cpp" open="1" top="0" tabpos="8">
+		<Cursor position="27875" topLine="709" />
 	</File>
 	<File name="newcharacter.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="29175" topLine="842" />
@@ -173,7 +173,7 @@
 		<Cursor position="3467" topLine="96" />
 	</File>
 	<File name="player.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="69995" topLine="2538" />
+		<Cursor position="59533" topLine="2161" />
 	</File>
 	<File name="player.h" open="0" top="0" tabpos="9">
 		<Cursor position="1325" topLine="32" />
