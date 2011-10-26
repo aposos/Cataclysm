@@ -127,7 +127,18 @@ bool map::is_outside(int x, int y)
          ter(x + 1, y - 1) != t_floor_wax &&
          ter(x + 1, y    ) != t_floor_wax &&
          ter(x + 1, y + 1) != t_floor_wax   );
-;
+}
+
+bool map::flammable_items_at(int x, int y)
+{
+ for (int i = 0; i < i_at(x, y).size(); i++) {
+  item *it = &(i_at(x, y)[i]);
+  if (it->made_of(PAPER) || it->made_of(WOOD) || it->made_of(COTTON) ||
+      it->made_of(POWDER) || it->made_of(VEGGY) || it->is_ammo() ||
+      it->type->id == itm_whiskey || it->type->id == itm_vodka ||
+      it->type->id == itm_rum || it->type->id == itm_tequila)
+   return true;
+ }
 }
 
 point map::random_outdoor_tile()
@@ -437,8 +448,7 @@ void map::shoot(game *g, int x, int y, int &dam, bool hit_items, unsigned flags)
  case t_window:
  case t_window_alarm:
   dam -= rng(0, 5);
-  if (dam > 0)
-   ter(x, y) = t_window_frame;
+  ter(x, y) = t_window_frame;
   break;
 
  case t_window_boarded:
@@ -452,8 +462,7 @@ void map::shoot(game *g, int x, int y, int &dam, bool hit_items, unsigned flags)
  case t_wall_glass_h_alarm:
  case t_wall_glass_v_alarm:
   dam -= rng(0, 8);
-  if (dam > 0)
-   ter(x, y) = t_floor;
+  ter(x, y) = t_floor;
   break;
 
  case t_paper:
@@ -806,8 +815,9 @@ void map::use_amount(point origin, int range, itype_id type, int quantity,
      for (int n = 0; n < i_at(x, y).size() && quantity > 0; n++) {
       item* curit = &(i_at(x, y)[n]);
       bool used_contents = false;
-      for (int m = 0; m < curit->contents.size(); m++) {
+      for (int m = 0; m < curit->contents.size() && quantity > 0; m++) {
        if (curit->contents[m].type->id == type) {
+        quantity--;
         curit->contents.erase(curit->contents.begin() + m);
         m--;
         used_contents = true;
@@ -816,7 +826,7 @@ void map::use_amount(point origin, int range, itype_id type, int quantity,
       if (use_container && used_contents) {
        i_rem(x, y, n);
        n--;
-      } else if (curit->type->id == type) {
+      } else if (curit->type->id == type && quantity > 0) {
        quantity--;
        i_rem(x, y, n);
        n--;
@@ -841,7 +851,7 @@ void map::use_charges(point origin, int range, itype_id type, int quantity)
 // Check contents first
       for (int m = 0; m < curit->contents.size() && quantity > 0; m++) {
        if (curit->contents[m].type->id == type) {
-        if (curit->contents[m].charges < quantity) {
+        if (curit->contents[m].charges <= quantity) {
          quantity -= curit->contents[m].charges;
          if (curit->contents[m].destroyed_at_zero_charges()) {
           curit->contents.erase(curit->contents.begin() + m);
@@ -856,7 +866,7 @@ void map::use_charges(point origin, int range, itype_id type, int quantity)
       }
 // Now check the actual item
       if (curit->type->id == type) {
-       if (curit->charges < quantity) {
+       if (curit->charges <= quantity) {
         quantity -= curit->charges;
         if (curit->destroyed_at_zero_charges()) {
          i_rem(x, y, n);

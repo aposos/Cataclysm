@@ -198,7 +198,7 @@ void player::reset()
   int_cur = 0;
  
  int mor = morale_level();
- if (mor >= 0 && mor < 100 && rng(0, 100) <= mor)
+ if (mor >= 0 && mor < 100 && rng(0, 100) <= mor + 20)
   xp_pool++;
  else if (mor > 0)
   xp_pool += int(mor / 100);
@@ -1897,7 +1897,8 @@ int player::sight_range(int light_level)
   ret = 1;
  if (has_disease(DI_BLIND))
   ret = 0;
- if (ret > 4 && has_trait(PF_MYOPIC) && !is_wearing(itm_glasses_eye))
+ if (ret > 4 && has_trait(PF_MYOPIC) && !is_wearing(itm_glasses_eye) &&
+     !is_wearing(itm_glasses_monocle))
   ret = 4;
  return ret;
 }
@@ -3600,6 +3601,12 @@ void player::use(game *g, char let)
    return;
   }
   it_gun* guntype = dynamic_cast<it_gun*>(gun->type);
+  if (guntype->skill_used == sk_archery || guntype->skill_used == sk_launcher) {
+   g->add_msg("You cannot mod your %s.", gun->tname(g).c_str());
+   if (replace_item)
+    inv.add_item(copy);
+   return;
+  }
   if (guntype->skill_used == sk_pistol && !mod->used_on_pistol) {
    g->add_msg("That %s cannot be attached to a handgun.",
               used->tname(g).c_str());
@@ -3807,7 +3814,10 @@ bool player::can_sleep(game *g)
   sleepy += 1;
  else
   sleepy -= g->m.move_cost(posx, posy);
- sleepy += int((fatigue - 192) / 16);
+ if (fatigue < 192)
+  sleepy -= int( (192 - fatigue) / 4);
+ else
+  sleepy += int((fatigue - 192) / 16);
  sleepy += rng(-8, 8);
  sleepy -= 2 * stim;
  if (sleepy > 0)
