@@ -50,7 +50,7 @@ ter_id& map::ter(int x, int y)
  // 6 7 8
  if (!inbounds(x, y)) {
   nulter = t_null;
-  return nulter;	// Out-of-bounds - null terrain
+  return nulter;	// Out-of-bounds - null terrain 
  }
  int nonant;
  cast_to_nonant(x, y, nonant);
@@ -885,7 +885,7 @@ void map::use_charges(point origin, int range, itype_id type, int quantity)
   }
  }
 }
-
+ 
 trap_id& map::tr_at(int x, int y)
 {
  if (!inbounds(x, y)) {
@@ -899,7 +899,7 @@ trap_id& map::tr_at(int x, int y)
   nultrap = tr_null;
   return nultrap;	// Out-of-bounds, return our null trap
  }
-
+ 
  return grid[nonant].trp[x][y];
 }
 
@@ -937,7 +937,7 @@ void map::disarm_trap(game *g, int x, int y)
   (f.*(tr->act))(g, x, y);
  }
 }
-
+ 
 field& map::field_at(int x, int y)
 {
  if (!inbounds(x, y)) {
@@ -1096,7 +1096,7 @@ bool map::sees(int Fx, int Fy, int Tx, int Ty, int range, int &tc)
  int y = Fy;
  int t = 0;
  int st;
-
+ 
  if (range >= 0 && (abs(dx) > range || abs(dy) > range))
   return false;	// Out of range!
  if (ax > ay) { // Mostly-horizontal line
@@ -1271,7 +1271,7 @@ void map::load(game *g, int wx, int wy)
   }
  }
 }
-
+ 
 
 void map::shift(game *g, int wx, int wy, int sx, int sy)
 {
@@ -1321,7 +1321,7 @@ void map::saven(overmap *om, unsigned int turn, int worldx, int worldy,
  }
 // Dump the radiation
  for (int j = 0; j < SEEY; j++) {
-  for (int i = 0; i < SEEX; i++)
+  for (int i = 0; i < SEEX; i++) 
    fout << grid[n].rad[i][j] << " ";
  }
  fout << std::endl;
@@ -1504,7 +1504,7 @@ void map::spawn_monsters(game *g)
       tmp.friendly = -1;
      int fx = mx + gx * SEEX, fy = my + gy * SEEY;
 
-     while ((!g->is_empty(fx, fy) || !tmp.can_move_to(g->m, fx, fy)) &&
+     while ((!g->is_empty(fx, fy) || !tmp.can_move_to(g->m, fx, fy)) && 
             tries < 10) {
       mx = grid[n].spawns[i].posx + rng(-3, 3);
       my = grid[n].spawns[i].posy + rng(-3, 3);

@@ -484,13 +484,11 @@ void game::complete_construction()
 
    if (player_has[0].count == 0 && map_has[0].count > 0)
 // One on map, none in inventory, default to the one in the map
-//  map_use.push_back(map_has[i]);
-    map_use.push_back(map_has[0]);
+    map_use.push_back(map_has[i]);
 
    else if (player_has[0].count > 0 && map_has[0].count == 0)
 // One in inventory, none on map, default to the one in inventory
-//  player_use.push_back(player_has[i]);
-    player_use.push_back(player_has[0]);
+    player_use.push_back(player_has[i]);
 
    else { // Let the player pick which component they want to use
     std::vector<std::string> options; // List for the menu_vec below
