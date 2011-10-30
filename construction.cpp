@@ -270,7 +270,7 @@ void game::construction_menu()
    }
    wrefresh(w_con);
   } // Finished updating
- 
+
   ch = input();
   switch (ch) {
    case 'j':
@@ -436,7 +436,7 @@ void game::complete_construction()
  if (built.difficulty < 1)
   u.practice(sk_carpentry, 10);
  for (int i = 0; i < 3; i++) {
-  while (stage.components[i].empty()) 
+  while (stage.components[i].empty())
    i++;
   if (i < 3) {
    std::vector<component> player_has;
@@ -484,11 +484,11 @@ void game::complete_construction()
 
    if (player_has[0].count == 0 && map_has[0].count > 0)
 // One on map, none in inventory, default to the one in the map
-    map_use.push_back(map_has[i]);
+    map_use.push_back(map_has[0]);
 
    else if (player_has[0].count > 0 && map_has[0].count == 0)
 // One in inventory, none on map, default to the one in inventory
-    player_use.push_back(player_has[i]);
+    player_use.push_back(player_has[0]);
 
    else { // Let the player pick which component they want to use
     std::vector<std::string> options; // List for the menu_vec below
@@ -500,7 +500,7 @@ void game::complete_construction()
      }
     }
     for (int j = 0; j < player_has.size(); j++)
-     if (player_has[j].count != 0) 
+     if (player_has[j].count != 0)
       options.push_back(itypes[player_has[j].type]->name);
 // Get the selection via a menu popup
     int selection = menu_vec("Use which component first?", options) - 1;
@@ -522,7 +522,7 @@ void game::complete_construction()
       player_use.push_back(player_has[0]);
       player_use[player_use.size()-1].count -= map_inv.amount_of(map_has[0].type);
       map_use[map_use.size()-1].count = map_inv.amount_of(map_has[0].type);
-     } 
+     }
 // not a map selection
     } else {
      selection -= map_has.size();
@@ -548,7 +548,7 @@ void game::complete_construction()
    }
   }
  } // Done looking at components
- 
+
 // Use up materials
  for (int i = 0; i < player_use.size(); i++) {
   if (itypes[player_use[i].type]->is_ammo())
@@ -655,13 +655,13 @@ bool will_flood_stop(map *m, bool fill[SEEX * 3][SEEY * 3], int x, int y)
 
  fill[x][y] = true;
  bool skip_north = (fill[x][y - 1] || m->ter(x, y - 1) == t_wall_h ||
-                                      m->ter(x, y - 1) == t_wall_v ||  
+                                      m->ter(x, y - 1) == t_wall_v ||
                                       m->ter(x, y - 1) == t_wall_wood),
       skip_south = (fill[x][y + 1] || m->ter(x, y + 1) == t_wall_h ||
                                       m->ter(x, y + 1) == t_wall_v ||
                                       m->ter(x, y + 1) == t_wall_wood),
       skip_east  = (fill[x + 1][y] || m->ter(x + 1, y) == t_wall_h ||
-                                      m->ter(x + 1, y) == t_wall_v ||  
+                                      m->ter(x + 1, y) == t_wall_v ||
                                       m->ter(x + 1, y) == t_wall_wood),
       skip_west  = (fill[x - 1][y] || m->ter(x - 1, y) == t_wall_h ||
                                       m->ter(x - 1, y) == t_wall_v ||
