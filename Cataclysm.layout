@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Release" />
+	<ActiveTarget name="Debug" />
 	<File name="Keybinds.h" open="1" top="0" tabpos="32">
 		<Cursor position="524" topLine="8" />
 	</File>
@@ -76,8 +76,8 @@
 	<File name="itype.h" open="0" top="0" tabpos="7">
 		<Cursor position="4545" topLine="83" />
 	</File>
-	<File name="itypedef.cpp" open="1" top="1" tabpos="7">
-		<Cursor position="78198" topLine="1797" />
+	<File name="itypedef.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="79236" topLine="1797" />
 	</File>
 	<File name="iuse.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="49518" topLine="1843" />
